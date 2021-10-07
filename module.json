@@ -1,0 +1,51 @@
+{
+  "name": "osr-item-shop",
+  "title": "OSR Item Shop",
+  "description": "OSR Item Shop",
+  "author": "owlbear",
+  "version": "0.0.1",
+  "compatibleCoreVersion": "0.6.6",
+  "scripts": [
+    "./scripts/data.js",
+    "./scripts/shop.js",
+    "./scripts/fastPack.js",
+    "./scripts/util.js",
+    "./scripts/init.js"
+  ],
+  "styles": ["./styles/main.css"],
+  "packs": [
+    {
+      "name": "osr items",
+      "label": "OSR Items",
+      "path": "packs/osrItems.db",
+      "entity": "Item",
+      "module": "osr-item-shop"
+    },
+    {
+      "name": "osr macros",
+      "label": "OSR Macros",
+      "path": "packs/osrMacros.db",
+      "entity": "Macro",
+      "module": "osr-item-shop"
+    },
+    {
+      "name": "osr scenes",
+      "label": "OSR Scenes",
+      "path": "packs/osrScenes.db",
+      "entity": "Scene",
+      "module": "osr-item-shop"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "compendium-folders",
+      "manifest": "https://raw.githubusercontent.com/earlSt1/vtt-compendium-folders/0.1.1/module.json",
+      "type": "module"
+    },
+    {
+      "name": "lib-wrapper",
+      "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
+      "type": "module"
+    }
+  ]
+}

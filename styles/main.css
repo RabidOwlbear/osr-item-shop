@@ -1,0 +1,105 @@
+#pack-div,
+#pack-button-div {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 1em;
+}
+#pack-div .radio-select {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+#fastPack .pack-col {
+  width: 150px;
+  margin-bottom: 0.5em;
+  /* background-color: rgb(165, 165, 141); */
+}
+#pack-title {
+  text-align: center;
+}
+#osrItemShopForm #item-shop-container {
+  min-height: 700px;
+}
+#osrItemShopForm #details {
+  min-width: 300px;
+}
+.item-flex {
+  display: flex;
+  justify-content: space-between;
+}
+#osrItemShopForm #item-shop-container {
+  display: flex;
+  justify-content: space-between;
+}
+#osrItemShopForm #item-container {
+  display: flex;
+}
+#osrItemShopForm div.item-name {
+  width: 160px;
+}
+#osrItemShopForm div.item-price {
+  width: 80px;
+}
+#osrItemShopForm .item-col {
+  width: 290px;
+}
+#osrItemShopForm .shop-item {
+  /* background-color: orange; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#osrItemShopForm .shop-qty {
+  width: 30px;
+}
+#osrItemShopForm input[type='number'] {
+  width: 30px;
+  background: rgb(240, 240, 240);
+}
+#merchant-img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+#osrItemShopForm .category-div {
+  width: 100%;
+}
+.list-div {
+  padding: 0.25em 0.5em;
+  padding-bottom: 1em;
+}
+#merchantInfo {
+  display: flex;
+  justify-content: space-between;
+}
+#ammunition {
+  margin-top: 10px;
+  background-color: rgba(151, 29, 29, 0.075);
+  border: 3px solid rgba(151, 29, 29, 0.418);
+}
+#weapons {
+  background-color: rgba(173, 0, 0, 0.103);
+  border: 3px solid rgba(173, 0, 0, 0.377);
+}
+#armor {
+  background-color: rgba(219, 117, 1, 0.096);
+  border: 3px solid rgba(219, 117, 1, 0.452);
+}
+#items {
+  background-color: rgba(43, 151, 29, 0.082);
+  border: 3px solid rgba(43, 151, 29, 0.432);
+}
+#osrItemShopForm #button-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+#osrItemShopForm h2 {
+  text-align: center;
+  padding-top: 0.3em;
+}
+#osrItemShopForm .shop-br {
+  border-radius: 1em;
+}
