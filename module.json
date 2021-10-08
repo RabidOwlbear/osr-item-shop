@@ -3,7 +3,7 @@
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
   "author": "owlbear",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibleCoreVersion": "0.6.6",
   "scripts": [
     "./scripts/data.js",

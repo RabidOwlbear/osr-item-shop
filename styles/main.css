@@ -69,24 +69,24 @@
   padding: 0.25em 0.5em;
   padding-bottom: 1em;
 }
-#merchantInfo {
+#osrItemShopForm #merchantInfo {
   display: flex;
   justify-content: space-between;
 }
-#ammunition {
+#osrItemShopForm #ammunition {
   margin-top: 10px;
   background-color: rgba(151, 29, 29, 0.075);
   border: 3px solid rgba(151, 29, 29, 0.418);
 }
-#weapons {
+#osrItemShopForm #weapons {
   background-color: rgba(173, 0, 0, 0.103);
   border: 3px solid rgba(173, 0, 0, 0.377);
 }
-#armor {
+#osrItemShopForm #armor {
   background-color: rgba(219, 117, 1, 0.096);
   border: 3px solid rgba(219, 117, 1, 0.452);
 }
-#items {
+#osrItemShopForm #items {
   background-color: rgba(43, 151, 29, 0.082);
   border: 3px solid rgba(43, 151, 29, 0.432);
 }
