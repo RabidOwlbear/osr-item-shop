@@ -26,7 +26,8 @@ class osrItemShop extends Application {
 }
 
 Hooks.on('renderosrItemShopForm', async (app, html) => {
-  const actorGold = app.actor.data.items.find((i) => i.name == 'GP').data.data.quantity.value;
+  const goldItem = app.actor.data.items.find((i) => i.name == 'GP');
+  const actorGold = goldItem.data.data.quantity.value;
 
   const actorGoldDisplay = html.find('#actor-gold')[0];
   console.log('actor gold', actorGoldDisplay);
@@ -45,8 +46,8 @@ Hooks.on('renderosrItemShopForm', async (app, html) => {
       clearText(input);
     });
     input.addEventListener('input', (a, b, c) => {
-      const shop = document.getElementById('item-shop-container');
-      console.log('html<=======', a, shop);
+      // const shop = document.getElementById('item-shop-container');
+      // console.log('html<=======', a, shop);
 
       totalDisplay(html);
     });
@@ -129,4 +130,20 @@ async function osrShopItemHtml(list) {
   const html = `<div class="list-div">` + itemList + `</div>`;
 
   return html;
+}
+
+async function launchItemShop() {
+  let token = canvas.tokens.controlled;
+  if (token.length < 1 || token.length > 1) {
+    ui.notifications.warn('Please select one token');
+    return;
+  }
+  const actor = canvas.tokens.controlled[0].actor;
+  const shop = new osrItemShopForm(actor);
+  const goldItem = actor.data.items.find((i) => i.name == 'GP');
+  if (!goldItem) {
+    ui.notifications.error('No Gold Found');
+    return;
+  }
+  shop.render(true);
 }
