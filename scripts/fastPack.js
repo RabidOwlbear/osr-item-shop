@@ -75,7 +75,7 @@ class fastPack extends Application {
     return mergeObject(super.defaultOptions, {
       classes: ['application', 'fast-pack-app'],
       popOut: true,
-      template: `modules/osr-item-shop/templates/fastpack-template.html`,
+      template: `modules/osr-item-shop/templateData/fastpack-template.html`,
       id: 'fastPack',
       title: 'Ye Fast Pack',
       width: 500

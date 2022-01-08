@@ -1,8 +1,10 @@
+
+
 Hooks.on('renderfastPack', (app, html) => {
   const div = html.find('#pack-div');
   console.log('here da div', div[0].innerHTML);
 });
-const shopData = {};
+//  const shopData = {};
 
 class osrItemShop extends Application {
   constructor(actor) {
@@ -14,7 +16,7 @@ class osrItemShop extends Application {
     return mergeObject(super.defaultOptions, {
       classes: ['application', 'osrItemShop'],
       popOut: true,
-      template: `modules/osr-item-shop/templates/item-shop-template.html`,
+      template: `modules/osr-item-shop/templateData/item-shop-template.html`,
       id: 'osrItemShop',
       title: 'Item Shop',
       width: 600
@@ -66,7 +68,7 @@ class osrItemShopForm extends FormApplication {
     return mergeObject(super.defaultOptions, {
       classes: ['form', 'osrShopForm'],
       popOut: true,
-      template: `modules/osr-item-shop/templates/item-shop-template.html`,
+      template: `modules/osr-item-shop/templateData/item-shop-template.html`,
       id: 'osrShopForm',
       title: 'Item Shop',
       width: 900,
@@ -106,7 +108,7 @@ class osrItemShopForm extends FormApplication {
   }
 }
 
-window.CustomEffectForm = osrItemShopForm;
+window.osrItemShopForm = osrItemShopForm;
 
 async function osrShopItemHtml(list) {
   let itemList = '';
