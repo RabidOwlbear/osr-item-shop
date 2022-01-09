@@ -45,14 +45,14 @@ Hooks.on('init', async () => {
 });
 Hooks.once('ready', async () => {
   console.log('osrItemSHop ready');
-  let ose = game.modules.get("old-school-essentials").active
-  console.log('ding', ose)
+  let ose = game.modules.get('old-school-essentials')?.active;
+  console.log('ding', ose);
   //if old school essential module installed
-  if(ose){
+  if (ose) {
     const optionsObj = [
       {
         header: 'Old School Essentials',
-        data: OSEitemData,
+        data: OSE.itemData,
         options: [
           {
             name: 'Items',
@@ -63,11 +63,11 @@ Hooks.once('ready', async () => {
       }
     ];
     if (game.user.role >= 4) {
-      console.log('geronimo')
-    await game.settings.set('osrItemShop', 'sourceList', optionsObj);
-    await game.settings.set('osrItemShop', 'itemList', OSEitemData);
+      
+      await game.settings.set('osrItemShop', 'sourceList', optionsObj);
+      await game.settings.set('osrItemShop', 'itemList', OSE.itemData);
     }
-  }else{
+  } else {
     const optionsObj = [
       {
         header: 'OSE SRD',
@@ -82,12 +82,12 @@ Hooks.once('ready', async () => {
       }
     ];
     if (game.user.role >= 4) {
-      console.log('apache')
-    await game.settings.set('osrItemShop', 'sourceList', optionsObj);
-    await game.settings.set('osrItemShop', 'itemList', osrItemData);
+      
+      await game.settings.set('osrItemShop', 'sourceList', optionsObj);
+      await game.settings.set('osrItemShop', 'itemList', osrItemData);
     }
   }
-  
+
   Hooks.callAll('osrItemShopActive');
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
   sleep(5000);
@@ -117,9 +117,9 @@ class ItemShopForm extends FormApplication {
     buyBtn.on('click', (event) => {
       const ag = parseInt(html.find('#actor-gold')[0].innerText);
       const tp = parseInt(html.find('#total-price')[0].innerText);
-    //console.log(ag, tp);
+      //console.log(ag, tp);
       if (ag - tp < 0) {
-      //console.log('button blocked', event);
+        //console.log('button blocked', event);
         ui.notifications.warn('Not Enough Gold!');
         event.preventDefault();
         return;
@@ -135,13 +135,13 @@ class ItemShopForm extends FormApplication {
       //console.log(button.value);
       button.addEventListener('click', (event) => {
         event.preventDefault();
-      //console.log(event, a, b, c);
+        //console.log(event, a, b, c);
       });
     }
     //console.log('1111', plusBtns);
   }
   async _updateObject(event, formData) {
-  //console.log('<------ default behavior');
+    //console.log('<------ default behavior');
     let total = parseInt(document.getElementById('total-price').innerText);
     event.preventDefault();
     delete formData.source;
@@ -150,7 +150,7 @@ class ItemShopForm extends FormApplication {
       totalCost: total,
       list: formData
     };
-  //console.log('formData', formData, itemObj);
+    //console.log('formData', formData, itemObj);
     buyItems(itemObj);
     //const data = await buyList(formData);
     //console.log(data);
@@ -170,13 +170,13 @@ async function renderItemShop(actor = null) {
     height: 800
   };
 
-  if(actor==null){
+  if (actor == null) {
     let token = canvas.tokens.controlled;
     if (token.length < 1 || token.length > 1) {
-    ui.notifications.warn('Please select one token');
-    return;
-  }
-  actor = token[0].actor;
+      ui.notifications.warn('Please select one token');
+      return;
+    }
+    actor = token[0].actor;
   }
 
   const goldItem = actor.data.items.find((i) => i.name == 'GP');
@@ -184,15 +184,13 @@ async function renderItemShop(actor = null) {
     ui.notifications.error('No Gold Found');
     return;
   }
-  
+
   let shop = new ItemShopForm({}, shopFormOptions, actor);
   shop.render(true);
 }
 async function itemShop() {
-  
-  
   const shop = new osrItemShopForm(actor);
-  
+
   shop.render(true);
 }
 
@@ -206,7 +204,7 @@ function sourceList(html) {
   let checked;
   //return compiled source list html
   for (let source of sourceList) {
-  //console.log('source', source);
+    //console.log('source', source);
     //add checked property to first item on list
     if (!selected) {
       checked = `checked`;
@@ -243,7 +241,7 @@ async function shopListContent(data, html) {
     let checked;
     //return compiled source list html
     for (let source of sourceList) {
-    //console.log('source', source);
+      //console.log('source', source);
       //add checked property to first item on list
       if (!selected) {
         checked = `checked`;
@@ -270,21 +268,20 @@ async function shopListContent(data, html) {
     let retHtml = ``;
     let list = null;
     let headerList = getHeaders(sourceList, data.selected);
-    console.log(headerList)
+    console.log(headerList);
     list = listData.filter((i) => i.source == data.selected);
     // for (let source of sourceList) {
     //   // console.log('sourceList source', source, data);
     //   // list = source.options.find((o) => o.name == data.selected)?.data;
-      
+
     //   // console.log('list', list);
     // }
-  //console.log(list);
+    //console.log(list);
     //check that list has a value
     if (list) {
-      
       let listHtml = ``;
       // loop through list creating an array of item types for headers
-      
+
       //console.log('headers', headers);
       for (type of headerList) {
         sectionHtml = `<div><b>${type}</b></div>`;
@@ -310,32 +307,32 @@ async function shopListContent(data, html) {
     return retHtml;
   }
 }
-function getHeaders(list, source){
-  console.log(list, source)
-  for(let src of list){
-    console.log(source, src)
-    let hList = src.options.find(s=>s.source == source)
-    console.log(hList)
-    if(hList){
-      console.log(hList.itemTypes)
-      return hList.itemTypes
+function getHeaders(list, source) {
+  console.log(list, source);
+  for (let src of list) {
+    console.log(source, src);
+    let hList = src.options.find((s) => s.source == source);
+    console.log(hList);
+    if (hList) {
+      console.log(hList.itemTypes);
+      return hList.itemTypes;
     }
   }
 }
 Hooks.on('renderItemShopForm', async (formObj, html, c) => {
-//console.log('FormObj', formObj, 'html', html, 'c', c);
+  //console.log('FormObj', formObj, 'html', html, 'c', c);
   let sourceList = await game.settings.get('osrItemShop', 'sourceList');
   const itemCont = html.find(`[id="item-list"]`)[0];
   const sourceCont = html.find(`[id="source-list"]`)[0];
   const actorGold = html.find(`span[id="actor-gold"]`)[0];
   const sList = await shopListContent({ type: 'source', data: sourceList, isItem: false }, html);
   const actorGp = formObj.actor.data.items.getName('GP').data.data.quantity.value;
-//console.log(actorGp);
+  //console.log(actorGp);
   actorGold.innerText = `${actorGp}`;
 
-//console.log(sList, sourceCont);
+  //console.log(sList, sourceCont);
   sourceCont.innerHTML = sList.content;
-//console.log('sItems');
+  //console.log('sItems');
   const sItems = await shopListContent({
     type: 'items',
     data: sourceList,
@@ -345,8 +342,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
   let sInputs = html.find(`[id="source-list"] input`);
   for (let input of sInputs) {
     input.addEventListener('input', async () => {
-      
-    console.log(input.value);
+      console.log(input.value);
       let listContent = await shopListContent({
         type: 'items',
         data: sourceList,
@@ -356,10 +352,10 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
       itemCont.innerHTML = listContent;
       let plus = html.find(`[id="button-plus"]`);
       let minus = html.find(`[id="button-minus"]`);
-    //console.log(plus);
+      //console.log(plus);
       for (let button of plus) {
         button.addEventListener('click', () => {
-        //console.log('poop', button);
+          //console.log('poop', button);
           shopAddItem(html, button.value, 'plus');
         });
       }
@@ -370,7 +366,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
       }
     });
   }
-//console.log(sInputs);
+  //console.log(sInputs);
 
   // console.log(sItems);
   itemCont.innerHTML = sItems;
@@ -380,7 +376,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
   // console.log(plus);
   for (let button of plus) {
     button.addEventListener('click', () => {
-    //console.log('poop', button);
+      //console.log('poop', button);
       shopAddItem(html, button.value, 'plus');
     });
   }
@@ -403,15 +399,15 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
 // utlity functions
 
 function shopAddItem(html, id, state) {
-//console.log(id);
+  //console.log(id);
   const cartCont = html.find(`[id="cart-div"]`);
   const tPrice = html.find(`span[id="total-price"]`)[0];
   let inp = cartCont.find(`[name='${id}']`)[0];
-//console.log(tPrice);
+  //console.log(tPrice);
   // console.log(itemList, itemObj);
-//console.log(cartCont);
-  if (state == 'plus') {
   //console.log(cartCont);
+  if (state == 'plus') {
+    //console.log(cartCont);
     const itemList = game.settings.get('osrItemShop', 'itemList');
     const itemObj = itemList.find((i) => i.id == id);
 
@@ -419,7 +415,7 @@ function shopAddItem(html, id, state) {
       let newValue = parseInt(inp.value) + 1;
       inp.value = `${newValue}`;
       let itemPrice = html.find(`[id="${id}"][class="item-price cart-price"]`);
-    //console.log(itemPrice, itemObj);
+      //console.log(itemPrice, itemObj);
       let itemDiv = html.find(`[id="${id}"]`);
       let price = itemDiv.find(`[class="item-price cart-price"]`)[0];
       price.innerText = `${parseInt(price.innerText) + itemObj.cost}GP`;
@@ -436,17 +432,17 @@ function shopAddItem(html, id, state) {
       inp.addEventListener('blur', (ev) => {
         setTimeout(() => {
           let price = html.find(`[id="${id}"] [class="item-price cart-price"]`)[0];
-        //console.log('inp value', inp.value);
+          //console.log('inp value', inp.value);
           if (parseInt(inp.value) <= 0 || inp.value == '') {
             let item = html.find(`[id="${id}"]`)[0];
-          //console.log(item);
-          //console.log('blur', id);
+            //console.log(item);
+            //console.log('blur', id);
             tPrice.innerText = `${parseInt(tPrice.innerText) - parseInt(price.innerText)}`;
             item.remove();
           } else {
-          //console.log('not 0', id);
+            //console.log('not 0', id);
 
-          //console.log(price);
+            //console.log(price);
             let oldPrice = parseInt(price.innerText);
             let newPrice = itemObj.cost * parseInt(inp.value);
             price.innerText = `${newPrice}GP`;
@@ -499,47 +495,47 @@ async function buyItems(data) {
   //console.log(newGp, data.totalCost);
   await goldItem.update({ data: { quantity: { value: newGp } } });
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
-  
+
   //console.log(compendium);
   ui.notifications.info('Adding Items To Sheet');
   for (let id in list) {
-    let itemInfo = itemList.find((i) => i.id == id)
+    let itemInfo = itemList.find((i) => i.id == id);
 
     const compendium = await game.packs.get(itemInfo.pack);
     let item = {
       name: itemInfo.name,
-      qty : list[id],
+      qty: list[id],
       stack: itemInfo.stack
     };
-  //console.log(item);
+    //console.log(item);
     await sleep(500);
-  console.log('item', item);
+    console.log('item', item);
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
     console.log(item.name, itemObj);
     let existingItem = await actor.data.items.getName(itemObj.name);
     console.log('existing', existingItem);
     if (existingItem && item.stack == true) {
-    console.log('stack existing, sheet existing');
+      console.log('stack existing, sheet existing');
       let newQty = existingItem.data.data.quantity.value + itemObj.data.data.quantity.value * item.qty;
       let data = { data: { quantity: { value: newQty } } };
 
       //console.log('data', data);
       await existingItem.update(data);
     } else if (!existingItem && item.stack) {
-    console.log('stack existing');
+      console.log('stack existing');
       const itemData = await itemObj.clone();
       const oldQty = itemData.data.data.quantity.value;
 
       const newQty = oldQty * item.qty;
 
       itemData.data.data.quantity.value = newQty;
-    //console.log(itemData, oldQty, newQty);
+      //console.log(itemData, oldQty, newQty);
       await actor.createEmbeddedDocuments('Item', [itemData.data]);
       let existingItem = actor.data.items.getName(itemObj.name);
 
       let data = { data: { quantity: { value: newQty } } };
-    //console.log('data', data);
+      //console.log('data', data);
       await existingItem.update(data);
     } else {
       for (let i = 0; i < item.qty; i++) {
@@ -550,5 +546,3 @@ async function buyItems(data) {
   }
   ui.notifications.info('Completed Adding Items To Sheet');
 }
-
-
