@@ -49,7 +49,7 @@
       "type": "module"
     }
   ],
-  "url": "https://github.com/RabidOwlbear/OSE-helper",
+  "url": "https://github.com/RabidOwlbear/osr-item-shop",
   "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/main/module.json",
   "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/master.zip",
   "readme": "REAMDE.md"
