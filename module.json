@@ -7,7 +7,6 @@
   "compatibleCoreVersion": "0.8.0",
   "scripts": [
     "./scripts/data.js",
-    "./scripts/shop.js",
     "./scripts/fastPack.js",
     "./scripts/util.js",
     "./scripts/init.js",

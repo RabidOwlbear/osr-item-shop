@@ -1,25 +1,25 @@
-async function osrAddPackItems(actor, itemList) {
+Hooks.on('OSRIS Registered', ()=>{
+OSRIS.util.addPackItems = async function (actor, itemList) {
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
   const compendium = await game.packs.get('osr-item-shop.osr items');
-  console.log(compendium);
+  ui.notifications.warn('Adding Items To Character Sheet, Please Be Patient.')
   for (let item of itemList) {
-    console.log('item', item);
 
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
     const qty = item.qty;
-    //console.log('ability', ability);
-
     console.log('item', itemObj.data);
     let count = 0;
-    //console.log('entity', entity, newEntity);
+    
     for (let i = 0; i < item.qty; i++) {
       count++;
       console.log('item count', count, item.name);
       await sleep(500);
       await actor.createEmbeddedDocuments('Item', [itemObj.data]);
     }
+    
   }
+  ui.notifications.info('Finished Adding items')
 }
 
 /* 
@@ -29,7 +29,7 @@ data: {
   totalCost: num total cost of transaction}
 }
 */
-async function osrBuyItems(data) {
+OSRIS.util.buyItems = async function (data) {
   const { list, actor } = data;
   const goldItem = actor.data.items.getName('GP');
   //console.log(goldItem);
@@ -81,7 +81,7 @@ async function osrBuyItems(data) {
   }
   ui.notifications.info('Completed Adding Items To Sheet');
 }
-function checkGold(actor, price) {
+OSRIS.util.checkGold = function (actor, price) {
   const gold = actor.data.items.getName('GP')?.data.data.quantity.value;
   if (price) {
     if (gold < price) {
@@ -93,7 +93,7 @@ function checkGold(actor, price) {
   return gold;
 }
 
-async function buyList(formData) {
+OSRIS.util.buyList = async function (formData) {
   console.log(formData);
   const retObj = { totalCost: 0, list: [] };
   for (let item of Object.keys(formData)) {
@@ -110,7 +110,7 @@ async function buyList(formData) {
   return retObj;
 }
 
-function totalDisplay(html) {
+OSRIS.util.totalDisplay = function (html) {
   let total = 0;
   console.log('element', html);
   const inputs = html.find('.shop-qty');
@@ -126,7 +126,7 @@ function totalDisplay(html) {
   //actorGold.innerText = `100`;
   return total;
 }
-async function addHtml(list, html) {
+OSRIS.util.addHtml = async function (list, html) {
   console.log('list', list, html);
   for (let item of list) {
     // const elementId = `#${item}`;
@@ -147,13 +147,13 @@ async function addHtml(list, html) {
   return html;
 }
 
-function osrItemsByType(type) {
+OSRIS.util.osrItemsByType = function (type) {
   const items = osrItemData.filter((i) => i.type == type);
   console.log(items);
   return items;
 }
 
-function randomBuyList(actor, gold, itemArr, rem = 0) {
+OSRIS.util.randomBuyList = function (actor, gold, itemArr, rem = 0) {
   const itemList = actor.item;
   rem = Math.floor(Math.random() * rem + 1);
   console.log('rem', rem, itemArr);
@@ -198,16 +198,16 @@ function randomBuyList(actor, gold, itemArr, rem = 0) {
   return workObj;
 }
 
-async function buyRandomItems(actor, type) {
+OSRIS.util.buyRandomItems = async function (actor, type) {
   const itemList = osrItemsByType(type);
   const gold = await actor.data.items.getName('GP').data.data.quantity.value;
   const actorItems = actor.data.items.contents;
   const listObj = await randomBuyList(actor, gold, itemList, 3);
   console.log(listObj);
-  osrBuyItems({ list: listObj.list, actor: actor, totalCost: listObj.totalCost });
+  OSRIS.util.buyItems({ list: listObj.list, actor: actor, totalCost: listObj.totalCost });
 }
 
-function clearText(field) {
+OSRIS.util.clearText = function (field) {
   console.log('event', field);
   if (field.defaultValue == field.value) {
     field.value = ``;
@@ -215,3 +215,6 @@ function clearText(field) {
     field.value = field.defaultValue;
   }
 }
+
+
+})

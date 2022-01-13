@@ -7,6 +7,10 @@ Hooks.on('init', () => {
     default: true,
     config: true
   });
+
+   //register namespace
+   window.OSRIS = window.OSRIS || {};
+   OSRIS.util = OSRIS.util || {};
+   Hooks.call('OSRIS Registered')
 });
 
-// 

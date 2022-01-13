@@ -71,7 +71,7 @@ Hooks.once('ready', async () => {
     const optionsObj = [
       {
         header: 'OSE SRD',
-        data: osrItemData,
+        data: OSRIS.itemData,
         options: [
           {
             name: 'SRD Items',
@@ -84,7 +84,7 @@ Hooks.once('ready', async () => {
     if (game.user.role >= 4) {
       
       await game.settings.set('osrItemShop', 'sourceList', optionsObj);
-      await game.settings.set('osrItemShop', 'itemList', osrItemData);
+      await game.settings.set('osrItemShop', 'itemList', OSRIS.itemData);
     }
   }
 
@@ -95,7 +95,87 @@ Hooks.once('ready', async () => {
   //console.log('options obj', curData);
 });
 
-class ItemShopForm extends FormApplication {
+Hooks.on('renderItemShopForm', async (formObj, html, c) => {
+  //console.log('FormObj', formObj, 'html', html, 'c', c);
+  let sourceList = await game.settings.get('osrItemShop', 'sourceList');
+  const itemCont = html.find(`[id="item-list"]`)[0];
+  const sourceCont = html.find(`[id="source-list"]`)[0];
+  const actorGold = html.find(`span[id="actor-gold"]`)[0];
+  const sList = await OSRIS.shop.listContent({ type: 'source', data: sourceList, isItem: false }, html);
+  const actorGp = formObj.actor.data.items.getName('GP').data.data.quantity.value;
+  //console.log(actorGp);
+  actorGold.innerText = `${actorGp}`;
+
+  //console.log(sList, sourceCont);
+  sourceCont.innerHTML = sList.content;
+  //console.log('sItems');
+  const sItems = await OSRIS.shop.listContent({
+    type: 'items',
+    data: sourceList,
+    selected: sList.selected,
+    isItem: false
+  });
+  let sInputs = html.find(`[id="source-list"] input`);
+  for (let input of sInputs) {
+    input.addEventListener('input', async () => {
+      console.log(input.value);
+      let listContent = await OSRIS.shop.listContent({
+        type: 'items',
+        data: sourceList,
+        selected: input.value,
+        isItem: false
+      });
+      itemCont.innerHTML = listContent;
+      let plus = html.find(`[id="button-plus"]`);
+      let minus = html.find(`[id="button-minus"]`);
+      //console.log(plus);
+      for (let button of plus) {
+        button.addEventListener('click', () => {
+          //console.log('poop', button);
+          OSRIS.shop.shopAddItem(html, button.value, 'plus');
+        });
+      }
+      for (let button of minus) {
+        button.addEventListener('click', () => {
+          OSRIS.shop.shopAddItem(html, button.value, 'minus');
+        });
+      }
+    });
+  }
+  //console.log(sInputs);
+
+  // console.log(sItems);
+  itemCont.innerHTML = sItems;
+
+  let plus = html.find(`[id="button-plus"]`);
+  let minus = html.find(`[id="button-minus"]`);
+  // console.log(plus);
+  for (let button of plus) {
+    button.addEventListener('click', () => {
+      //console.log('poop', button);
+      OSRIS.shop.shopAddItem(html, button.value, 'plus');
+    });
+  }
+  for (let button of minus) {
+    button.addEventListener('click', () => {
+      OSRIS.shop.shopAddItem(html, button.value, 'minus');
+    });
+  }
+
+  // console.log('sList', sList);
+  // const sOptions = await OSRIS.shop.listContent({ type: 'options', data: sourceList, isItem: false });
+  // const sItems = await OSRIS.shop.listContent({
+  //   type: 'items',
+  //   data: sourceList,
+  //   selected: sList.selected,
+  //   isItem: false
+  // });
+});
+
+Hooks.on('OSRIS Registered', ()=>{
+  OSRIS.shop = OSRIS.shop || {}
+
+  OSRIS.shop.ItemShopForm = class ItemShopForm extends FormApplication {
   constructor(object, options, actor) {
     super(object, options);
     this.actor = actor;
@@ -150,16 +230,13 @@ class ItemShopForm extends FormApplication {
       totalCost: total,
       list: formData
     };
-    //console.log('formData', formData, itemObj);
-    buyItems(itemObj);
-    //const data = await buyList(formData);
-    //console.log(data);
-    //data.actor = this.actor;
 
-    //osrBuyItems(data);
+    OSRIS.shop.buyItems(itemObj);
+
   }
 }
-async function renderItemShop(actor = null) {
+
+OSRIS.shop.renderItemShop = async function (actor = null) {
   const shopFormOptions = {
     classes: ['form', 'osrShopForm'],
     popOut: true,
@@ -185,52 +262,50 @@ async function renderItemShop(actor = null) {
     return;
   }
 
-  let shop = new ItemShopForm({}, shopFormOptions, actor);
-  shop.render(true);
-}
-async function itemShop() {
-  const shop = new osrItemShopForm(actor);
-
+  let shop = new OSRIS.shop.ItemShopForm({}, shopFormOptions, actor);
   shop.render(true);
 }
 
-function sourceList(html) {
-  let sourceCont = html.find(`[id="source-list"]`)[0];
-  const sourceList = game.settings.get('osrItemShop', 'sourceList');
-  const listData = game.settings.get('osrItemShop', 'itemList');
-  //console.log('sourceList', sourceList);
-  let listHTML = ``;
-  let selected = undefined;
-  let checked;
-  //return compiled source list html
-  for (let source of sourceList) {
-    //console.log('source', source);
-    //add checked property to first item on list
-    if (!selected) {
-      checked = `checked`;
-      //
-      selected = source.options[0].source;
-    } else {
-      checked = ``;
-    }
-    //add header
-    listHTML += `<div class="pl5 pb5"><b>${source.header.content}</b></div>`;
-    //add source options
-    for (let option of source.options) {
-      listHTML += `
-        <div class="fx-sb cb-list ph10">
-          <label for="${option.name}">${option.name}</label>
-          <input type="radio" name="alignment" id="${option.name}" value="${option.name}" ${checked}/>
-        </div>`;
-    }
-  }
-  // console.log('retHtml', retHtml);
-  sourceCont.innerHTML = listHTML;
-  let radioList = html.find();
-  return { content: retHtml, selected };
-}
+
+
+// function sourceList(html) {
+//   let sourceCont = html.find(`[id="source-list"]`)[0];
+//   const sourceList = game.settings.get('osrItemShop', 'sourceList');
+//   const listData = game.settings.get('osrItemShop', 'itemList');
+//   //console.log('sourceList', sourceList);
+//   let listHTML = ``;
+//   let selected = undefined;
+//   let checked;
+//   //return compiled source list html
+//   for (let source of sourceList) {
+//     //console.log('source', source);
+//     //add checked property to first item on list
+//     if (!selected) {
+//       checked = `checked`;
+//       //
+//       selected = source.options[0].source;
+//     } else {
+//       checked = ``;
+//     }
+//     //add header
+//     listHTML += `<div class="pl5 pb5"><b>${source.header.content}</b></div>`;
+//     //add source options
+//     for (let option of source.options) {
+//       listHTML += `
+//         <div class="fx-sb cb-list ph10">
+//           <label for="${option.name}">${option.name}</label>
+//           <input type="radio" name="alignment" id="${option.name}" value="${option.name}" ${checked}/>
+//         </div>`;
+//     }
+//   }
+//   // console.log('retHtml', retHtml);
+//   sourceCont.innerHTML = listHTML;
+//   let radioList = html.find();
+//   return { content: retHtml, selected };
+// }
+
 // {type, data, source, isItem}
-async function shopListContent(data, html) {
+OSRIS.shop.listContent = async function (data, html) {
   const sourceList = game.settings.get('osrItemShop', 'sourceList');
   const listData = game.settings.get('osrItemShop', 'itemList');
   // console.log(listData)
@@ -267,7 +342,7 @@ async function shopListContent(data, html) {
   if (data.type == 'items') {
     let retHtml = ``;
     let list = null;
-    let headerList = getHeaders(sourceList, data.selected);
+    let headerList = OSRIS.shop.getHeaders(sourceList, data.selected);
     console.log(headerList);
     list = listData.filter((i) => i.source == data.selected);
     // for (let source of sourceList) {
@@ -307,7 +382,8 @@ async function shopListContent(data, html) {
     return retHtml;
   }
 }
-function getHeaders(list, source) {
+
+OSRIS.shop.getHeaders = function (list, source) {
   console.log(list, source);
   for (let src of list) {
     console.log(source, src);
@@ -319,86 +395,12 @@ function getHeaders(list, source) {
     }
   }
 }
-Hooks.on('renderItemShopForm', async (formObj, html, c) => {
-  //console.log('FormObj', formObj, 'html', html, 'c', c);
-  let sourceList = await game.settings.get('osrItemShop', 'sourceList');
-  const itemCont = html.find(`[id="item-list"]`)[0];
-  const sourceCont = html.find(`[id="source-list"]`)[0];
-  const actorGold = html.find(`span[id="actor-gold"]`)[0];
-  const sList = await shopListContent({ type: 'source', data: sourceList, isItem: false }, html);
-  const actorGp = formObj.actor.data.items.getName('GP').data.data.quantity.value;
-  //console.log(actorGp);
-  actorGold.innerText = `${actorGp}`;
 
-  //console.log(sList, sourceCont);
-  sourceCont.innerHTML = sList.content;
-  //console.log('sItems');
-  const sItems = await shopListContent({
-    type: 'items',
-    data: sourceList,
-    selected: sList.selected,
-    isItem: false
-  });
-  let sInputs = html.find(`[id="source-list"] input`);
-  for (let input of sInputs) {
-    input.addEventListener('input', async () => {
-      console.log(input.value);
-      let listContent = await shopListContent({
-        type: 'items',
-        data: sourceList,
-        selected: input.value,
-        isItem: false
-      });
-      itemCont.innerHTML = listContent;
-      let plus = html.find(`[id="button-plus"]`);
-      let minus = html.find(`[id="button-minus"]`);
-      //console.log(plus);
-      for (let button of plus) {
-        button.addEventListener('click', () => {
-          //console.log('poop', button);
-          shopAddItem(html, button.value, 'plus');
-        });
-      }
-      for (let button of minus) {
-        button.addEventListener('click', () => {
-          shopAddItem(html, button.value, 'minus');
-        });
-      }
-    });
-  }
-  //console.log(sInputs);
 
-  // console.log(sItems);
-  itemCont.innerHTML = sItems;
-
-  let plus = html.find(`[id="button-plus"]`);
-  let minus = html.find(`[id="button-minus"]`);
-  // console.log(plus);
-  for (let button of plus) {
-    button.addEventListener('click', () => {
-      //console.log('poop', button);
-      shopAddItem(html, button.value, 'plus');
-    });
-  }
-  for (let button of minus) {
-    button.addEventListener('click', () => {
-      shopAddItem(html, button.value, 'minus');
-    });
-  }
-
-  // console.log('sList', sList);
-  // const sOptions = await shopListContent({ type: 'options', data: sourceList, isItem: false });
-  // const sItems = await shopListContent({
-  //   type: 'items',
-  //   data: sourceList,
-  //   selected: sList.selected,
-  //   isItem: false
-  // });
-});
 
 // utlity functions
 
-function shopAddItem(html, id, state) {
+OSRIS.shop.shopAddItem = function (html, id, state) {
   //console.log(id);
   const cartCont = html.find(`[id="cart-div"]`);
   const tPrice = html.find(`span[id="total-price"]`)[0];
@@ -484,7 +486,7 @@ data: {
   totalCost: num total cost of transaction}
 }
 */
-async function buyItems(data) {
+OSRIS.shop.buyItems = async function (data) {
   const itemList = game.settings.get('osrItemShop', 'itemList');
   const { list, actor } = data;
   const goldItem = actor.data.items.getName('GP');
@@ -546,3 +548,5 @@ async function buyItems(data) {
   }
   ui.notifications.info('Completed Adding Items To Sheet');
 }
+
+})

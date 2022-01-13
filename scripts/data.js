@@ -1,4 +1,5 @@
-const osrItems = {
+Hooks.on('OSRIS Registered', ()=>{
+OSRIS.osrItems = {
   adventuringGear: [
     {
       name: 'Backpack',
@@ -146,7 +147,7 @@ const osrItems = {
     }
   ]
 };
-const osrShopLists = {
+OSRIS.osrShopLists = {
   items: [
     'Backpack',
     'Crowbar',
@@ -197,7 +198,7 @@ const osrShopLists = {
   armor: ['Chain Mail', 'Leather Armor', 'Plate Mail', 'Shield', 'Shield (Steel)', 'Shield (Wood)'],
   ammunition: ['Arrows (quiver of 20)', 'Crossbow bolts (case of 30)', 'Silver tipped arrow (1)']
 };
-const osrItemData = [
+OSRIS.itemData = [
   { source: 'oseSrd', type: 'equipment', name: 'Backpack', cost: 5, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd001'},
   { source: 'oseSrd', type: 'equipment', name: 'Crowbar', cost: 10, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd002'},
   { source: 'oseSrd', type: 'equipment', name: 'Garlic', cost: 5, maxAllowed: 1 , qty: 3, stack: true, pack: 'osr-item-shop.osr items', id: 'srd003'},
@@ -251,7 +252,7 @@ const osrItemData = [
   { source: 'oseSrd', type: 'ammunition', name: 'Crossbow bolts (case of 30)', cost: 10, maxAllowed: 30 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd052'},
   { source: 'oseSrd', type: 'ammunition', name: 'Silver tipped arrow (1)', cost: 5, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd053'}
 ];
-const shopListsA = {
+OSRIS.shopListsA = {
   items: {
     everGreen: ['Backpack', 'Sack (small)', 'Sack (large)', 'Torches (6)'],
     randomize: [
@@ -309,3 +310,5 @@ const shopListsA = {
     min: 4
   }
 };
+
+})

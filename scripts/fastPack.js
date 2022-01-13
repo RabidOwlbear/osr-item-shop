@@ -1,4 +1,6 @@
-function fastPackList(selection, actorClass) {
+Hooks.on('OSRIS Registered', ()=>{
+  OSRIS.fp = OSRIS.fp || {}
+  OSRIS.fp.fastPackList = function (selection, actorClass) {
   let cItem;
   switch (actorClass) {
     case 'Cleric':
@@ -55,16 +57,16 @@ function fastPackList(selection, actorClass) {
     }
   };
   return fastPack[selection];
-}
+  }
 
-function fastPackDialog(actor) {
+  OSRIS.fp.fastPackDialog = function (actor) {
   const actorClass = actor.data.data.details.class;
   const gold = actor.data.items.getName('GP').data.data.quantity.value;
   let template = ``;
   console.log(actorClass, gold);
-}
+  }
 
-class fastPack extends Application {
+  OSRIS.fp.fastPack = class fastPack extends Application {
   constructor(actor) {
     super();
     this.actor = actor;
@@ -90,12 +92,12 @@ class fastPack extends Application {
     console.log('buy', buy, 'close', close);
     buy.on('click', async (event) => {
       const selected = html.find("input[type='radio'][name='pack-select']:checked")[0].value;
-      const itemList = fastPackList(selected, this.actor);
+      const itemList = OSRIS.fp.fastPackList(selected, this.actor);
       console.log('selected', selected, 'price', itemList.price, 'gold', this.gold);
-      let pack = fastPackList(selected, this.class);
+      let pack = OSRIS.fp.fastPackList(selected, this.class);
       if (this.gold > pack.price) {
         console.log('add the items now');
-        await osrAddPackItems(this.actor, itemList.items);
+        await OSRIS.util.addPackItems(this.actor, itemList.items);
         const gpItem = this.actor.data.items.getName('GP');
         const newGp = gpItem.data.data.quantity.value - itemList.price;
         await gpItem.update({ data: { quantity: { value: newGp } } });
@@ -113,3 +115,13 @@ class fastPack extends Application {
     });
   }
 }
+OSRIS.fp.renderFastPack = async function(){
+  const numSelected = canvas.tokens.controlled;
+    if(numSelected > 1 || numSelected == 0){
+        ui.notifications.warn('Please select one token')
+        return;
+    }
+    const actor = canvas.tokens.controlled[0].actor;
+    new OSRIS.fp.fastPack(actor).render(true);
+}
+})

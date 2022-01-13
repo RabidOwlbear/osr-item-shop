@@ -4,29 +4,6 @@ Hooks.on('renderfastPack', (app, html) => {
   const div = html.find('#pack-div');
   console.log('here da div', div[0].innerHTML);
 });
-//  const shopData = {};
-
-class osrItemShop extends Application {
-  constructor(actor) {
-    super();
-    this.actor = actor;
-  }
-
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ['application', 'osrItemShop'],
-      popOut: true,
-      template: `modules/osr-item-shop/templateData/item-shop-template.html`,
-      id: 'osrItemShop',
-      title: 'Item Shop',
-      width: 600
-    });
-  }
-  activateListeners(html) {
-    super.activateListeners(html);
-  }
-}
-
 Hooks.on('renderosrItemShopForm', async (app, html) => {
   const goldItem = app.actor.data.items.find((i) => i.name == 'GP');
   const actorGold = goldItem.data.data.quantity.value;
@@ -55,6 +32,30 @@ Hooks.on('renderosrItemShopForm', async (app, html) => {
     });
   }
 });
+//  const shopData = {};
+
+class osrItemShop extends Application {
+  constructor(actor) {
+    super();
+    this.actor = actor;
+  }
+
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ['application', 'osrItemShop'],
+      popOut: true,
+      template: `modules/osr-item-shop/templateData/item-shop-template.html`,
+      id: 'osrItemShop',
+      title: 'Item Shop',
+      width: 600
+    });
+  }
+  activateListeners(html) {
+    super.activateListeners(html);
+  }
+}
+
+
 
 class osrItemShopForm extends FormApplication {
   constructor(actor, shop) {
@@ -104,7 +105,7 @@ class osrItemShopForm extends FormApplication {
     console.log(data);
     data.actor = this.actor;
 
-    osrBuyItems(data);
+    OSRIS.util.buyItems(data);
   }
 }
 
@@ -147,5 +148,10 @@ async function launchItemShop() {
     ui.notifications.error('No Gold Found');
     return;
   }
+  shop.render(true);
+}
+async function itemShop() {
+  const shop = new osrItemShopForm(actor);
+
   shop.render(true);
 }
