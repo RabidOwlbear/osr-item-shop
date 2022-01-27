@@ -100,7 +100,7 @@ OSRIS.util.buyList = async function (formData) {
     //console.log(item);
     if (formData[item] > 0) {
       console.log('buy me', item.name);
-      const itemData = osrItemData.find((i) => i.name == item);
+      const itemData = OSRIS.itemData.find((i) => i.name == item);
       itemData.qty = formData[item];
       retObj.list.push(itemData);
       retObj.totalCost += itemData.cost * formData[item];
@@ -116,7 +116,7 @@ OSRIS.util.totalDisplay = function (html) {
   const inputs = html.find('.shop-qty');
   //console.log(inputs);
   for (let input of inputs) {
-    total += osrItemData.find((i) => i.name == input.name)?.cost * input.value;
+    total += OSRIS.itemData.find((i) => i.name == input.name)?.cost * input.value;
   }
   console.log('total', total);
   //const actorGold = html.find('#actor-gold')[0];
@@ -148,7 +148,7 @@ OSRIS.util.addHtml = async function (list, html) {
 }
 
 OSRIS.util.osrItemsByType = function (type) {
-  const items = osrItemData.filter((i) => i.type == type);
+  const items = OSRIS.itemData.filter((i) => i.type == type);
   console.log(items);
   return items;
 }
@@ -198,11 +198,19 @@ OSRIS.util.randomBuyList = function (actor, gold, itemArr, rem = 0) {
   return workObj;
 }
 
-OSRIS.util.buyRandomItems = async function (actor, type) {
-  const itemList = osrItemsByType(type);
+OSRIS.util.buyRandomItems = async function (type = 'equipment') {
+  if(canvas.tokens.controlled.length == 0 || canvas.tokens.controlled.length > 1 ){
+    console.log('woot')
+    ui.notifications.warn('Please select one token')
+    return;
+}
+  const actor = canvas.tokens.controlled[0].actor;
+
+
+  const itemList = OSRIS.util.osrItemsByType(type);
   const gold = await actor.data.items.getName('GP').data.data.quantity.value;
   const actorItems = actor.data.items.contents;
-  const listObj = await randomBuyList(actor, gold, itemList, 3);
+  const listObj = await OSRIS.util.randomBuyList(actor, gold, itemList, 3);
   console.log(listObj);
   OSRIS.util.buyItems({ list: listObj.list, actor: actor, totalCost: listObj.totalCost });
 }

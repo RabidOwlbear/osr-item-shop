@@ -250,7 +250,9 @@ OSRIS.itemData = [
   { source: 'oseSrd', type: 'armor', name: 'Shield (Wood)', cost: 10, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd050'},
   { source: 'oseSrd', type: 'ammunition', name: 'Arrows (quiver of 20)', cost: 5, maxAllowed: 1 , qty:20, stack: false, pack: 'osr-item-shop.osr items', id: 'srd051'},
   { source: 'oseSrd', type: 'ammunition', name: 'Crossbow bolts (case of 30)', cost: 10, maxAllowed: 30 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd052'},
-  { source: 'oseSrd', type: 'ammunition', name: 'Silver tipped arrow (1)', cost: 5, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd053'}
+  { source: 'oseSrd', type: 'ammunition', name: 'Silver tipped arrow (1)', cost: 5, maxAllowed: 1 , qty: 1, stack: false, pack: 'osr-item-shop.osr items', id: 'srd053'},
+  { source: 'oseSrd', type: 'ammunition', name: 'Sling Stones', cost: 1, maxAllowed: 1 , qty: 1, stack: true, pack: 'osr-item-shop.osr items', id: 'srd054'},
+
 ];
 OSRIS.shopListsA = {
   items: {

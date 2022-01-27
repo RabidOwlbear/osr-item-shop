@@ -2,8 +2,8 @@
   "name": "osr-item-shop",
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
-  "author": "owlbear",
-  "version": "0.0.3",
+  "author": "Grim",
+  "version": "0.0.4",
   "compatibleCoreVersion": "0.8.0",
   "scripts": [
     "./scripts/data.js",
