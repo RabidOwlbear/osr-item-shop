@@ -3,7 +3,7 @@
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
   "author": "Grim",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "compatibleCoreVersion": "0.8.0",
   "scripts": [
     "./scripts/data.js",
