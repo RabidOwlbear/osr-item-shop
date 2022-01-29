@@ -11,6 +11,7 @@ Hooks.on('init', () => {
    //register namespace
    window.OSRIS = window.OSRIS || {};
    OSRIS.util = OSRIS.util || {};
+   OSRIS.userPacks = OSRIS.userPacks || {};
    Hooks.call('OSRIS Registered')
 });
 

@@ -88,7 +88,7 @@ Hooks.once('ready', async () => {
     }
   }
 
-  Hooks.callAll('osrItemShopActive');
+  Hooks.call('osrItemShopActive');
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
   sleep(5000);
   let curData = game.settings.get('osrItemShop', 'sourceList');
@@ -266,45 +266,6 @@ OSRIS.shop.renderItemShop = async function (actor = null) {
   shop.render(true);
 }
 
-
-
-// function sourceList(html) {
-//   let sourceCont = html.find(`[id="source-list"]`)[0];
-//   const sourceList = game.settings.get('osrItemShop', 'sourceList');
-//   const listData = game.settings.get('osrItemShop', 'itemList');
-//   //console.log('sourceList', sourceList);
-//   let listHTML = ``;
-//   let selected = undefined;
-//   let checked;
-//   //return compiled source list html
-//   for (let source of sourceList) {
-//     //console.log('source', source);
-//     //add checked property to first item on list
-//     if (!selected) {
-//       checked = `checked`;
-//       //
-//       selected = source.options[0].source;
-//     } else {
-//       checked = ``;
-//     }
-//     //add header
-//     listHTML += `<div class="pl5 pb5"><b>${source.header.content}</b></div>`;
-//     //add source options
-//     for (let option of source.options) {
-//       listHTML += `
-//         <div class="fx-sb cb-list ph10">
-//           <label for="${option.name}">${option.name}</label>
-//           <input type="radio" name="alignment" id="${option.name}" value="${option.name}" ${checked}/>
-//         </div>`;
-//     }
-//   }
-//   // console.log('retHtml', retHtml);
-//   sourceCont.innerHTML = listHTML;
-//   let radioList = html.find();
-//   return { content: retHtml, selected };
-// }
-
-// {type, data, source, isItem}
 OSRIS.shop.listContent = async function (data, html) {
   const sourceList = game.settings.get('osrItemShop', 'sourceList');
   const listData = game.settings.get('osrItemShop', 'itemList');
@@ -511,12 +472,10 @@ OSRIS.shop.buyItems = async function (data) {
     };
     //console.log(item);
     await sleep(500);
-    console.log('item', item);
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
-    console.log(item.name, itemObj);
     let existingItem = await actor.data.items.getName(itemObj.name);
-    console.log('existing', existingItem);
+    // console.log('existing', existingItem);
     if (existingItem && item.stack == true) {
       console.log('stack existing, sheet existing');
       let newQty = existingItem.data.data.quantity.value + itemObj.data.data.quantity.value * item.qty;
@@ -528,14 +487,11 @@ OSRIS.shop.buyItems = async function (data) {
       console.log('stack existing');
       const itemData = await itemObj.clone();
       const oldQty = itemData.data.data.quantity.value;
-
       const newQty = oldQty * item.qty;
-
       itemData.data.data.quantity.value = newQty;
       //console.log(itemData, oldQty, newQty);
       await actor.createEmbeddedDocuments('Item', [itemData.data]);
       let existingItem = actor.data.items.getName(itemObj.name);
-
       let data = { data: { quantity: { value: newQty } } };
       //console.log('data', data);
       await existingItem.update(data);
