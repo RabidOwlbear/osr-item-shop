@@ -10,6 +10,8 @@
 .pb5 {
   padding-bottom: 5px;
 }
+
+/* item shop  */
 #pack-div,
 #pack-button-div {
   display: flex;
@@ -183,7 +185,7 @@
   margin: 0;
   min-width: 35px;
 }
-.item-header {
+#osrItemShopForm .item-header {
   display: flex;
   justify-content: space-between;
   padding: 5px 5px 0 5px;
@@ -216,7 +218,7 @@
 .item-header-add {
   width: 35px;
 }
-.cart-div {
+#osrItemShopForm .cart-div {
   width: 100%;
   height: 580px;
   overflow: scroll;
@@ -232,4 +234,250 @@
 .shop-item:nth-of-type(even) {
   /* color: red */
   background-color: rgba(50, 50, 50, 0.1);
+}
+
+/* custom shop */
+
+ .fdc{
+  display: flex;
+  flex-direction: column;
+}
+ .fx{
+  display: flex;
+}
+ .jcsa{
+  justify-content: space-around;
+}
+ .jcc{
+  justify-content: center;
+}
+ .aic{
+  align-items: center;
+}
+ .w25{
+  width: 25px
+}
+.custom-shop .portrait{
+  width: 100px;
+  height: 100px;
+  border: 0 none;
+}
+#char-select{
+  margin: 0 5px;
+  width: 150px;
+  
+}
+.custom-shop .shop-cont{
+  display: flex;
+  flex-direction: column;
+}
+.custom-shop .cs-shop-panel{
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  background-color: rgba(200,200,200, .5);
+  overflow-y: scroll;
+}
+.custom-shop .cs-seller-panel{
+  padding-left: 5px;
+  height: 195px;
+  border-bottom: 5px solid rgba(51, 0, 0, 0.8)
+}
+.custom-shop .cs-cart-panel{
+  height: 185px;
+}
+.custom-shop  .c-shop-item{
+  display: flex;
+  justify-content: space-between;
+}
+.cs-item-cont:nth-of-type(odd) {
+  /* color: red */
+  background-color: rgba(50, 50, 50, 0.1);
+}
+
+.custom-shop .cs-item-cost{
+  text-align: right;
+  width: 30px;
+}
+.custom-shop .cs-item-qty{
+  text-align: right;
+  width: 20px;
+}
+.m-r-5{
+  margin-right: 5px;
+}
+.m-r-20{
+  margin-right: 20px;
+}
+.m-r-10{
+  margin-right: 10px;
+}
+.cs-seller-header{
+  display: flex;
+  border-bottom:1px solid rgba(43, 151, 29, 0.082)
+}
+.cs-item-header{
+  width: 260px;
+}
+.cs-price-header{
+}
+.cs-qty-header{
+  width: 95px;
+}
+.type-header{
+  font-weight: 800;
+  font-size: 12pt;
+}
+.magic-item{
+  background-color: rgba(120,0,120,.25) !important;
+}
+.ose .cs-item{
+  background-color: rgba(0,200,0,.1)
+}
+.ose .cs-armor{
+  background-color: rgba(255, 163, 25, 0.151)
+}
+.ose .cs-weapon{
+  background-color: rgba(200, 0, 0, 0.1)
+}
+.c-shop-header{
+  display: flex;
+  justify-content: space-between;
+}
+.custom-shop .cs-item{
+  background-color: rgba(0,200,0,.1)
+}
+.custom-shop .cs-armor{
+  background-color: rgba(255, 163, 25, 0.151)
+}
+.custom-shop .cs-weapon{
+  background-color: rgba(200, 0, 0, 0.1)
+}
+.custom-shop .cart-item{
+  background-color: rgba(57, 102, 238, 0.1);
+}
+.custom-shop .nav-tab{
+  text-align: center;
+  background-color: rgb(172, 172, 172);
+  width: 75px;
+  height: 20px;
+  border-radius: 50% 50% 0% 0%;
+  border: 1px solid black;
+}
+.custom-shop .sheet-tabs {
+  padding: 0;
+  /* tab padding fix */
+  position: absolute;
+  transform: rotate(270deg);
+  top: 365px;
+  right: 300px;
+  width: 320px;
+  border-top: none;
+  height: 18px;
+  z-index: -1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+.custom-shop .main-panel{
+  width: 430px;
+  height: 445px;
+}
+.c-shop-cont{
+  width: 430px;
+  height: 445px;
+  position: absolute;
+  display: none;
+}
+.custom-shop #buy-tab{
+  background-color: green;
+  color: white;
+}
+.custom-shop h2 {
+  padding: 0 5px;
+  width: 240px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#shop-btn{
+  display: flex;
+  width: 200px;
+  height: 350px;
+  background-image: url(/modules/osr-item-shop/img/door.webp);
+
+}
+.custom-shop .buy-btn-cont{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px 0 10px;
+}
+.custom-shop .buy-btn-cont button{
+  width: 120px;
+}
+.cs-cart-price-cont{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5px;
+  width: 150px
+}
+.cs-cart-header{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5px;
+  border-bottom: 1px solid rgba(151, 29, 29, 0.075)
+}
+.custom-shop .items{
+  width: 260px;
+}
+.custom-shop .price{
+  width: 110px;
+}
+.custom-shop .actor-gold{
+  padding: 0 8px;
+}
+.custom-shop .actor-inventory-header{
+  display: flex;
+}
+#sell-cart-div{
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+}
+#actor-inventory{
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  border-bottom: 5px solid rgba(51, 0, 0, 0.8)
+}
+.sell-item-price{
+  width: 110px
+}
+.sell-item-qty{
+  margin-right: 5px;
+}
+.sell-item-qty-cont{
+  text-align: center;
+  padding-top: 4px;
+  padding-left: 2px;
+}
+.sell-controls{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  padding: 5px 10px 0 10px;
+}
+.sell-btn-cont{
+  margin-top:2px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  
+}
+.sell-btn-cont button{
+  width: 120px
 }

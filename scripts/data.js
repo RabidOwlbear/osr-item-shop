@@ -1,4 +1,5 @@
-Hooks.on('OSRIS Registered', ()=>{
+// Hooks.on('OSRIS Registered', 
+export const registerOsrisData = ()=>{
 OSRIS.osrItems = {
   adventuringGear: [
     {
@@ -313,4 +314,4 @@ OSRIS.shopListsA = {
   }
 };
 
-})
+}

@@ -1,4 +1,4 @@
-Hooks.on('OSRIS Registered', () => {
+export const registerFastpack = () => {
   OSRIS.fp = OSRIS.fp || {};
   OSRIS.fp.fastPackList = function (selection, actorClass) {
     let cItem;
@@ -123,4 +123,4 @@ Hooks.on('OSRIS Registered', () => {
     const actor = canvas.tokens.controlled[0].actor;
     new OSRIS.fp.fastPack(actor).render(true);
   };
-});
+}

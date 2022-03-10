@@ -1,4 +1,5 @@
-Hooks.on('OSRIS Registered', ()=>{
+function registerUtilities(){
+// Hooks.on('OSRIS Registered', ()=>{
 OSRIS.util.addPackItems = async function (actor, itemList) {
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
   const compendium = await game.packs.get('osr-item-shop.osr items');
@@ -14,7 +15,7 @@ OSRIS.util.addPackItems = async function (actor, itemList) {
     for (let i = 0; i < item.qty; i++) {
       count++;
       console.log('item count', count, item.name);
-      await sleep(500);
+      await sleep(10);
       await actor.createEmbeddedDocuments('Item', [itemObj.data]);
     }
     
@@ -43,7 +44,7 @@ OSRIS.util.buyItems = async function (data) {
   //console.log(compendium);
   ui.notifications.info('Adding Items To Sheet');
   for (let item of list) {
-    await sleep(500);
+    await sleep(10);
     console.log('item', item);
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
@@ -224,5 +225,6 @@ OSRIS.util.clearText = function (field) {
   }
 }
 
-
-})
+}
+// })
+export {registerUtilities}
