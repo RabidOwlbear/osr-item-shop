@@ -3,14 +3,13 @@
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
   "author": "Grim",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "compatibleCoreVersion": "0.8.0",
+  "socket": true,
+  "esmodules":[
+    "./scripts/init.js"
+  ],
   "scripts": [
-    "./scripts/data.js",
-    "./scripts/fastPack.js",
-    "./scripts/util.js",
-    "./scripts/init.js",
-    "./scripts/itemShop.js"
   ],
   "styles": ["./styles/main.css"],
   "packs": [
@@ -45,6 +44,11 @@
     {
       "name": "lib-wrapper",
       "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
+      "type": "module"
+    },
+    {
+      "name": "socketlib",
+      "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
       "type": "module"
     }
   ],
