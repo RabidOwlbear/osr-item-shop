@@ -591,7 +591,7 @@ export const registerCustomShop = () => {
     OSRIS.socket.executeAsGM(`gmHandleSeller`, sellerData)
     // close sheet and shop
     // await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: seller.name, action: 'unset'})
-    data.shop.shopSheet.close()
+    if(data.shop.shopSheet) data.shop.shopSheet.close()
     data.shop.close()
   }
 
@@ -799,5 +799,13 @@ export const registerCustomShop = () => {
       case roll == 20: 
       ui.notifications.warn('Critical Fail! - prices increased by 10%')
     }
+  }
+  OSRIS.customShop.renderCShopOnly = async function (actorName){
+    let a = await game.actors.getName(actorName)
+    if(!a){
+      ui.notifications.warn('Actor not found!');
+      return
+    }
+    OSRIS.customShop.renderCShop(a)
   }
 };

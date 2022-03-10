@@ -3,8 +3,8 @@
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
   "author": "Grim",
-  "version": "0.1.0",
-  "compatibleCoreVersion": "0.8.0",
+  "version": "0.1.1",
+  "compatibleCoreVersion": "0.9.0",
   "socket": true,
   "esmodules":[
     "./scripts/init.js"
