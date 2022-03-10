@@ -337,7 +337,7 @@ export const registerCustomShop = () => {
 
 
   OSRIS.customShop.getInvHtml = async function (actor) {
-    let items = actor.data.items;
+    let items = actor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP');
     let itemList = ``;
     if (items) {
       let itemTypes = [];
@@ -350,9 +350,9 @@ export const registerCustomShop = () => {
 
       for (let type of itemTypes) {
         let groupItems = items.filter((i) => i.type == type);
-        sortedItems.push({
+        sortedItems.push({ 
           type: type,
-          items: type == 'item' ? groupItems.filter((i) => i.name != 'GP') : groupItems
+          items: groupItems //type == 'item' ? groupItems.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP') :
         });
       }
       for (let group of sortedItems) {

@@ -190,7 +190,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
 Hooks.on('closeCShop',async (data, html)=>{
   console.log('close sheet')
   let actor = data.actor;
-  if(actor.data.flags["osr-item-shop"].customShop){
+  if(actor.data.flags["osr-item-shop"]?.customShop){
     await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: actor.name, action: 'unset'})
   }
 
