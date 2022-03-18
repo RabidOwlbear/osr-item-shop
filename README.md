@@ -58,3 +58,7 @@ Shown above is the default macro included. Several of the options can be adjuste
 
 Clicking the macro will create a new actor,and place it in a folder matching the folder name provided, creating one if it does not exist. if random stock is enabled, the actor will be stocked with a random selection of items from the provided SRD items following the procedure detailed above. 
 
+#### Buy/Sell Chat Message settings
+- Send shopping cart to chat message on buy: when checked the custom shop will output the shopping cart to chat when items are bought.
+- Send shopping cart to chat message on sell: when checked the custom shop will output the shopping cart to chat when items are sold.
+- GM whisper shopping cart messages: when checked the chat messages from the previous settings will be whispered to the GM istead of being sent to chat.
