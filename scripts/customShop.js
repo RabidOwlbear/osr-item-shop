@@ -580,7 +580,7 @@ export const registerCustomShop = () => {
         let data = itemObj.clone().data
         await buyer.createEmbeddedDocuments('Item', [data]);
       }
-      sellerData.items.push({name: itemObj.name, qty: qty})
+      sellerData.items.push({name: itemObj.name, qty: qty, cost: itemObj.data.data.cost})
     }
     let newSGQty = sgQty + cartTotal;
     let newBGQty = bgQty - cartTotal;
@@ -591,15 +591,63 @@ export const registerCustomShop = () => {
     OSRIS.socket.executeAsGM(`gmHandleSeller`, sellerData)
     // close sheet and shop
     // await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: seller.name, action: 'unset'})
+    if(await game.settings.get('osr-item-shop', 'buyMessageCheck')){
+      let msgData = {
+      type: 'buy',
+      actor: buyer,
+      shop: seller,
+      total : cartTotal,
+      items: sellerData.items
+      }
+      await OSRIS.customShop.cartMsg(msgData)
+    }
     if(data.shop.shopSheet) data.shop.shopSheet.close()
     data.shop.close()
   }
+  OSRIS.customShop.cartMsg = async function (data){
+    let {type, items, shop, actor, total} = data;
+    let transType = type == 'buy' ? `Bought` : type == 'sell' ? 'Sold' : null
+    if(!transType){
+      ui.notifications.error('type not found');
+      return
+    }
+    let itemList = ``
+    for(let i of items){
+      if(i.qty){
+        itemList += `
+       <div style = "display: flex; justify-content: space-between;">
+       
+         <div style="display: flex; justify-content: space-between; width: 200px;">
+           <div style="width: 150px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;"> - ${i.name}</div>
+           <div style="width: 30px">&nbsp<b>x</b> ${i.qty}</div>
+         </div>
+         
+         <div style="display: flex; justify-content: space-between; width: 50px">
+           <div style="width: 35px">cost:</div>
+           <div>${i.cost * i.qty}</div>
+         </div>
+       </div>`
+    }
+      }
+       
+    let msgContent = `<h3>${actor.name}</h3>
+    <p></p>
+     <div style="border-bottom: 2px solid black; margin-bottom: 3px;">${transType} the following Items for: ${total}GP</div>
+     ${itemList}`
 
+    let whisper = await game.settings.get('osr-item-shop', 'cartMsgWhisper') ? game.users.filter(u=>u.isGM) : [];
+    ChatMessage.create({
+      speaker: game.user,
+      content: msgContent,
+      whisper: whisper
+    })
+    
+  }
   OSRIS.customShop.cShopItemSell = async function(data){
     const {selectedActor, shopActor, shop, html} = data;
     
     const sellCont = document.querySelector('#actor-inventory')
-    const sActorInv = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP');
+    const sActorInv = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
     const shopGpObj = shopActor.data.items.find(i=>i.name == 'GP');
     let sActorGpObj = selectedActor.data.items.find(i=>i.name == 'GP')
     let shopGp = shopGpObj.data.data.quantity.value;
@@ -618,7 +666,8 @@ export const registerCustomShop = () => {
       sList.push({
         name: itemObj.name,
         objList: itemSet,
-        qty: inp.value
+        qty: parseInt(inp.value),
+        cost: itemObj.data.data.cost
       })
 
     }
@@ -651,7 +700,17 @@ export const registerCustomShop = () => {
         let updatedActorGp = sActorGpObj.data.data.quantity.value + totalGp
         await sActorGpObj.update({data:{quantity:{value: updatedActorGp}}})
         // await shopGpObj.update({data:{quantity:{value: shopGp - totalGp}}})
-        
+        if(await game.settings.get('osr-item-shop', 'sellMessageCheck')){
+          
+          let msgData = {
+          type: 'sell',
+          actor: selectedActor,
+          shop: shopActor,
+          total : totalGp,
+          items: sList
+          }
+          await OSRIS.customShop.cartMsg(msgData)
+        }
         shop.close()
         
         shop.shopSheet.close()
@@ -758,7 +817,7 @@ export const registerCustomShop = () => {
       }
   }
   OSRIS.customShop.renderSellPanelInv= async function (selectedActor, shopActor, html){
-    const items = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP');
+    const items = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
     let itemNames = []
     items.map(i=> {if(!itemNames.includes(i.name)){ itemNames.push(i.name)}});
     
