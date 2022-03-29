@@ -630,10 +630,15 @@ export const registerCustomShop = () => {
     }
       }
        
-    let msgContent = `<h3>${actor.name}</h3>
+    let msgContent = `
+    <details open>
+    <summary>
+    <h3 style="display: inline">${actor.name}</h3>
+    </summary>
     <p></p>
      <div style="border-bottom: 2px solid black; margin-bottom: 3px;">${transType} the following Items for: ${total}GP</div>
-     ${itemList}`
+     ${itemList}
+     </details>`
 
     let whisper = await game.settings.get('osr-item-shop', 'cartMsgWhisper') ? game.users.filter(u=>u.isGM) : [];
     ChatMessage.create({
