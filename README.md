@@ -45,7 +45,7 @@ Adds ability to create custom shop actors.
 
 Custom shops are created using the provided macro.
 
-![icon](./img/misc/new-custom-shop-doc.webp)
+![new custom shop image](./img/misc/new-custom-shop-doc.webp)
 
 Shown above is the default macro included. Several of the options can be adjusted to the users preference.
 
