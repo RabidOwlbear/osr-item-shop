@@ -1,5 +1,9 @@
 # osr-item-shop
 
+Created by RabidOwlbear.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J1BW12R)
+
 ### installation
 
 instal inside foundry using the following url:
