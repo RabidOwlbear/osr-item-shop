@@ -9,14 +9,14 @@ OSRIS.util.addPackItems = async function (actor, itemList) {
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
     const qty = item.qty;
-    console.log('item', itemObj.data);
+    console.log('item', itemObj);
     let count = 0;
     
     for (let i = 0; i < item.qty; i++) {
       count++;
       console.log('item count', count, item.name);
       await sleep(10);
-      await actor.createEmbeddedDocuments('Item', [itemObj.data]);
+      await actor.createEmbeddedDocuments('Item', [itemObj]);
     }
     
   }
@@ -32,9 +32,9 @@ data: {
 */
 OSRIS.util.buyItems = async function (data) {
   const { list, actor } = data;
-  const goldItem = actor.data.items.getName('GP');
+  const goldItem = actor.items.getName('GP');
   //console.log(goldItem);
-  const actorGold = goldItem.data.data.quantity.value;
+  const actorGold = goldItem.system.quantity.value;
   //console.log(actorGold);
   const newGp = actorGold - data.totalCost;
   //console.log(newGp, data.totalCost);
@@ -49,11 +49,11 @@ OSRIS.util.buyItems = async function (data) {
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
     // console.log('itemObj', itemObj);
-    let existingItem = actor.data.items.getName(itemObj.name);
+    let existingItem = actor.items.getName(itemObj.name);
     //console.log('existing', existingItem);
     if (existingItem && item.stack == true) {
       console.log('stack existing, sheet existing');
-      let newQty = existingItem.data.data.quantity.value + itemObj.data.data.quantity.value * item.qty;
+      let newQty = existingItem.system.quantity.value + itemObj.system.quantity.value * item.qty;
       let data = { data: { quantity: { value: newQty } } };
 
       //console.log('data', data);
@@ -61,21 +61,21 @@ OSRIS.util.buyItems = async function (data) {
     } else if (!existingItem && item.stack) {
       console.log('stack existing');
       const itemData = await itemObj.clone();
-      const oldQty = itemData.data.data.quantity.value;
+      const oldQty = itemData.system.quantity.value;
 
       const newQty = oldQty * item.qty;
 
-      itemData.data.data.quantity.value = newQty;
+      itemData.system.quantity.value = newQty;
       console.log(itemData, oldQty, newQty);
-      await actor.createEmbeddedDocuments('Item', [itemData.data]);
-      let existingItem = actor.data.items.getName(itemObj.name);
+      await actor.createEmbeddedDocuments('Item', [itemData]);
+      let existingItem = actor.items.getName(itemObj.name);
 
       let data = { data: { quantity: { value: newQty } } };
       console.log('data', data);
       await existingItem.update(data);
     } else {
       for (let i = 0; i < item.qty; i++) {
-        const data = itemObj.clone().data;
+        const data = itemObj.clone();
         await actor.createEmbeddedDocuments('Item', [data]);
       }
     }
@@ -83,7 +83,7 @@ OSRIS.util.buyItems = async function (data) {
   ui.notifications.info('Completed Adding Items To Sheet');
 }
 OSRIS.util.checkGold = function (actor, price) {
-  const gold = actor.data.items.getName('GP')?.data.data.quantity.value;
+  const gold = actor.items.getName('GP')?.system.quantity.value;
   if (price) {
     if (gold < price) {
       ui.notifications.warn('Not Enough Gold!');
@@ -168,7 +168,7 @@ OSRIS.util.randomBuyList = function (actor, gold, itemArr, rem = 0) {
     let curItem = itemArr[Math.floor(Math.random() * itemArr.length)];
     const actorOwned = actor.items.getName(curItem.name);
     let actorOwnedQty =
-      typeof actorOwned?.data?.data?.quantity?.value == 'number' ? actorOwned.data.data.quantity.value : 0;
+      typeof actorOwned?.system.quantity?.value == 'number' ? actorOwned.system.quantity.value : 0;
     let inList = workObj.list.find((obj) => obj.name == curItem.name);
     console.log('ownedInit', inList, actorOwnedQty);
     //console.log('item', curItem, 'owned', owned);
@@ -209,8 +209,8 @@ OSRIS.util.buyRandomItems = async function (type = 'equipment') {
 
 
   const itemList = OSRIS.util.osrItemsByType(type);
-  const gold = await actor.data.items.getName('GP').data.data.quantity.value;
-  const actorItems = actor.data.items.contents;
+  const gold = await actor.items.getName('GP').system.quantity.value;
+  const actorItems = actor.items.contents;
   const listObj = await OSRIS.util.randomBuyList(actor, gold, itemList, 3);
   console.log(listObj);
   OSRIS.util.buyItems({ list: listObj.list, actor: actor, totalCost: listObj.totalCost });

@@ -60,8 +60,8 @@ export const registerFastpack = () => {
   };
 
   OSRIS.fp.fastPackDialog = function (actor) {
-    const actorClass = actor.data.data.details.class;
-    const gold = actor.data.items.getName('GP').data.data.quantity.value;
+    const actorClass = actor.system.details.class;
+    const gold = actor.items.getName('GP').system.quantity.value;
     let template = ``;
   };
 
@@ -69,8 +69,8 @@ export const registerFastpack = () => {
     constructor(actor) {
       super();
       this.actor = actor;
-      this.gold = actor.data.items.getName('GP')?.data.data.quantity.value;
-      this.class = actor.data.data.details.class;
+      this.gold = actor.items.getName('GP')?.system.quantity.value;
+      this.class = actor.system.details.class;
     }
     static get defaultOptions() {
       return mergeObject(super.defaultOptions, {
@@ -87,11 +87,11 @@ export const registerFastpack = () => {
       super.activateListeners(html);
       const buy = html.find('#fastPackBuy');
       const close = html.find('#fastPackClose');
-      const gpItem = this.actor.data.items.getName('GP');
+      const gpItem = this.actor.items.getName('GP');
 
       buy.on('click', async (event) => {
         if (gpItem) {
-          const gold = gpItem.data.data.quantity.value;
+          const gold = gpItem.system.quantity.value;
           const selected = html.find("input[type='radio'][name='pack-select']:checked")[0].value;
           const itemList = OSRIS.fp.fastPackList(selected, this.actor);
 

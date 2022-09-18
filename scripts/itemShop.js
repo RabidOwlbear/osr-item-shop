@@ -108,7 +108,7 @@ OSRIS.shop.renderItemShop = async function (actor = null) {
     actor = token[0].actor;
   }
 
-  const goldItem = actor.data.items.find((i) => i.name == 'GP');
+  const goldItem = actor.items.find((i) => i.name == 'GP');
   if (!goldItem) {
     ui.notifications.error('No Gold Found');
     return;
@@ -296,9 +296,9 @@ data: {
 OSRIS.shop.buyItems = async function (data) {
   const itemList = game.settings.get('osrItemShop', 'itemList');
   const { list, actor } = data;
-  const goldItem = actor.data.items.getName('GP');
+  const goldItem = actor.items.getName('GP');
   
-  const actorGold = goldItem.data.data.quantity.value;
+  const actorGold = goldItem.system.quantity.value;
   
   const newGp = actorGold - data.totalCost;
   
@@ -320,11 +320,11 @@ OSRIS.shop.buyItems = async function (data) {
     await sleep(500);
     const itemData = await compendium.index.getName(item.name);
     const itemObj = await compendium.getDocument(itemData._id);
-    let existingItem = await actor.data.items.getName(itemObj.name);
+    let existingItem = await actor.items.getName(itemObj.name);
     
     if (existingItem && item.stack == true) {
       console.log('stack existing, sheet existing');
-      let newQty = existingItem.data.data.quantity.value + itemObj.data.data.quantity.value * item.qty;
+      let newQty = existingItem.system.quantity.value + itemObj.system.quantity.value * item.qty;
       let data = { data: { quantity: { value: newQty } } };
 
       
@@ -332,18 +332,18 @@ OSRIS.shop.buyItems = async function (data) {
     } else if (!existingItem && item.stack) {
       console.log('stack existing');
       const itemData = await itemObj.clone();
-      const oldQty = itemData.data.data.quantity.value;
+      const oldQty = itemData.system.quantity.value;
       const newQty = oldQty * item.qty;
-      itemData.data.data.quantity.value = newQty;
+      itemData.system.quantity.value = newQty;
       
-      await actor.createEmbeddedDocuments('Item', [itemData.data]);
-      let existingItem = actor.data.items.getName(itemObj.name);
+      await actor.createEmbeddedDocuments('Item', [itemData]);
+      let existingItem = actor.items.getName(itemObj.name);
       let data = { data: { quantity: { value: newQty } } };
       
       await existingItem.update(data);
     } else {
       for (let i = 0; i < item.qty; i++) {
-        const data = itemObj.clone().data;
+        const data = itemObj.clone();
         await actor.createEmbeddedDocuments('Item', [data]);
       }
     }
