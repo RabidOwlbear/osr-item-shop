@@ -149,7 +149,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
   const sourceCont = html.find(`[id="source-list"]`)[0];
   const actorGold = html.find(`span[id="actor-gold"]`)[0];
   const sList = await OSRIS.shop.listContent({ type: 'source', data: sourceList, isItem: false }, html);
-  const actorGp = formObj.actor.data.items.getName('GP').data.data.quantity.value;
+  const actorGp = formObj.actor.items.getName('GP').system.quantity.value;
   
   actorGold.innerText = `${actorGp}`;
   
@@ -214,7 +214,7 @@ Hooks.on('renderItemShopForm', async (formObj, html, c) => {
 Hooks.on('closeCShop',async (data, html)=>{
   console.log('close sheet')
   let actor = data.actor;
-  if(actor.data.flags["osr-item-shop"]?.customShop){
+  if(actor.flags["osr-item-shop"]?.customShop){
     await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: actor.name, action: 'unset'})
   }
 

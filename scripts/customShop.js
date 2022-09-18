@@ -5,7 +5,7 @@ export const registerCustomShop = () => {
     let test = html.find('#char-select');
     // data
     let charActors = game.actors.filter((a) => {
-      if (a.type == 'character' && a.data.permission[game.user.id] && a.data.permission[game.user.id] > 2) {
+      if (a.type == 'character' && a.permission[game.user.id] && a.permission[game.user.id] > 2) {
         return a;
       }
     });
@@ -82,7 +82,7 @@ export const registerCustomShop = () => {
           return
         }else{
           
-          await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: actor.data.name, user: game.user, action: 'set'})
+          await OSRIS.socket.executeAsGM('gmShopFlag',{actorName: actor.name, user: game.user, action: 'set'})
           OSRIS.customShop.renderCShop(actor, aData);
         }
         
@@ -120,9 +120,9 @@ export const registerCustomShop = () => {
       let gpId = pack.index.contents.find((a) => a.name == 'GP')._id;
       const blankGp = await pack.getDocument(gpId);
       
-      let gData = blankGp.clone().data;
+      let gData = blankGp.clone();
       await actor.createEmbeddedDocuments('Item', [gData]);
-      let goldItem = actor.data.items.getName('GP');
+      let goldItem = actor.items.getName('GP');
       await goldItem.update({data:{quantity:{value: gold}}})
     if(stock){
       OSRIS.customShop.stockShop(actor, remainder);
@@ -194,7 +194,7 @@ export const registerCustomShop = () => {
       select.addEventListener('change', async (e) => {
         if(select.value != 'none'){
           let buyerActor = game.actors.get(select.value);
-          let actorGold = await buyerActor.items.getName('GP')?.data?.data?.quantity?.value;
+          let actorGold = await buyerActor.items.getName('GP')?.system.quantity?.value;
           actorGold = actorGold ? actorGold : 0
           let actorGoldField = html.find(`#actor-gold`)[0];
           actorGoldField.innerText = actorGold;
@@ -278,7 +278,7 @@ export const registerCustomShop = () => {
         }
 
         let buyerActor = game.actors.get(select.value);
-        let actorGold = await buyerActor.items.getName('GP')?.data?.data?.quantity?.value;
+        let actorGold = await buyerActor.items.getName('GP')?.system?.quantity?.value;
 
         if(total > actorGold){
           ui.notifications.warn('Not Enough Gold!')
@@ -306,7 +306,7 @@ export const registerCustomShop = () => {
   };
   OSRIS.customShop.renderCShop = async function (actor = null, shopSheet) {
     let charActors = game.actors.filter((a) => {
-      if (a.type == 'character' && a.data.permission[game.user.id] && a.data.permission[game.user.id] > 2) {
+      if (a.type == 'character' && a.permission[game.user.id] && a.permission[game.user.id] > 2) {
         return a;
       }
     });
@@ -323,7 +323,7 @@ export const registerCustomShop = () => {
     };
     let obj = {
       name: actor.name,
-      shopGp: actor.data.items.find(i=>i.name == 'GP').data.data.quantity.value,
+      shopGp: actor.items.find(i=>i.name == 'GP').system.quantity.value,
       items: `${itemHtml}`,
       chars: charActors,
       portrait: {
@@ -337,7 +337,7 @@ export const registerCustomShop = () => {
 
 
   OSRIS.customShop.getInvHtml = async function (actor) {
-    let items = actor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP');
+    let items = actor.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP');
     let itemList = ``;
     if (items) {
       let itemTypes = [];
@@ -361,13 +361,13 @@ export const registerCustomShop = () => {
         for(let item of group.items){
           if(!groupItems.find(i=>i.name == item.name)){
             let itemCount = group.items.filter(i=>i.name == item.name).length;
-            let isMagic = item.data.data?.manualTags?.find((t) => t.value == 'Magic');
+            let isMagic = item.system?.manualTags?.find((t) => t.value == 'Magic');
             groupItems.push({
               name: item.name,
               id: item.id,
-              cost: item.data.data.cost,
+              cost: item.system.cost,
               qty: itemCount,
-              magic: item.data.data?.manualTags?.find((t) => t.value == 'Magic') ? `magic-item` : ``,
+              magic: item.system?.manualTags?.find((t) => t.value == 'Magic') ? `magic-item` : ``,
               typeColor: isMagic ?  `magic-item` :`cs-${item.type}`,
               template: `modules/osr-item-shop/templateData/custom-shop/shop-item.html`
             })
@@ -377,10 +377,10 @@ export const registerCustomShop = () => {
         for (let data of groupItems) {
           // let tData = {
           //   name: i.name,
-          //   qty: i.data.data.quantity.value,
-          //   cost: i.data.data.cost,
+          //   qty: i.system.quantity.value,
+          //   cost: i.system.cost,
           //   id: i.id,
-          //   magic: i.data.data?.manualTags?.find((t) => t.value == 'Magic') ? `magic-item` : ``,
+          //   magic: i.system?.manualTags?.find((t) => t.value == 'Magic') ? `magic-item` : ``,
           //   typeColor: `cs-${i.type}`,
           //   template: `modules/osr-item-shop/templateData/custom-shop/shop-item.html`
           // };
@@ -408,7 +408,7 @@ export const registerCustomShop = () => {
     // let cartCont = html.find(`#cs-cart-div`)[0]
     let inp = cartCont.querySelector(`[name='${itemId}']`);
     const tPrice = html.find(`span[id="${totalElId}"]`)[0];
-    let actorInv = actor.data.items
+    let actorInv = actor.items
     let item = actorInv.get(itemId)
     let itemQty = actorInv.filter(i=>i.name == item.name).length;
     //set initial element quantint value
@@ -428,7 +428,7 @@ export const registerCustomShop = () => {
 
         let itemDiv = html.find(`[id="${itemId}"]`);
         let price = itemDiv.find(`[class="cs-item-price cart-price"]`)[0];
-        price.innerText = `${parseInt(price.innerText) + itemObj.data.data.cost}GP`;
+        price.innerText = `${parseInt(price.innerText) + itemObj.system.cost}GP`;
         } else {
           return
         }
@@ -441,7 +441,7 @@ export const registerCustomShop = () => {
         el.innerHTML = `<div class="c-shop-item cart-item">
         <div class="cs-item-name">${itemObj.name}</div>
         <div class="cs-cart-price-cont">
-        <div class="cs-item-price cart-price">${itemObj.data.data.cost}GP</div> 
+        <div class="cs-item-price cart-price">${itemObj.system.cost}GP</div> 
         <div class="fx"> 
         <input type="number" class="cs-item-qty shop-qty cart-item" onfocus="if(this.value == '${elQty}') { this.value = ''; }" name="${itemObj.id}" value="${elQty}" />
         ${sellQty}
@@ -469,7 +469,7 @@ export const registerCustomShop = () => {
                 if(inp.value > itemQty) inp.value = itemQty
                 let oldPrice = parseInt(price.innerText);
                 
-                let newPrice = itemObj.data.data.cost * parseInt(inp.value);
+                let newPrice = itemObj.system.cost * parseInt(inp.value);
                 newPrice = newPrice < 0 ? 0 : newPrice
                 
                 price.innerText = `${newPrice}GP`;
@@ -521,7 +521,7 @@ export const registerCustomShop = () => {
             }
           })
       }
-      if(target == `buyCart`)tPrice.innerText = `${parseInt(tPrice.innerText) + itemObj.data.data.cost}`;
+      if(target == `buyCart`)tPrice.innerText = `${parseInt(tPrice.innerText) + itemObj.system.cost}`;
       
 
 
@@ -534,8 +534,8 @@ export const registerCustomShop = () => {
       let itemDiv = html.find(`[id="${itemId}"]`);
       let price = itemDiv.find(`[class="cs-item-price cart-price"]`)[0];
       if (inp) {
-        tPrice.innerText = `${parseInt(tPrice.innerText) - itemObj.data.data.cost}`;
-        price.innerText = `${parseInt(price.innerText) - itemObj.data.data.cost}GP`;
+        tPrice.innerText = `${parseInt(tPrice.innerText) - itemObj.system.cost}`;
+        price.innerText = `${parseInt(price.innerText) - itemObj.system.cost}GP`;
         inp.value = parseInt(inp.value) - 1;
         if (inp.value <= 0) {
           let item = html.find(`[id="${itemId}"]`)[0];
@@ -552,11 +552,11 @@ export const registerCustomShop = () => {
     let cartTotal = parseInt(html.find('#cs-cart-total')[0].innerText)
     
     let shopActorSheet = document.querySelector(`#actor-${seller.id}`)
-    let sellerInv = seller.data.items
-    let buyerGold = buyer.data.items.getName('GP');
-    let bgQty = buyerGold.data.data.quantity.value
-    let sellerGold = seller.data.items.getName('GP');
-    let sgQty = sellerGold.data.data.quantity.value
+    let sellerInv = seller.items
+    let buyerGold = buyer.items.getName('GP');
+    let bgQty = buyerGold.system.quantity.value
+    let sellerGold = seller.items.getName('GP');
+    let sgQty = sellerGold.system.quantity.value
     
     let cartList = html.find(`#cs-cart-div .cs-item-cont`)
     let sellerData = {
@@ -577,10 +577,10 @@ export const registerCustomShop = () => {
       for(let i=0; i< qty; i++){
         
         
-        let data = itemObj.clone().data
+        let data = itemObj.clone()
         await buyer.createEmbeddedDocuments('Item', [data]);
       }
-      sellerData.items.push({name: itemObj.name, qty: qty, cost: itemObj.data.data.cost})
+      sellerData.items.push({name: itemObj.name, qty: qty, cost: itemObj.system.cost})
     }
     let newSGQty = sgQty + cartTotal;
     let newBGQty = bgQty - cartTotal;
@@ -652,10 +652,10 @@ export const registerCustomShop = () => {
     const {selectedActor, shopActor, shop, html} = data;
     
     const sellCont = document.querySelector('#actor-inventory')
-    const sActorInv = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
-    const shopGpObj = shopActor.data.items.find(i=>i.name == 'GP');
-    let sActorGpObj = selectedActor.data.items.find(i=>i.name == 'GP')
-    let shopGp = shopGpObj.data.data.quantity.value;
+    const sActorInv = selectedActor.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
+    const shopGpObj = shopActor.items.find(i=>i.name == 'GP');
+    let sActorGpObj = selectedActor.items.find(i=>i.name == 'GP')
+    let shopGp = shopGpObj.system.quantity.value;
     let shopActorSheet = document.querySelector(`#actor-${shopActor.id}`);
     const totalGp = parseInt(html.find('#sell-total')[0].innerText);
     
@@ -672,7 +672,7 @@ export const registerCustomShop = () => {
         name: itemObj.name,
         objList: itemSet,
         qty: parseInt(inp.value),
-        cost: itemObj.data.data.cost
+        cost: itemObj.system.cost
       })
 
     }
@@ -702,7 +702,7 @@ export const registerCustomShop = () => {
             }
           }
         }
-        let updatedActorGp = sActorGpObj.data.data.quantity.value + totalGp
+        let updatedActorGp = sActorGpObj.system.quantity.value + totalGp
         await sActorGpObj.update({data:{quantity:{value: updatedActorGp}}})
         // await shopGpObj.update({data:{quantity:{value: shopGp - totalGp}}})
         if(await game.settings.get('osr-item-shop', 'sellMessageCheck')){
@@ -735,8 +735,8 @@ export const registerCustomShop = () => {
       let {actorId, shopId, items, newGoldAmt, state, total} = data;
       let actor = await game.actors.get(actorId);
       let shop = await game.actors.get(shopId);
-      let goldItem = await shop.data.items.getName('GP')
-      // let itemList = data.actor.data.items
+      let goldItem = await shop.items.getName('GP')
+      // let itemList = data.actor.items
       
       if(state == 'buy'){
         for(let item of items){
@@ -752,13 +752,13 @@ export const registerCustomShop = () => {
         for(let item of items){
           for (let i = 0; i < item.qty; i++){
             
-            let itemObj = actor.data.items.getName(item.objList[i].name)
+            let itemObj = actor.items.getName(item.objList[i].name)
             
-            const data = itemObj.clone().data;
+            const data = itemObj.clone();
             await shop.createEmbeddedDocuments('Item', [data]);
           }
         }
-        newGoldAmt = goldItem.data.data.quantity.value - total
+        newGoldAmt = goldItem.system.quantity.value - total
         await goldItem.update({data:{quantity:{value: newGoldAmt}}})
       }
       
@@ -771,8 +771,8 @@ export const registerCustomShop = () => {
     
     const compendium = await game.packs.get('osr-item-shop.osr items');
     const list = OSRIS.itemData;
-    let gpObj = actor.data.items.getName('GP')
-    let initGP = gpObj.data.data.quantity.value;
+    let gpObj = actor.items.getName('GP')
+    let initGP = gpObj.system.quantity.value;
     let gpTarget = initGP - remainder
     let gpTotal = 0
     let loop = true
@@ -784,7 +784,7 @@ export const registerCustomShop = () => {
         const itemData = await compendium.index.getName(curItem.name);
         const itemObj = await compendium.getDocument(itemData._id);
         for(let i = 0; i < qty; i++){
-          await actor.createEmbeddedDocuments('Item', [itemObj.data])
+          await actor.createEmbeddedDocuments('Item', [itemObj])
         }
         if(gpTotal >= gpTarget) loop = false
       }
@@ -813,7 +813,7 @@ export const registerCustomShop = () => {
     }
   }
   OSRIS.customShop.closeAllShopFlag = async function(){
-      let flagged = game.actors.filter(a=> a.data.flags?.["osr-item-shop"]?.shopOpen);
+      let flagged = game.actors.filter(a=> a.flags?.["osr-item-shop"]?.shopOpen);
       
       if(flagged.length){
         for(let actor of flagged){
@@ -822,7 +822,7 @@ export const registerCustomShop = () => {
       }
   }
   OSRIS.customShop.renderSellPanelInv= async function (selectedActor, shopActor, html){
-    const items = selectedActor.data.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
+    const items = selectedActor.items.filter(i=>i.type != 'ability' && i.type != 'spell' && i.type != 'container' && i.name != 'GP' && i.name != 'PP' && i.name != 'EP' && i.name != 'SP' && i.name != 'CP');
     let itemNames = []
     items.map(i=> {if(!itemNames.includes(i.name)){ itemNames.push(i.name)}});
     
@@ -855,8 +855,8 @@ export const registerCustomShop = () => {
   OSRIS.customShop.haggle= function(mod = 0, actor, type){
     //prevent negative mod
     mod = mod != 0 && mod < 0 ? mod * -1 : mod
-    let cha = actor.data.data.scores.cha.value;
-    let chaMod = actordata.data.scores.cha.mod;
+    let cha = actor.system.scores.cha.value;
+    let chaMod = actordata.scores.cha.mod;
     let roll = (Math.floor(Math.random() * 20 + 1) - chaMod);
     let adjustedRoll = roll - mod;
     switch(roll){
