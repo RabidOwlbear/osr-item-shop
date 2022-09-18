@@ -32,7 +32,7 @@
       "type": "Item",
       "entity": "Item",
       "module": "osr-item-shop",
-      "system": ["ose-dev"]
+      "system": ["ose"]
     },
     {
       "name": "osr macros",
@@ -41,7 +41,7 @@
       "type": "Macro",
       "entity": "Macro",
       "module": "osr-item-shop",
-      "system": ["ose-dev"]
+      "system": ["ose"]
     },
     {
       "name": "osr scenes",
@@ -50,7 +50,7 @@
       "type": "Scene",
       "entity": "Scene",
       "module": "osr-item-shop",
-      "system": ["ose-dev"]
+      "system": ["ose"]
     }
   ],
   "relationships": {
