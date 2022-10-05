@@ -31,7 +31,8 @@ export const registerCustomShop = () => {
       let shopHtml = await renderTemplate(tdShop.template, tdShop);
 
       // grab elements
-      let sheetHtml = document.querySelector(`#actor-${aData.actor.id}`);
+      console.log(`#OseActorSheetCharacter-Actor-${aData.actor.id}`)
+      let sheetHtml = document.querySelector(`#OseActorSheetCharacter-Actor-${aData.actor.id}`);
       let attrib = sheetHtml.querySelector(`.tab[data-tab="attributes"]`);
       let abil = sheetHtml.querySelector(`.tab[data-tab="abilities"]`);
       let nav = sheetHtml.querySelector(`nav`);
@@ -39,7 +40,7 @@ export const registerCustomShop = () => {
       let details = sheetHtml.querySelector(`section.header-details`);
       let imgCont = sheetHtml.querySelector(`.profile`);
       let modBar = sheetHtml.querySelector(`.modifiers-btn`);
-      let rszHndl = document.querySelector(`#actor-${aData.actor.id} .window-resizable-handle`);
+      let rszHndl = sheetHtml.querySelector(`.window-resizable-handle`);
       let invCont = document.querySelector(`[data-tab="inventory"] section.inventory`);
 
       /*  set styles  */
@@ -70,7 +71,7 @@ export const registerCustomShop = () => {
 
         tab.style[`margin-right`] = '20px';
       }
-      let shopBtn = document.querySelector(`#actor-${aData.actor.id} #shop-btn`);
+      let shopBtn = sheetHtml.querySelector(`#shop-btn`);
       shopBtn.addEventListener('click',async  (e) => {
         e.preventDefault()
         
@@ -306,7 +307,7 @@ export const registerCustomShop = () => {
   };
   OSRIS.customShop.renderCShop = async function (actor = null, shopSheet) {
     let charActors = game.actors.filter((a) => {
-      if (a.type == 'character' && a.permission[game.user.id] && a.permission[game.user.id] > 2) {
+      if (a.type == 'character' && a.isOwner) {
         return a;
       }
     });
