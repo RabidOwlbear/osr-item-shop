@@ -32,7 +32,8 @@ export const registerCustomShop = () => {
 
       // grab elements
       console.log(`#OseActorSheetCharacter-Actor-${aData.actor.id}`)
-      let sheetHtml = document.querySelector(`#OseActorSheetCharacter-Actor-${aData.actor.id}`);
+      let sheetIdString = `[id$="-Actor-${aData.actor.id}"]`
+      let sheetHtml = document.querySelector(sheetIdString);
       let attrib = sheetHtml.querySelector(`.tab[data-tab="attributes"]`);
       let abil = sheetHtml.querySelector(`.tab[data-tab="abilities"]`);
       let nav = sheetHtml.querySelector(`nav`);
