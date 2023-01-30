@@ -10,7 +10,7 @@
       "url": "https://github.com/RabidOwlbear"
     }
   ],
-  "version": "0.1.12",
+  "version": "0.2.00",
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": "10",
@@ -20,10 +20,10 @@
   "socket": true,
   "esmodules": ["./scripts/init.js"],
   "scripts": [],
-  "styles": ["./styles/main.css"],
+  "styles": ["./styles/item-shop.css"],
   "packs": [
     {
-      "name": "osr items",
+      "name": "osr-items",
       "label": "OSR Items",
       "path": "packs/osrItems.db",
       "type": "Item",
@@ -32,7 +32,7 @@
       "system": ["ose"]
     },
     {
-      "name": "osr macros",
+      "name": "osr-macros",
       "label": "OSR Macros",
       "path": "packs/osrMacros.db",
       "type": "Macro",
@@ -41,7 +41,7 @@
       "system": ["ose"]
     },
     {
-      "name": "osr scenes",
+      "name": "osr-scenes",
       "label": "OSR Scenes",
       "path": "packs/osrScenes.db",
       "type": "Scene",

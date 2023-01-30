@@ -1,0 +1,77 @@
+<section class="list-header buy">
+  <div class="item item-template-b">
+    <p>Name</p>
+    <p>Cost</p>
+    <p>Buy</p>
+  </div>
+</section>
+<section class="item-list">
+  <div class="cat-header">Weapons</div>
+  {{#each shopItems.weapons as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="buy-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Armor</div>
+  {{#each shopItems.armor as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="buy-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Items</div>
+  {{#each shopItems.items as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="buy-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  
+</section>
+<div class='buy-footer'>
+    <div class='buy-total'>
+      <label><b>Purchase Total</b>:</label>
+      <input id="buy-total" type='text' data-dtype='Number' value='0' placeholder='0' disabled />
+    </div>
+    <a id="buy-btn">Buy Items</a>
+  </div>

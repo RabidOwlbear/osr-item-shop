@@ -1,0 +1,29 @@
+<form class="select-cont">
+  <h3 class="header">Item Shop Select</h3>
+  <div class="shop-cont">
+    {{#if uShopActive}}
+      <div class="row">
+        <label>Universal Item Shop</label>
+        <div class="shop-controls">
+          <a
+          class="universal-btn"
+          data-actor-id="{{actorId}}"
+          title="Open Universal Item Shop"
+          >
+            <i class="fa-solid fa-store"></i>
+          </a>
+        </div>
+      </div>
+    {{/if}}
+    {{#each shops as |shop idx|}}
+      <div class="row">
+        <label for="">{{shop.name}}</label>
+        <div class="shop-controls">
+          <a class="shop-btn" data-shop-id="{{shop.id}}" data-actor-id="{{../actorId}}">
+            <i class="fa-solid fa-store"></i>
+          </a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</form>

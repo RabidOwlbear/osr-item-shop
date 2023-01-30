@@ -1,0 +1,30 @@
+<form class="osr-item-shop">
+  <header >
+    {{>'modules/osr-item-shop/templateData/item-shop/partials/shop-header.hbs'}}
+  </header>
+  <nav class="sheet-tabs" data-group="primary">
+    <a class="nav-tab" data-tab="buy">Buy</a>
+    <a class="nav-tab" data-tab="sell">Sell</a>
+    {{#if universalShop}}
+    <a class="nav-tab" data-tab="packs">Packs</a>
+    {{/if}}
+  </nav>
+  <section class="tab-content" id="tab-content">
+    <div class="tab buy" data-group="primary" data-tab="buy">
+      {{#if universalShop}}
+        {{> 'modules/osr-item-shop/templateData/item-shop/partials/buy-tab.hbs'}}
+      {{else}}
+        {{> 'modules/osr-item-shop/templateData/item-shop/partials/actor-buy-tab.hbs'}}
+      {{/if}}
+    </div>
+    <div class="tab sell" data-group="primary" data-tab="sell">
+      {{> 'modules/osr-item-shop/templateData/item-shop/partials/sell-tab.hbs'}}
+    </div>
+    {{#if universalShop}}
+    <div class="tab packs" data-group="primary" data-tab="packs">
+      {{> 'modules/osr-item-shop/templateData/item-shop/partials/pack-tab.hbs'}}
+    </div>
+    {{/if}}
+  </section>
+  
+</form>

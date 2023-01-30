@@ -1,0 +1,77 @@
+<section class="list-header sell">
+  <div class="item item-template-b">
+    <p>Name</p>
+    <p>Cost</p>
+    <p>Sell</p>
+  </div>
+</section>
+<section class="item-list">
+  <div class="cat-header">Weapons</div>
+  {{#each custItems.weapons as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="sell-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Armor</div>
+  {{#each custItems.armor as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="sell-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Items</div>
+  {{#each custItems.items as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-b"
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="checkbox" 
+        class="sell-check"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        >                
+      </div>
+    </div>
+  {{/each}}
+  
+</section>
+<div class='sell-footer'>
+    <div class='sell-total'>
+      <label><b>Sale Total</b>:</label>
+      <input id="sell-total" type='text' data-dtype='Number' value='0' placeholder='0' disabled />
+    </div>
+    <a id="sell-btn">Sell Items</a>
+  </div>

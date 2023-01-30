@@ -1,0 +1,406 @@
+:root {
+  /* --main-color: rgb(131, 9, 76);
+  --bg-color: rgb(236, 232, 214);
+  --border-a: rgb(78, 3, 38);
+  --list-row-bg: rgba(78, 3, 38,0.1);
+  --light-text: antiquewhite;
+  --dark-text: black;
+  --light-color: rgb(190, 15, 111);
+  --tab-color: rgb(126, 19, 64);
+  --tab-highlight: rgb(240, 151, 68); */
+  --main-color: rgb(6, 90, 105);
+  --bg-color: rgb(236, 232, 214);
+  --border-a: rgb(2, 51, 59);
+  --list-row-bg: rgba(2, 68, 68, 0.15);
+  --light-text: antiquewhite;
+  --dark-text: black;
+  --light-color: rgb(15, 164, 190);
+  --tab-color: rgb(14, 107, 110);
+  --tab-highlight: rgb(67, 218, 205);
+  --shop-select-color: rgb(153, 17, 58);
+  --shop-select-hilight:rgb(231, 0, 89);
+  --glow-color: rgba(255, 62, 191, 0.486);
+}
+.app.window-app.osris.osr-item-shop.item-shop {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.app.window-app.osris.osr-item-shop.item-shop .window-content {
+  background-image: none;
+  background: var(--bg-color);
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  overflow: hidden;
+}
+.app.window-app.osris.osr-item-shop.item-shop .window-header {
+  background-color: var(--main-color);
+  height: 100%;
+}
+.osr-item-shop p {
+  margin: 0;
+}
+.osr-item-shop i{
+  color: var(--tab-color)
+}
+.osr-item-shop input[type=checkbox]{
+  accent-color: var(--tab-color);
+}
+.osr-item-shop input[type=checkbox]:checked{
+  -webkit-filter: none;
+  filter: none;
+}
+.osr-item-shop form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.osr-item-shop button {
+  border: none;
+  border-radius: 0;
+  height: 1.5rem;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 600;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+}
+.osr-item-shop h2 {
+  border: none;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.osr-item-shop .shop-header {
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+}
+.osr-item-shop .center-items {
+  display: grid;
+  place-items: center;
+}
+.osr-item-shop .details {
+  padding: 0 0.35rem 0.75rem 0.35rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5rem 1fr 1fr 5rem;
+  grid-template-rows: repeat(4, 1.25rem);
+  grid-template-areas:
+    'shop-img shopkeep-label customer-label customer-img'
+    'shop-img shopkeeep-name customer-name customer-img'
+    'shop-img shop-gold-label customer-gold-label customer-img'
+    'shop-img shopkeep-gold customer-gold customer-img';
+  border-bottom: 0.35rem solid var(--main-color);
+}
+.osr-item-shop .item-qty {
+  height: 1rem;
+}
+.osr-item-shop .label {
+  font-weight: 700;
+}
+.shop-img {
+  grid-area: shop-img;
+}
+.shop-label {
+  grid-area: shopkeep-label;
+  padding-left: .5em;
+}
+.shop-name {
+  grid-area: shopkeeep-name;
+  padding-left: .5em;
+}
+.shop-gold-label {
+  grid-area: shop-gold-label;
+  padding-left: .5em;
+}
+.shop-gold {
+  grid-area: shopkeep-gold;
+  padding-left: .5em;
+}
+.customer-img {
+  grid-area: customer-img;
+}
+.customer-label {
+  grid-area: customer-label;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.customer-name {
+  grid-area: customer-name;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.customer-gold-label {
+  grid-area: customer-gold-label;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.customer-gold {
+  grid-area: customer-gold;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.osr-item-shop .shop-header img {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 0.45rem;
+  border: 4px double var(--border-a);
+}
+
+.osr-item-shop .sheet-tabs {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.osr-item-shop .nav-tab {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  color: var(--light-text);
+  background-color: var(--tab-color);
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.osr-item-shop .nav-tab.active {
+  background-color: var(--tab-highlight);
+  color: var(--dark-text);
+}
+.osr-item-shop .tab-content {
+  /* display: flex; */
+  height: 420px;
+  background:url('../img/owlbear_watermark_a.webp') center / 65% no-repeat;
+}
+/* buy tab */
+.osr-item-shop .cat-header {
+  height: 1.2rem;
+  background-color: var(--main-color);
+  color: var(--light-text);
+  text-align: center;
+  margin: 0 0 0.2rem 0;
+}
+.osr-item-shop .ch-marg-top {
+  margin-top: 0.3rem;
+}
+.osr-item-shop .qty-btn {
+  display: grid;
+  place-items: center;
+}
+.osr-item-shop .item {
+  width: 100%;
+  height: 1.5rem;
+  padding: 0 0.5rem 0.3rem;
+  display: grid;
+  align-items: center;
+  
+}
+.osr-item-shop .item-template-a{
+  grid-template-columns: 4fr 5rem 2rem 25px 25px;
+}
+.osr-item-shop .item-template-b{
+  grid-template-columns: 8fr 5rem 2rem ;
+}
+.osr-item-shop .item-list::-webkit-scrollbar {
+  display: none;
+}
+.osr-item-shop .item-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 345px;
+  /* max-height: 20rem; */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-bottom: 0.2rem solid var(--border-a);
+}
+
+.osr-item-shop .item-row {
+  width: 100%;
+  display: flex;
+}
+.osr-item-shop .item-row:nth-of-type(odd){
+  background-color: var(--list-row-bg);
+}
+.osr-item-shop .list-header {
+  height: 25px;
+  border-bottom: 0.3rem solid var(--tab-color);
+}
+.osr-item-shop .sell-footer,
+.osr-item-shop .buy-footer{
+  min-width: 100%;
+  height: 50px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.osr-item-shop .sell-total,
+.osr-item-shop .buy-total{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  
+}
+.osr-item-shop .buy-total input,
+.osr-item-shop .sell-total input{
+  width: 4rem;
+  background: transparent;
+  margin-left: .3rem;
+
+}
+.osr-item-shop #sell-btn,
+.osr-item-shop #buy-btn{
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* config tab */
+.ose.sheet.actor.character .osris-config h3{
+  font-weight: bold;
+  border: none;
+  text-align: center;
+}
+.ose.sheet.actor.character .osris-config{
+  position: relative;
+
+}
+.ose.sheet.actor.character .osris.config{
+  /* ../ui/parchment.jpg) repeat */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background:url('../img/owlbear_watermark_a.webp') no-repeat, url('../../../ui/parchment.jpg') repeat;
+  background-size: contain, auto;
+  background-position: center;
+}
+.ose.sheet.actor.character .osris.config .bg-image{
+  position: absolute;
+  height: 100%;
+}
+.ose.sheet.actor.character .osris.config .update-shop-config-btn{
+  width: 100%;
+  height: 25px;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ose.sheet.actor.character .osris.config .options{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.ose.sheet.actor.character .osris.config .row{
+  /* width: 80%; */
+  display: flex;
+  justify-content: space-between;
+}
+/* item shop select */
+.app.window-app.osris.item-shop-select{
+  border-radius: .5em;
+  overflow: hidden;
+  background: transparent;
+}
+.osris.item-shop-select header.window-header{
+background-color: var(--main-color);
+}
+.osris.item-shop-select .window-content{
+  background-image: none;
+  background: var(--bg-color);
+  margin: 0px;
+  padding: 0px;
+}
+.osris.item-shop-select .row{
+  display: flex;
+  padding: 0 .4em;
+  justify-content: space-between;
+  margin-bottom: .3em;
+}
+.osris.item-shop-select .row label{
+  font-weight: bold;
+}
+.osris.item-shop-select h3{
+  border: none;
+  font-weight: 700;
+  text-align: center;
+  padding: .2em 0;
+}
+.osris.item-shop-select .select-cont{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.osris.item-shop-select .shop-cont{
+  height: 110%;
+}
+
+/*character sheet shop button */
+
+.ose.sheet.actor.character .profile .shop-button{
+  position: absolute;
+  top: 5px;
+  left: 120px;
+  color:var(--shop-select-color);
+  opacity: 0;
+  /* background: radial-gradient(var(--glow-color) 0%, #fff0 70%) */
+}
+.ose.sheet.actor.character .profile:hover .shop-button{
+  opacity: 1;
+  text-shadow: 0 0 10px var(--glow-color);
+}
+.ose.sheet.actor.character .profile:hover .shop-button:hover{
+  
+  color:var(--glow-color);
+}
+/* packs tab */
+.osr-item-shop .tab{
+  height: 100%;
+}
+.osr-item-shop .tab.packs{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.osr-item-shop #pack-div{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 1em;
+  padding: 0 .5em;
+}
+.osr-item-shop #pack-div .radio-select {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+.osr-item-shop #fastPack .pack-col {
+  width: 150px;
+  margin-bottom: 0.5em;
+  
+  /* background-color: rgb(165, 165, 141); */
+}
+.osr-item-shop .buy-pack-btn{
+  width: 100%;
+  height: 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align:  center;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}

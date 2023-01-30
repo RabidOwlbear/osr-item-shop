@@ -1,0 +1,98 @@
+<section class="tab-cont buy">
+  <div class="item  item-template-a list-header">
+    <p>Name</p>
+    <p>Cost</p>
+    <p>Qty</p>
+    <p class="center-items"><i class='fa-solid fa-minus'></i></p>
+    <p class="center-items"><i class='fa-solid fa-plus'></i></p>
+    
+  </div>
+</section>
+<section class="item-list">
+  <div class="cat-header">Weapons</div>
+  {{#each shopItems.weapons as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-a "
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="text" 
+        class="item-qty qty"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        data-item-name="{{item.name}}"
+        value="0"
+        placeholder="0"
+        >
+        <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+        <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+        
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Armor</div>
+  {{#each shopItems.armor as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-a "
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="text" 
+        class="item-qty qty"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        data-item-name="{{item.name}}"
+        value="0"
+        placeholder="0"
+        >
+        <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+        <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+        
+      </div>
+    </div>
+  {{/each}}
+  <div class="cat-header ch-marg-top">Items</div>
+  {{#each shopItems.items as |item idx|}}
+    <div class="item-row">
+      <div 
+      class="item item-template-a "
+      data-type="{{item.type}}"
+      data-cost="{{item.system.cost}}"
+      data-id="{{item.id}}"
+      >
+        <p>{{item.name}}</p>
+        <p>{{item.system.cost}}</p>
+        <input 
+        type="text" 
+        class="item-qty qty"
+        data-item-id="{{item.id}}"
+        data-item-type="{{item.type}}"
+        data-item-name="{{item.name}}"
+        value="0"
+        placeholder="0"
+        >
+        <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+        <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+        
+      </div>
+    </div>
+  {{/each}}
+  
+</section>
+<div class='buy-footer'>
+    <div class='buy-total'>
+      <label><b>Purchase Total</b>:</label>
+      <input id="buy-total" type='text' data-dtype='Number' value='0' placeholder='0' disabled />
+    </div>
+    <a id="buy-btn">Buy Items</a>
+  </div>
