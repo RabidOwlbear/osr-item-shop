@@ -8,30 +8,7 @@ export function registerSettings(){
     default: true,
     config: true
   });
-  game.settings.register('osr-item-shop', 'buyMessageCheck', {
-    name: 'Send shopping cart to chat message on buy',
-    hint: 'Sends shopping cart to chat message when a user buys items using a custom shop.',
-    scope: 'world',
-    type: Boolean,
-    default: false,
-    config: true
-  });
-  game.settings.register('osr-item-shop', 'sellMessageCheck', {
-    name: 'Send shopping cart to chat message on sell',
-    hint: 'Sends shopping cart to chat message when a user sells items using a custom shop.',
-    scope: 'world',
-    type: Boolean,
-    default: false,
-    config: true
-  });
-  game.settings.register('osr-item-shop', 'cartMsgWhisper', {
-    name: 'GM whisper shopping cart chat messages',
-    hint: 'Whispers shopping cart messages to the GM instead of sending to open chat.',
-    scope: 'world',
-    type: Boolean,
-    default: false,
-    config: true
-  });
+  
   game.settings.register('osrItemShop', 'sourceList', {
     name: 'sourceList',
     type: Array,

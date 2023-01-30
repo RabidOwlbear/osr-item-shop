@@ -404,3 +404,8 @@ background-color: var(--main-color);
   justify-content: center; 
   align-items: center;
 }
+.osr-item-shop #pack-title{
+  border: none;
+  text-align: center;
+  font-weight: 700;
+}

@@ -437,7 +437,7 @@ export async function handleShopConfigTab(sheetObj, sheetEl, actorObj) {
     let newTab = document.createElement('a');
     newTab.classList.add('item');
     newTab.dataset.tab = 'config';
-    newTab.innerText = 'Config';
+    newTab.innerText = 'OSRIS';
     // add tab
     tabDiv.appendChild(newTab);
     // create tab content el
