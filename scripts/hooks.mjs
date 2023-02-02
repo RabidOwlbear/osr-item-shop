@@ -1,14 +1,11 @@
 import { registerSettings } from './settings.mjs';
-// import { registerUtilities } from './util.js';
 import { registerOsrisData } from './data.js';
-// import { registerItemShop } from './itemShop.js';
-// import { registerCustomShop } from './customShop.js';
-// import { registerFastpack } from './fastPack.js';
 import { preloadHandlebarsTemplates } from './registerPartials.mjs';
-import { osrItemShop, newItemShop, stockItemShop, buyRandomItems, randomBuyList, renderUniversalItemShop} from './item-shop/osrItemShop.mjs';
+import { osrItemShop, newItemShop, stockItemShop, buyRandomItems, randomBuyList, renderUniversalItemShop, closeAllShops} from './item-shop/osrItemShop.mjs';
 import { handleShopConfigTab } from './item-shop/osrItemShop.mjs';
 import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
+
 export function registerHooks() {
   Hooks.on('init', () => {
     console.log(`
@@ -47,15 +44,16 @@ export function registerHooks() {
   });
   Hooks.once('socketlib.ready', () => {});
   Hooks.once('ready', async () => {
+    closeAllShops()
     migrateShops()
     preloadHandlebarsTemplates();
     console.log('osrItemSHop ready');
     let ose = game.modules.get('old-school-essentials')?.active;
 
-    const singleGM = game.users.filter((u) => u.role == 4)[0];
+    const singleGM = game.users.filter((u) => u.role == 4 && u.active)[0];
     //if old school essential module installed
     if (game.user.role >= 4 && game.user.id == singleGM.id) {
-      // await OSRIS.customShop.closeAllShopFlag();
+
       if (ose) {
         const optionsObj = [
           {
@@ -96,7 +94,6 @@ export function registerHooks() {
     sleep(5000);
     let curData = game.settings.get('osrItemShop', 'sourceList');
 
-    // Hooks.on('renderActorSheet', OSRIS.customShop.hijackSheet);
     Hooks.on('custom-shop-process-seller', () => {
       OSRIS.socket.executeAsGM(`gmHandleSeller`);
     });
@@ -195,7 +192,7 @@ export function registerHooks() {
 
 // remove after version 0.2.1
 async function migrateShops(){
-  const singleGM = game.users.filter(u=>u.role == 4)[0].id;
+  const singleGM = game.users.filter(u=>u.role == 4 && u.active)[0].id;
   if(game.user.id == singleGM){
     let actors = game.actors.filter(a=>{ 
       let hasFlag = a.getFlag('osr-item-shop', 'customShop');

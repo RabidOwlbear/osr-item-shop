@@ -136,7 +136,11 @@ export class osrItemShop extends FormApplication {
     items = items.filter((i) => !currency.includes(i.name) && types.includes(i.type));
     return items;
   }
+  _clearCart(html){
+    const sellCheck = html.find('.sell-check');
+    const buyCheck = html.find('.sell-check');
 
+  }
   _addQty(ev, html, type) {
     ev.preventDefault();
     const buyTotal = html.find('#buy-total')[0];
@@ -622,4 +626,14 @@ export async function renderUniversalItemShop(actorId = null){
     return
   }
   new OSRIS.shopClass('universal', actor).render(true);
+}
+export async function closeAllShops(){
+  let openShops = game.actors.filter(a=>a.flags?.['osr-item-shop']?.shopInUse);
+  let singleGM = game.users.filter(u=>u.role == 4 && u.active)[0];
+  if(game.user.id == singleGM.id){
+    openShops.map(s=>{
+      s.unsetFlag('osr-item-shop', 'shopInUse')
+    })
+    
+  }
 }

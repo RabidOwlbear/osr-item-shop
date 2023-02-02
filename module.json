@@ -10,7 +10,7 @@
       "url": "https://github.com/RabidOwlbear"
     }
   ],
-  "version": "0.2.01",
+  "version": "0.2.02",
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": "10",
@@ -24,7 +24,7 @@
   "packs": [
     {
       "name": "osr-items",
-      "label": "OSR Items",
+      "label": "osr-items",
       "path": "packs/osrItems.db",
       "type": "Item",
       "entity": "Item",

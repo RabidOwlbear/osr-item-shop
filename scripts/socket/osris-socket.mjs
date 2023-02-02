@@ -7,7 +7,7 @@ export const socket = {
     const data = socketData.data
     const type = socketData.type
     console.log('GMsocket')
-    let singleGM = game.users.filter((u) => u.isGM)[0];
+    let singleGM = game.users.filter((u) => u.isGM && u.active)[0];
     
     console.log(socketData)
     switch (type){
@@ -34,44 +34,54 @@ export const socket = {
   },
   transactionComplete: async function(data){
     ui.notifications.notify('Transaction Complete.')
-    if(game.user.id == data.userId){
+    if(game.user.id == data.userId ){
+      console.log('rerender')
       ui.windows[data.appId].render()
     }
   },
   shopTransaction: async (data)=>{
-    const shop = await game.actors.get(data.shop._id)
-    const customer = await game.actors.get(data.customer._id)
-    let shopGP = shop.items.getName('GP')
-    let customerGP = customer.items.getName('GP')
+    const shop = await game.actors.get(data.shop._id);
+    const customer = await game.actors.get(data.customer._id);
+    let shopGP = shop.items.getName('GP');
+    let customerGP = customer.items.getName('GP');
     let {items, total, newGP} = data;
+    let itemList = []
     switch(data.type){
       case 'buy':
-        
         for(let item of items){
           let itemObj = await shop.items.get(item.id);
-          await customer.createEmbeddedDocuments('Item', [itemObj]);
+          itemList.push(itemObj);
           // let shopItem = shop.items.get(item.id)
-          await itemObj.delete()
+          await itemObj.delete();
         }
-        await customerGP.update({system:{quantity:{value: newGP.customer}}})
-        await shopGP.update({system:{quantity:{value: newGP.shop}}})
+        await customer.createEmbeddedDocuments('Item', itemList);
+        await customerGP.update({system:{quantity:{value: newGP.customer}}});
+        await shopGP.update({system:{quantity:{value: newGP.shop}}});
         break
       case 'sell':
         for(let item of items){
           let itemObj = await customer.items.get(item.id);
-          await shop.createEmbeddedDocuments('Item', [itemObj]);         
-          await itemObj.delete()
+          itemList.push(itemObj);        
+          await itemObj.delete();
         }
-        await customerGP.update({system:{quantity:{value: newGP.customer}}})
-        await shopGP.update({system:{quantity:{value: newGP.shop}}})
+        await shop.createEmbeddedDocuments('Item', itemList); 
+        await customerGP.update({system:{quantity:{value: newGP.customer}}});
+        await shopGP.update({system:{quantity:{value: newGP.shop}}});
         break
         
     }
-    game.socket.emit('module.osr-item-shop', {type: 'transactionComplete', data: {
-      userId: data.userId, 
-      appId: data.shopApp
-      }
-    })
+    if(game.user.isGM){
+      game.socket.transactionComplete({
+        userId: data.userId, 
+        appId: data.shopApp
+        })
+    }else{
+      game.socket.emit('module.osr-item-shop', {type: 'transactionComplete', data: {
+        userId: data.userId, 
+        appId: data.shopApp
+        }
+      })
+    }
   },
 
   GMActorFlag: async (data)=>{
@@ -87,7 +97,7 @@ export const socket = {
     return true
   },
   settting: (data)=>{
-    let singleGM = game.users.filter((u) => u.isGM)[0];
+    let singleGM = game.users.filter((u) => u.isGM && u.active)[0];
     if (game.user.id != singleGM.id) return;
     switch (data.type){
       case 'set':
