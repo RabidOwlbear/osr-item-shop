@@ -26,7 +26,7 @@ export function registerSettings(){
     hint: 'Item Compendium used to stock the Universal Item Shop. Name must be lowercase, substituting dashes for spaces. The name must match the desired item compendium name.',
     scope: 'world',
     type: String,
-    default: 'OSR Items',
+    default: 'osr-items',
     config: true
   });
   game.settings.register('osr-item-shop', 'universalShopActive', {
