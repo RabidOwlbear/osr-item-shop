@@ -16,9 +16,7 @@ export class osrItemShop extends FormApplication {
   }
   async getData() {
     const context = super.getData();
-
     context.universalShop = this.shop == 'universal';
-
     context.shopItems = context.universalShop ? await this._getItems() : await this._getItems(this.shop);
     context.custItems = await this._getItems(this.customer);
     context.shopName = context.universalShop ? 'Universal Item Shop' : `${this.shop.name}'s Item Shop`;
@@ -31,9 +29,7 @@ export class osrItemShop extends FormApplication {
     }
     context.custImg = this.customer.img;
     context.customerName = this.customer.name;
-
     context.customerGold = this.customer.items.getName('GP').system.quantity.value;
-
     return context;
   }
 
@@ -44,25 +40,19 @@ export class osrItemShop extends FormApplication {
       items = this._filterActorItems(actor);
     } else {
       const packName = game.settings.get('osr-item-shop', 'universalShopCompendium').toLowerCase();
-
       let pack = await game.packs.get(`osr-item-shop.${packName}`);
       if (!pack) pack = await game.packs.get(`world.${packName}`);
       if (!pack) {
         ui.notifications.warn('Universal Item Shop Pack Not Found. Please Check The Corresponding Module Setting.');
         return;
       }
-      let itemList = pack.index.contents.filter((i) => i.name !== '#[CF_tempEntity]');
-      itemList = this._filterItems(itemList);
-      items = [];
-      for (let i of itemList) {
-        let item = await pack.getDocument(i._id);
-        items.push(item);
-      }
+      let contents = await pack.getDocuments();
+      let itemList = contents.filter((i) => i.name !== '#[CF_tempEntity]');
+      items = this._filterItems(itemList);
     }
     itemObj.items = items.filter((i) => i.type == 'item');
     itemObj.weapons = items.filter((i) => i.type == 'weapon');
     itemObj.armor = items.filter((i) => i.type == 'armor');
-
     return itemObj;
   }
   close() {
