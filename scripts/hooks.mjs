@@ -1,7 +1,7 @@
 import { registerSettings } from './settings.mjs';
 import { registerOsrisData } from './data.js';
 import { preloadHandlebarsTemplates } from './registerPartials.mjs';
-import { osrItemShop, newItemShop, stockItemShop, buyRandomItems, randomBuyList, renderUniversalItemShop, closeAllShops} from './item-shop/osrItemShop.mjs';
+import { osrItemShop, newItemShop, stockItemShop, buyRandomItems, randomBuyList, renderUniversalItemShop, closeAllShops, openShopCheck} from './item-shop/osrItemShop.mjs';
 import { handleShopConfigTab } from './item-shop/osrItemShop.mjs';
 import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
@@ -39,12 +39,13 @@ export function registerHooks() {
     OSRIS.shop.buyRandomItems = buyRandomItems
     OSRIS.shop.randomBuyList = randomBuyList
     OSRIS.shop.RUIS = renderUniversalItemShop
+    OSRIS.shop.openShopCheck = openShopCheck
     // OSRIS.socket.register('cShopItemSell', OSRIS.customShop.cShopItemSell)
     // OSRIS.socket.register('csBuyCart', OSRIS.customShop.csBuyCart)
   });
   Hooks.once('socketlib.ready', () => {});
   Hooks.once('ready', async () => {
-    closeAllShops()
+    openShopCheck()
     migrateShops()
     preloadHandlebarsTemplates();
     console.log('osrItemSHop ready');

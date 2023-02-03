@@ -8,8 +8,6 @@ export const socket = {
     const type = socketData.type
     console.log('GMsocket')
     let singleGM = game.users.filter((u) => u.isGM && u.active)[0];
-    
-    console.log(socketData)
     switch (type){
       case 'setting':
         if (game.user.id != singleGM.id) return;
@@ -85,7 +83,7 @@ export const socket = {
   },
 
   GMActorFlag: async (data)=>{
-    console.log('wtf', data);
+    console.log("gm-actor-flag:", data.type)
     let {flag, flagData, actorId, type} = data;
     const actor = await game.actors.get(actorId);
     if(type == 'set'){

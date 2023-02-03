@@ -637,3 +637,17 @@ export async function closeAllShops(){
     
   }
 }
+export async function openShopCheck(){
+  let shopId = game.user.getFlag('osr-item-shop', 'shopOpen')?.shopId;
+  if(shopId){
+    console.log('shopOpen')
+    let socketData = {
+      flag: 'shopInUse',
+      flagData: null,
+      actorId: shopId,
+      type: 'unset'
+    }
+    game.socket.emit('module.osr-item-shop', {type: 'actorFlag', data: socketData})
+    game.user.unsetFlag('osr-item-shop', 'shopOpen');
+  }
+}

@@ -69,7 +69,8 @@ export class ItemShopSelectForm extends FormApplication {
       };
       game.socket.emit('module.osr-item-shop', socketData);
     }
-
+    //set open shop flag on user
+    game.user.setFlag('osr-item-shop', 'shopOpen', {shopId: shopId})
     this.close();
     return;
   }
