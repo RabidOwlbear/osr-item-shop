@@ -239,7 +239,7 @@ export class osrItemShop extends FormApplication {
     let gpItem = this.customer.items.getName('GP');
     let gp = gpItem.system.quantity.value;
 
-    items = sellChecks.map((i) => {
+    let items = sellChecks.map((i) => {
       let item = i.closest('.item').dataset;
       return {
         type: item.type,
