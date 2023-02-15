@@ -1,72 +1,87 @@
 {
   "id": "osr-item-shop",
-  "name": "osr-item-shop",
   "title": "OSR Item Shop",
   "description": "OSR Item Shop",
-  "author": "RabidOwlbear",
   "authors": [
     {
       "name": "Rabid Owlbear",
-      "url": "https://github.com/RabidOwlbear"
+      "url": "https://github.com/RabidOwlbear",
+      "flags": {}
     }
   ],
-  "version": "0.2.05",
-  "compatibleCoreVersion": "10",
+  "version": "0.2.06",
   "compatibility": {
     "minimum": "10",
     "verified": "10.284",
     "maximum": "10"
   },
   "socket": true,
-  "esmodules": ["./scripts/init.js"],
-  "scripts": [],
-  "styles": ["./styles/item-shop.css"],
+  "esmodules": [
+    "scripts/init.js"
+  ],
+  "styles": [
+    "styles/item-shop.css"
+  ],
   "packs": [
     {
       "name": "osr-items",
       "label": "osr-items",
       "path": "packs/osrItems.db",
       "type": "Item",
-      "entity": "Item",
-      "module": "osr-item-shop",
-      "system": ["ose"]
+      "system": "ose",
+      "private": false,
+      "flags": {}
     },
     {
       "name": "osr-macros",
       "label": "OSR Macros",
       "path": "packs/osrMacros.db",
       "type": "Macro",
-      "entity": "Macro",
-      "module": "osr-item-shop",
-      "system": ["ose"]
+      "system": "ose",
+      "private": false,
+      "flags": {}
     },
     {
       "name": "osr-scenes",
       "label": "OSR Scenes",
       "path": "packs/osrScenes.db",
       "type": "Scene",
-      "entity": "Scene",
-      "module": "osr-item-shop",
-      "system": ["ose"]
+      "system": "ose",
+      "private": false,
+      "flags": {}
     }
   ],
   "relationships": {
-    "systems": [{ "id": "ose" }, { "id": "ose-dev" }],
+    "systems": [
+      {
+        "id": "ose",
+        "type": "system",
+        "compatibility": {}
+      },
+      {
+        "id": "ose-dev",
+        "type": "system",
+        "compatibility": {}
+      }
+    ],
     "requires": [
       {
         "id": "compendium-folders",
         "manifest": "https://raw.githubusercontent.com/earlSt1/vtt-compendium-folders/0.1.1/module.json",
-        "type": "module"
+        "type": "module",
+        "compatibility": {}
       },
       {
         "id": "lib-wrapper",
         "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
-        "type": "module"
+        "type": "module",
+        "compatibility": {}
       },
       {
         "id": "socketlib",
         "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
-        "type": "module"
+        "type": "module",
+        "compatibility": {}
       }
     ]
   },

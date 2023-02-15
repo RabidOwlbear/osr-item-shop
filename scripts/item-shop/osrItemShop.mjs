@@ -126,10 +126,9 @@ export class osrItemShop extends FormApplication {
     items = items.filter((i) => !currency.includes(i.name) && types.includes(i.type));
     return items;
   }
-  _clearCart(html){
+  _clearCart(html) {
     const sellCheck = html.find('.sell-check');
     const buyCheck = html.find('.sell-check');
-
   }
   _addQty(ev, html, type) {
     ev.preventDefault();
@@ -546,16 +545,16 @@ export async function buyRandomItems(actorId = null, equipmentOnly = false) {
     }
     actor = canvas.tokens.controlled[0].actor;
   }
-  if(!actor.isOwner || !game.user.isGM){
-    ui.notifications.warn('You Do Not Have Permission To Alter This Actor.')
-    return
+  if (!actor.isOwner || !game.user.isGM) {
+    ui.notifications.warn('You Do Not Have Permission To Alter This Actor.');
+    return;
   }
   const gpItem = actor.items.getName('GP');
   if (!gpItem) {
     ui.notifications.warn(`No GP Item Found In Actor ${actor.name}, Aborting Random Item Purchase.`);
     return;
   }
-  let gold = gpItem.system.quantity.value
+  let gold = gpItem.system.quantity.value;
   const packName = game.settings.get('osr-item-shop', 'universalShopCompendium');
   let pack = await game.packs.get(`osr-item-shop.${packName}`);
   if (!pack) pack = await game.packs.get(`world.${packName}`);
@@ -574,13 +573,13 @@ export async function buyRandomItems(actorId = null, equipmentOnly = false) {
   }
   console.log(items);
   const listObj = OSRIS.shop.randomBuyList(gold, items, 3);
-  console.log('items',listObj)
+  console.log('items', listObj);
 
-  if(listObj && listObj.list.length){
+  if (listObj && listObj.list.length) {
     await actor.createEmbeddedDocuments('Item', listObj.list);
-    console.log('items created')
-    await gpItem.update({system:{quantity:{value: gold - listObj.totalCost}}});
-    ui.notifications.notify(`Items Created In Actor ${actor.name}.`)
+    console.log('items created');
+    await gpItem.update({ system: { quantity: { value: gold - listObj.totalCost } } });
+    ui.notifications.notify(`Items Created In Actor ${actor.name}.`);
   }
 }
 export function randomBuyList(gold, itemArr, rem = 0) {
@@ -597,12 +596,12 @@ export function randomBuyList(gold, itemArr, rem = 0) {
     if (workObj.gold - itemCost >= rem) {
       workObj.gold -= itemCost;
       workObj.totalCost += itemCost;
-      workObj.list.push(deepClone(curItem))
+      workObj.list.push(deepClone(curItem));
     }
   }
   return workObj;
 }
-export async function renderUniversalItemShop(actorId = null){
+export async function renderUniversalItemShop(actorId = null) {
   let actor = actorId ? await game.actors.get(actorId) : null;
   if (!actor) {
     if (canvas.tokens.controlled.length != 1) {
@@ -611,33 +610,68 @@ export async function renderUniversalItemShop(actorId = null){
     }
     actor = canvas.tokens.controlled[0].actor;
   }
-  if(!actor.isOwner && !game.user.isGM){
-    ui.notifications.warn('You Do Not Have Permission To Alter This Actor.')
-    return
+  if (!actor.isOwner || !game.user.isGM) {
+    ui.notifications.warn('You Do Not Have Permission To Alter This Actor.');
+    return;
   }
   new OSRIS.shopClass('universal', actor).render(true);
 }
-export async function closeAllShops(){
-  let openShops = game.actors.filter(a=>a.flags?.['osr-item-shop']?.shopInUse);
-  let singleGM = game.users.filter(u=>u.role == 4 && u.active)[0];
-  if(game.user.id == singleGM.id){
-    openShops.map(s=>{
-      s.unsetFlag('osr-item-shop', 'shopInUse')
-    })
-    
+export async function renderItemShop(shopId = null, customerId = null) {
+  let shop = shopId ? await game.actors.get(shopId) : null;
+  let customer = customerId ? await game.actors.get(actorId) : null;
+  if (!customer) {
+    if (canvas.tokens.controlled.length != 1) {
+      ui.notifications.warn('Please select ONE token.');
+      return;
+    }
+    customer = canvas.tokens.controlled[0].actor;
+  }
+
+  if (shop.getFlag('osr-item-shop', 'shopInUse')) {
+    ui.notifications.warn('Shop Currently In Use. Try Again Later.');
+    return;
+  }
+  if (game.user.isGM) {
+    shop.setFlag('osr-item-shop', 'shopInUse', true);
+  } else {
+    let socketData = {
+      type: 'actorFlag',
+      data: {
+        actorId: shopId,
+        flag: 'shopInUse',
+        flagData: true,
+        type: 'set'
+      }
+    };
+    game.socket.emit('module.osr-item-shop', socketData);
+  }
+
+  // if(!shop.isOwner || !game.user.isGM){
+  //   ui.notifications.warn('You Do Not Have Permission To Alter This Actor.')
+  //   return
+  // }
+  new OSRIS.shopClass(shop, customer).render(true);
+}
+export async function closeAllShops() {
+  let openShops = game.actors.filter((a) => a.flags?.['osr-item-shop']?.shopInUse);
+  let singleGM = game.users.filter((u) => u.role == 4 && u.active)[0];
+  if (game.user.id == singleGM.id) {
+    openShops.map((s) => {
+      s.unsetFlag('osr-item-shop', 'shopInUse');
+    });
   }
 }
-export async function openShopCheck(){
+export async function openShopCheck() {
   let shopId = game.user.getFlag('osr-item-shop', 'shopOpen')?.shopId;
-  if(shopId){
-    console.log('shopOpen')
+  if (shopId) {
+    console.log('shopOpen');
     let socketData = {
       flag: 'shopInUse',
       flagData: null,
       actorId: shopId,
       type: 'unset'
-    }
-    game.socket.emit('module.osr-item-shop', {type: 'actorFlag', data: socketData})
+    };
+    game.socket.emit('module.osr-item-shop', { type: 'actorFlag', data: socketData });
     game.user.unsetFlag('osr-item-shop', 'shopOpen');
   }
 }
