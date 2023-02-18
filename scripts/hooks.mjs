@@ -1,7 +1,17 @@
 import { registerSettings } from './settings.mjs';
 import { registerOsrisData } from './data.js';
 import { preloadHandlebarsTemplates } from './registerPartials.mjs';
-import { osrItemShop, newItemShop, stockItemShop, buyRandomItems, randomBuyList, renderUniversalItemShop, renderItemShop, closeAllShops, openShopCheck} from './item-shop/osrItemShop.mjs';
+import {
+  osrItemShop,
+  newItemShop,
+  stockItemShop,
+  buyRandomItems,
+  randomBuyList,
+  renderUniversalItemShop,
+  renderItemShop,
+  closeAllShops,
+  openShopCheck
+} from './item-shop/osrItemShop.mjs';
 import { handleShopConfigTab } from './item-shop/osrItemShop.mjs';
 import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
@@ -55,7 +65,6 @@ export function registerHooks() {
     const singleGM = game.users.filter((u) => u.role == 4 && u.active)[0];
     //if old school essential module installed
     if (game.user.role >= 4 && game.user.id == singleGM.id) {
-
       if (ose) {
         const optionsObj = [
           {
@@ -169,47 +178,48 @@ export function registerHooks() {
     }
   });
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
-    let hideTab = game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
-    if (!game.user.isGM && !hideTab) {
-      handleShopConfigTab(sheetObj, sheetEl, actorObj);
-    }
-    if (game.user.isGM) {
-      handleShopConfigTab(sheetObj, sheetEl, actorObj);
-    }
+    if (actorObj.type === 'character') {
+      let hideTab = game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
+      if (!game.user.isGM && !hideTab) {
+        handleShopConfigTab(sheetObj, sheetEl, actorObj);
+      }
+      if (game.user.isGM) {
+        handleShopConfigTab(sheetObj, sheetEl, actorObj);
+      }
 
-    let imageEl = sheetEl[0].querySelector('.profile');
-    // add shop button
-    const shopBtnEl = document.createElement('a');
-    shopBtnEl.classList.add('shop-button');
-    const shopBtnImg = document.createElement('i');
-    shopBtnImg.classList.add('fa-solid', 'fa-store');
-    shopBtnEl.appendChild(shopBtnImg);
-    imageEl.appendChild(shopBtnEl);
-    shopBtnEl.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
-    });
+      let imageEl = sheetEl[0].querySelector('.profile');
+      // add shop button
+      const shopBtnEl = document.createElement('a');
+      shopBtnEl.classList.add('shop-button');
+      const shopBtnImg = document.createElement('i');
+      shopBtnImg.classList.add('fa-solid', 'fa-store');
+      shopBtnEl.appendChild(shopBtnImg);
+      imageEl.appendChild(shopBtnEl);
+      shopBtnEl.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
+      });
+    }
   });
 }
 
 // remove after version 0.2.1
-async function migrateShops(){
-  const singleGM = game.users.filter(u=>u.role == 4 && u.active)[0].id;
-  if(game.user.id == singleGM){
-    let actors = game.actors.filter(a=>{ 
+async function migrateShops() {
+  const singleGM = game.users.filter((u) => u.role == 4 && u.active)[0].id;
+  if (game.user.id == singleGM) {
+    let actors = game.actors.filter((a) => {
       let hasFlag = a.getFlag('osr-item-shop', 'customShop');
-      if(hasFlag != undefined){
-        return a
+      if (hasFlag != undefined) {
+        return a;
       }
-    })
-    if(actors.length){
+    });
+    if (actors.length) {
       ui.notifications.notify('OSR-Item-Shop: Beginning Update Of Custom Shops.');
-      for(let actor of actors){
-        actor.setFlag('osr-item-shop', 'shopConfig',{shopName: actor.name, enabled: true});
-        actor.unsetFlag('osr-item-shop', 'customShop')
+      for (let actor of actors) {
+        actor.setFlag('osr-item-shop', 'shopConfig', { shopName: actor.name, enabled: true });
+        actor.unsetFlag('osr-item-shop', 'customShop');
       }
       ui.notifications.notify('OSR-Item-Shop: Custom Shops Update Complete.');
     }
   }
-  
 }
