@@ -178,6 +178,7 @@ export function registerHooks() {
     }
   });
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
+    console.log(actorObj, actorObj.isOwner)
     if (actorObj.type === 'character') {
       let hideTab = game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
       if (!game.user.isGM && !hideTab) {
@@ -189,16 +190,19 @@ export function registerHooks() {
 
       let imageEl = sheetEl[0].querySelector('.profile');
       // add shop button
-      const shopBtnEl = document.createElement('a');
-      shopBtnEl.classList.add('shop-button');
-      const shopBtnImg = document.createElement('i');
-      shopBtnImg.classList.add('fa-solid', 'fa-store');
-      shopBtnEl.appendChild(shopBtnImg);
-      imageEl.appendChild(shopBtnEl);
-      shopBtnEl.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
-      });
+      if(actorObj.owner){
+        const shopBtnEl = document.createElement('a');
+        shopBtnEl.classList.add('shop-button');
+        const shopBtnImg = document.createElement('i');
+        shopBtnImg.classList.add('fa-solid', 'fa-store');
+        shopBtnEl.appendChild(shopBtnImg);
+        imageEl.appendChild(shopBtnEl);
+        shopBtnEl.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
+        });
+      }
+     
     }
   });
 }

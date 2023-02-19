@@ -610,7 +610,7 @@ export async function renderUniversalItemShop(actorId = null) {
     }
     actor = canvas.tokens.controlled[0].actor;
   }
-  if (!actor.isOwner || !game.user.isGM) {
+  if (!actor.isOwner || (!actor.isOwner && !game.user.isGM)) {
     ui.notifications.warn('You Do Not Have Permission To Alter This Actor.');
     return;
   }
