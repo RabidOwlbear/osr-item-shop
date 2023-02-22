@@ -2,7 +2,7 @@
 
 Created by RabidOwlbear.
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J1BW12R)
+Supprted via patreon: https://patreon.com/owlbear_aviary
 
 ### installation
 
