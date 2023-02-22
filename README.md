@@ -2,7 +2,7 @@
 
 Created by RabidOwlbear.
 
-Supprted via patreon: https://patreon.com/owlbear_aviary
+Supprted via patreon: https://patreon.com/RabidOwlbear
 
 ### installation
 
