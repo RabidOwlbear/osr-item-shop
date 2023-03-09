@@ -50,9 +50,9 @@ export class osrItemShop extends FormApplication {
       let itemList = contents.filter((i) => i.name !== '#[CF_tempEntity]');
       items = this._filterItems(itemList);
     }
-    itemObj.items = items.filter((i) => i.type == 'item');
-    itemObj.weapons = items.filter((i) => i.type == 'weapon');
-    itemObj.armor = items.filter((i) => i.type == 'armor');
+    itemObj.items = items.filter((i) => i.type == 'item').sort(this._sortAlpha);
+    itemObj.weapons = items.filter((i) => i.type == 'weapon').sort(this._sortAlpha);
+    itemObj.armor = items.filter((i) => i.type == 'armor').sort(this._sortAlpha);
     return itemObj;
   }
   close() {
@@ -113,6 +113,11 @@ export class osrItemShop extends FormApplication {
       await this._handleFastPack(packSelection, this.customer._id);
       this.render();
     });
+  }
+  _sortAlpha(a, b){
+    var nameA = a.name.toLowerCase();
+    var nameB = b.name.toLowerCase();
+    return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
   }
   _filterActorItems(actor) {
     const currency = ['GP', 'PP', 'CP', 'EP', 'SP'];
@@ -417,6 +422,7 @@ export class osrItemShop extends FormApplication {
 }
 
 export async function handleShopConfigTab(sheetObj, sheetEl, actorObj) {
+  
   if (!game.settings.get('osr-item-shop', 'gmOnlyCharConfig')) {
     const actor = await game.actors.get(actorObj._id);
     // add config tab
@@ -450,24 +456,19 @@ export async function handleShopConfigTab(sheetObj, sheetEl, actorObj) {
     };
     const tabContent = await renderTemplate(templatePath, templateData);
     tabEl.innerHTML = tabContent;
-    // retain tab state on reload
-    // tabEl.addEventListener('click', e=>{
-
-    // })
-    // add el to sheet
     sheetBody.appendChild(tabEl);
     const shopNameEl = sheetBody.querySelector('#shopName');
     const shopCheckEl = sheetBody.querySelector('#actorShopActive');
     const shopBtn = sheetBody.querySelector('.update-shop-config-btn');
     shopBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-
       actor.setFlag('osr-item-shop', 'shopConfig', {
         enabled: shopCheckEl.checked,
         shopName: shopNameEl.value
       });
     });
   }
+
 }
 
 export async function newItemShop(data) {

@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.2.08",
+  "version": "0.2.09",
   "compatibility": {
     "minimum": "10",
     "verified": "10.284",
@@ -28,7 +28,7 @@
       "label": "osr-items",
       "path": "packs/osrItems.db",
       "type": "Item",
-      "system": "ose",
+      "system": "ose", 
       "private": false,
       "flags": {}
     },

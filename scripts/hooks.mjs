@@ -178,7 +178,7 @@ export function registerHooks() {
     }
   });
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
-    console.log(actorObj, actorObj.isOwner)
+    
     if (actorObj.type === 'character') {
       let hideTab = game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
       if (!game.user.isGM && !hideTab) {
