@@ -178,8 +178,9 @@ export function registerHooks() {
     }
   });
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
-    
-    if (actorObj.type === 'character') {
+    // itemPiles accomodation
+    let itemPiles = actorObj.flags?.['item-piles']?.data?.enabled || null;
+    if (actorObj.type === 'character' && !itemPiles) {
       let hideTab = game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
       if (!game.user.isGM && !hideTab) {
         handleShopConfigTab(sheetObj, sheetEl, actorObj);
