@@ -352,7 +352,7 @@ export class osrItemShop extends FormApplication {
         cItem = 'Thieves Tools';
         break;
       default:
-        cItem = 'HolyWater (vial)';
+        cItem = 'Holy Water (vial)';
     }
     const fastPack = {
       a: {
@@ -405,6 +405,7 @@ export class osrItemShop extends FormApplication {
     const compendium = await game.packs.get('osr-item-shop.osr-items');
     ui.notifications.warn('Adding Items To Character Sheet, Please Be Patient.');
     for (let item of itemList) {
+      console.log('name', item, item.name)
       const itemData = await compendium.index.getName(item.name);
       const itemObj = await compendium.getDocument(itemData._id);
       const qty = item.qty;
