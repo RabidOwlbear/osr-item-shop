@@ -405,7 +405,6 @@ export class osrItemShop extends FormApplication {
     const compendium = await game.packs.get('osr-item-shop.osr-items');
     ui.notifications.warn('Adding Items To Character Sheet, Please Be Patient.');
     for (let item of itemList) {
-      console.log('name', item, item.name)
       const itemData = await compendium.index.getName(item.name);
       const itemObj = await compendium.getDocument(itemData._id);
       const qty = item.qty;
@@ -573,9 +572,9 @@ export async function buyRandomItems(actorId = null, equipmentOnly = false) {
     let item = await pack.getDocument(i._id);
     items.push(item);
   }
-  console.log(items);
+
   const listObj = OSRIS.shop.randomBuyList(gold, items, 3);
-  console.log('items', listObj);
+
 
   if (listObj && listObj.list.length) {
     await actor.createEmbeddedDocuments('Item', listObj.list);
