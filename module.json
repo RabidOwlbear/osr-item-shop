@@ -9,11 +9,11 @@
       "flags": {}
     }
   ],
-  "version": "0.2.11",
+  "version": "0.2.12",
   "compatibility": {
     "minimum": "10",
-    "verified": "10.284",
-    "maximum": "10"
+    "verified": "11.299",
+    "maximum": "11.299"
   },
   "socket": true,
   "esmodules": [
@@ -29,8 +29,11 @@
       "path": "packs/osrItems.db",
       "type": "Item",
       "system": "ose",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "osr-macros",
@@ -38,8 +41,11 @@
       "path": "packs/osrMacros.db",
       "type": "Macro",
       "system": "ose",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "osr-scenes",
@@ -47,8 +53,11 @@
       "path": "packs/osrScenes.db",
       "type": "Scene",
       "system": "ose",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "relationships": {
@@ -65,12 +74,6 @@
       }
     ],
     "requires": [
-      {
-        "id": "compendium-folders",
-        "manifest": "https://raw.githubusercontent.com/earlSt1/vtt-compendium-folders/0.1.1/module.json",
-        "type": "module",
-        "compatibility": {}
-      },
       {
         "id": "lib-wrapper",
         "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
