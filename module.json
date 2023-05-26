@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.2.12",
+  "version": "0.2.13",
   "compatibility": {
     "minimum": "10",
     "verified": "11.299",
@@ -26,7 +26,7 @@
     {
       "name": "osr-items",
       "label": "osr-items",
-      "path": "packs/osrItems.db",
+      "path": "packs/osrItems",
       "type": "Item",
       "system": "ose",
       "flags": {},
@@ -38,7 +38,7 @@
     {
       "name": "osr-macros",
       "label": "OSR Macros",
-      "path": "packs/osrMacros.db",
+      "path": "packs/osrMacros",
       "type": "Macro",
       "system": "ose",
       "flags": {},
@@ -50,7 +50,7 @@
     {
       "name": "osr-scenes",
       "label": "OSR Scenes",
-      "path": "packs/osrScenes.db",
+      "path": "packs/osrScenes",
       "type": "Scene",
       "system": "ose",
       "flags": {},
@@ -74,12 +74,6 @@
       }
     ],
     "requires": [
-      {
-        "id": "lib-wrapper",
-        "manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
-        "type": "module",
-        "compatibility": {}
-      },
       {
         "id": "socketlib",
         "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
