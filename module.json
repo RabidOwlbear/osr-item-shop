@@ -26,7 +26,7 @@
     {
       "name": "osr-items",
       "label": "osr-items",
-      "path": "packs/osrItems",
+      "path": "packs/osrItems.db",
       "type": "Item",
       "system": "ose",
       "flags": {},
@@ -38,7 +38,7 @@
     {
       "name": "osr-macros",
       "label": "OSR Macros",
-      "path": "packs/osrMacros",
+      "path": "packs/osrMacros.db",
       "type": "Macro",
       "system": "ose",
       "flags": {},
@@ -50,7 +50,7 @@
     {
       "name": "osr-scenes",
       "label": "OSR Scenes",
-      "path": "packs/osrScenes",
+      "path": "packs/osrScenes.db",
       "type": "Scene",
       "system": "ose",
       "flags": {},

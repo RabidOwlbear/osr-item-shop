@@ -1,3 +1,8 @@
-2023/05/24-19:02:44.003 5c18 Recovering log #20
-2023/05/24-19:02:44.007 5c18 Delete type=0 #20
-2023/05/24-19:02:44.007 5c18 Delete type=3 #18
+2023/05/27-22:25:21.482 27b8 Recovering log #13
+2023/05/27-22:25:21.487 27b8 Delete type=0 #13
+2023/05/27-22:25:21.487 27b8 Delete type=3 #11
+2023/05/27-22:25:28.465 5e54 Level-0 table #18: started
+2023/05/27-22:25:28.465 5e54 Level-0 table #18: 0 bytes OK
+2023/05/27-22:25:28.466 5e54 Delete type=0 #16
+2023/05/27-22:25:28.468 5e54 Manual compaction at level-0 from '!folders!NUX98qhv0tGMwg9a' @ 72057594037927935 : 1 .. '!scenes.walls!Iv4yvsqRJgtvmcgD.yo3CfTwlv5ECndjr' @ 0 : 0; will stop at (end)
+2023/05/27-22:25:28.468 5e54 Manual compaction at level-1 from '!folders!NUX98qhv0tGMwg9a' @ 72057594037927935 : 1 .. '!scenes.walls!Iv4yvsqRJgtvmcgD.yo3CfTwlv5ECndjr' @ 0 : 0; will stop at (end)
