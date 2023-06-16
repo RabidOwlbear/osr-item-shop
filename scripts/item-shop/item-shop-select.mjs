@@ -29,28 +29,32 @@ export class ItemShopSelectForm extends FormApplication {
   }
   async _openShop(ev) {
     let customer = await game.actors.get(this.actorId);
-    const customerGold = customer.items.getName('GP');
+    const customerGold = customer.items.getName(game.i18n.localize("OSRIS.curency.gp"));
     let el = ev.target.closest('a.shop-btn');
     let shopId = el.dataset.shopId;
     if (shopId == 'universal') {
+      if(!customerGold){
+        ui.notifications.warn(game.i18n.localize("OSRIS.notification.noGpItemFound"));
+        return;
+      }
       new OSRIS.shopClass('universal', customer).render(true);
       this.close();
       return;
     }
     const shop = await game.actors.get(shopId);
     if (shop.getFlag('osr-item-shop', 'shopInUse')) {
-      ui.notifications.warn('Shop Currently In Use. Try Again Later.');
+      ui.notifications.warn(game.i18n.localize("OSRIS.notification.shopInUse"));
       return;
     }
-    const shopGold = shop.items.getName('GP');
+    const shopGold = shop.items.getName(game.i18n.localize("OSRIS.curency.gp"));
     // if not universal shop, and no shop gold item, error out
     if (!shopGold) {
-      ui.notifications.warn(`No GP item found in actor ${shop.name}, cannot open shop until GP item created.`);
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noGpItemFound")} ${shop.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopGp")}`);
       return;
     }
     // if no gold item found error out
     if (!customerGold) {
-      ui.notifications.warn(`No GP item found in actor ${customer.name}, cannot open shop until GP item created.`);
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.cantOpenShopGp")} ${customer.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopGp")}`);
       return;
     }
 

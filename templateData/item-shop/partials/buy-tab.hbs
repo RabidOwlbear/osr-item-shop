@@ -1,15 +1,15 @@
 <section class="tab-cont buy">
   <div class="item  item-template-a list-header">
-    <p>Name</p>
-    <p>Cost</p>
-    <p>Qty</p>
+    <p>{{localize "OSRIS.itemShop.name"}}</p>
+    <p>{{localize "OSRIS.itemShop.cost"}}</p>
+    <p>{{localize "OSRIS.itemShop.qty"}}</p>
     <p class="center-items"><i class='fa-solid fa-minus'></i></p>
     <p class="center-items"><i class='fa-solid fa-plus'></i></p>
     
   </div>
 </section>
 <section class="item-list">
-  <div class="cat-header">Weapons</div>
+  <div class="cat-header">{{localize "OSRIS.itemShop.weapons"}}</div>
   {{#each shopItems.weapons as |item idx|}}
     <div class="item-row">
       <div 
@@ -35,7 +35,7 @@
       </div>
     </div>
   {{/each}}
-  <div class="cat-header ch-marg-top">Armor</div>
+  <div class="cat-header ch-marg-top">{{localize "OSRIS.itemShop.armor"}}</div>
   {{#each shopItems.armor as |item idx|}}
     <div class="item-row">
       <div 
@@ -61,7 +61,7 @@
       </div>
     </div>
   {{/each}}
-  <div class="cat-header ch-marg-top">Items</div>
+  <div class="cat-header ch-marg-top">{{localize "OSRIS.itemShop.items"}}</div>
   {{#each shopItems.items as |item idx|}}
     <div class="item-row">
       <div 
@@ -91,8 +91,8 @@
 </section>
 <div class='buy-footer'>
     <div class='buy-total'>
-      <label><b>Purchase Total</b>:</label>
+      <label><b>{{localize "OSRIS.itemShop.purchaseTotal"}}</b>:</label>
       <input id="buy-total" type='text' data-dtype='Number' value='0' placeholder='0' disabled />
     </div>
-    <a id="buy-btn">Buy Items</a>
+    <a id="buy-btn">{{localize "OSRIS.itemShop.buyItems"}}</a>
   </div>

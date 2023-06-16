@@ -31,7 +31,7 @@ export const socket = {
     }
   },
   transactionComplete: async function(data){
-    ui.notifications.notify('Transaction Complete.')
+    ui.notifications.notify(game.i18n.localize("OSRIS.notification.transactionComplete"))
     if(game.user.id == data.userId ){
       console.log('rerender')
       ui.windows[data.appId].render()
@@ -40,8 +40,8 @@ export const socket = {
   shopTransaction: async (data)=>{
     const shop = await game.actors.get(data.shop._id);
     const customer = await game.actors.get(data.customer._id);
-    let shopGP = shop.items.getName('GP');
-    let customerGP = customer.items.getName('GP');
+    let shopGP = shop.items.getName(game.i18n.localize("OSRIS.curency.gp"));
+    let customerGP = customer.items.getName(game.i18n.localize("OSRIS.curency.gp"));
     let {items, total, newGP} = data;
     let itemList = []
     switch(data.type){
@@ -69,7 +69,7 @@ export const socket = {
         
     }
     if(game.user.isGM){
-      game.socket.transactionComplete({
+      OSRIS.socket.transactionComplete({
         userId: data.userId, 
         appId: data.shopApp
         })

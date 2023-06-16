@@ -3,10 +3,10 @@
     {{>'modules/osr-item-shop/templateData/item-shop/partials/shop-header.hbs'}}
   </header>
   <nav class="sheet-tabs" data-group="primary">
-    <a class="nav-tab" data-tab="buy">Buy</a>
-    <a class="nav-tab" data-tab="sell">Sell</a>
+    <a class="nav-tab" data-tab="buy">{{localize "OSRIS.itemShop.buy"}}</a>
+    <a class="nav-tab" data-tab="sell">{{localize "OSRIS.itemShop.sell"}}</a>
     {{#if universalShop}}
-    <a class="nav-tab" data-tab="packs">Packs</a>
+    <a class="nav-tab" data-tab="packs">{{localize "OSRIS.itemShop.packs"}}</a>
     {{/if}}
   </nav>
   <section class="tab-content" id="tab-content">

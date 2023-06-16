@@ -1,8 +1,8 @@
 export function registerSettings(){
 
   game.settings.register('osr-item-shop', 'charBuilderCheck', {
-    name: 'Add open shop checkbox to OSE character builder (if installed)',
-    hint: 'Adds option to open item shop following character creation using the OSE character builder included  with the Old-School-Essentials module.',
+    name: "OSRIS.settings.builderCheck",
+    hint: "OSRIS.settings.builderCheckHint",
     scope: 'world',
     type: Boolean,
     default: true,
@@ -21,36 +21,59 @@ export function registerSettings(){
     default: [],
     scope: 'world'
   });
-  game.settings.register('osr-item-shop', 'universalShopCompendium', {
-    name: 'Universal Shop Compendium',
-    hint: 'Item Compendium used to stock the Universal Item Shop. Name must be lowercase, substituting dashes for spaces. The name must match the desired item compendium name.',
-    scope: 'world',
-    type: String,
-    default: 'osr-items',
-    config: true
-  });
+  
   game.settings.register('osr-item-shop', 'universalShopActive', {
-    name: 'Activate Universal Item Shop',
-    hint: 'Adds Universal Item Shop to item shop select lists.',
+    name: "OSRIS.settings.activateUniversalShop",
+    hint: "OSRIS.settings.activateUniversalShopHint",
     scope: 'world',
     type: Boolean,
     default: false,
     config: true
   });
   game.settings.register('osr-item-shop', 'shopConfigTab', {
-    name: 'Add Item Shop config tab to character sheets.',
-    hint: 'Adds an OSRIS tab to the character sheet containing item shop configuration options.',
+    name: "OSRIS.settings.addConfigTab",
+    hint: "OSRIS.settings.addConfigTabHint",
     scope: 'world',
     type: Boolean,
     default: false,
     config: true
   });
   game.settings.register('osr-item-shop', 'gmOnlyCharConfig', {
-    name: 'Hide Shop Configuration Tab',
-    hint: 'Hides the Item Shop configuration tab on character sheets for non GM users.',
+    name: "OSRIS.settings.hideConfig",
+    hint: "OSRIS.settings.hideConfigHint",
     scope: 'world',
     type: Boolean,
     default: true,
     config: true
   });
+   // hide foreign language packs
+   game.settings.register('osr-item-shop', 'hideForeignPacks', {
+    name: "OSRIS.settings.hideForeignPackName",
+    hint: "OSRIS.settings.hideForeignPackHint",
+    scope: 'client',
+    type: Boolean,
+    default: true,
+    config: true
+  });
+}
+export function registerReadySettings(){
+  game.settings.register('osr-item-shop', 'universalShopCompendium', {
+    name: "OSRIS.settings.universalComp",
+    hint: "OSRIS.settings.universalCompHint",
+    scope: 'world',
+    type: String,
+    choices: getPackOptions(),
+    default: 'osr-items',
+    config: true
+  });
+
+}
+function getPackOptions(){
+  let options = {};
+  game.packs.map(a=>{
+    if(a.metadata.type === 'Item'){
+      options[a.metadata.id] = a.metadata.label;
+    }
+  })
+  return options
 }

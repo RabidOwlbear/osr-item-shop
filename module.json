@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.2.18",
+  "version": "0.2.19",
   "compatibility": {
     "minimum": "10",
     "verified": "11.300",
@@ -22,11 +22,35 @@
   "styles": [
     "styles/item-shop.css"
   ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "./lang/en.json"
+    },
+    {
+      "lang": "es",
+      "name": "Spanish",
+      "path": "./lang/es.json"
+    }
+  ],
   "packs": [
     {
       "name": "osr-items",
-      "label": "osr-items",
+      "label": "osr-items (en)",
       "path": "packs/osrItems.db",
+      "type": "Item",
+      "system": "ose",
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "osr-items-es",
+      "label": "osr-items (es)",
+      "path": "packs/osrItems-es.db",
       "type": "Item",
       "system": "ose",
       "flags": {},

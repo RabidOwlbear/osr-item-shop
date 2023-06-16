@@ -1,14 +1,14 @@
 <form class="select-cont">
-  <h3 class="header">Item Shop Select</h3>
+  <h3 class="header">{{localize "OSRIS.shopSelect.title"}}</h3>
   <div class="shop-cont">
     {{#if uShopActive}}
       <div class="row">
-        <label>Universal Item Shop</label>
+        <label>{{localize "OSRIS.shopSelect.universalShop"}}</label>
         <div class="shop-controls">
           <a
           class="universal-btn"
           data-actor-id="{{actorId}}"
-          title="Open Universal Item Shop"
+          title="{{localize "OSRIS.shopSelect.openUniversal"}}"
           >
             <i class="fa-solid fa-store"></i>
           </a>
