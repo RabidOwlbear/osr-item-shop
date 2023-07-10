@@ -14,6 +14,7 @@
   "OSRIS.notification.creatingItemsActor": "Creating items on actor. Please be patient.",
   "OSRIS.notification.createItemsComplete": "Item Creation Complete.",
   "OSRIS.notification.noItems": "No Items In List. ",
+  "OSRIS.notification.shopConfigUpdate": "Shop Settings Updated.",
   
   "OSRIS.itemShop.title": "Osr Item Shop",
   "OSRIS.itemShop.pluralShopSuffix": "'s Item Shop`",

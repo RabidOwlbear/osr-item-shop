@@ -18,11 +18,11 @@ export const hideForeignPacks = () => {
         }
         for (let lang of hideList) {
           for (let pack of osrhPacks) {
-            console.log(pack.innerText, pack.innerText.indexOf('osr-items'));
+            //console.log(pack.innerText, pack.innerText.indexOf('osr-items'));
             let indexLang = pack.innerText.indexOf(`(${lang})`);
             if (indexLang !== -1) {
               //change to equal
-              console.log('hide', pack.innerText);
+              //console.log('hide', pack.innerText);
               pack.parentElement.style.display = 'none';
             }
           }

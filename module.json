@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.2.19",
+  "version": "0.2.20",
   "compatibility": {
     "minimum": "10",
     "verified": "11.300",
@@ -36,11 +36,23 @@
   ],
   "packs": [
     {
-      "name": "osr-items",
+      "name": "osr-items-en",
       "label": "osr-items (en)",
       "path": "packs/osrItems.db",
       "type": "Item",
       "system": "ose",
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "osr-items-hyperborea-en",
+      "label": "osr-items (en)",
+      "path": "packs/osrItems-hpb.db",
+      "type": "Item",
+      "system": "hyperborea",
       "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
@@ -88,6 +100,11 @@
     "systems": [
       {
         "id": "ose",
+        "type": "system",
+        "compatibility": {}
+      },
+      {
+        "id": "hyperborea",
         "type": "system",
         "compatibility": {}
       },

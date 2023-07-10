@@ -15,7 +15,8 @@ import {
 import { handleShopConfigTab } from './item-shop/osrItemShop.mjs';
 import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
-import { hideForeignPacks } from './item-shop/hide-foreign-packs.mjs'
+import { hideForeignPacks } from './hide-foreign-packs.mjs';
+import { ItemShopConfig } from './shop-config-form.mjs';
 export function registerHooks() {
   Hooks.on('init', () => {
     console.log(`
@@ -34,7 +35,7 @@ export function registerHooks() {
     socket.registerSocket();
     registerSettings();
     registerOsrisData();
-    hideForeignPacks()
+    hideForeignPacks();
     Hooks.call('OSRIS Registered');
     // OSRIS.socket = socketlib.registerModule('osr-item-shop');
     // OSRIS.socket.register('gmHandleSeller', OSRIS.customShop.gmHandleSeller);
@@ -49,6 +50,7 @@ export function registerHooks() {
     OSRIS.shop.openShopCheck = openShopCheck;
     OSRIS.shop.RIS = renderItemShop;
     OSRIS.shop.closeAll = closeAllShops;
+    OSRIS.shop.ItemShopConfig = ItemShopConfig;
     // OSRIS.socket.register('cShopItemSell', OSRIS.customShop.cShopItemSell)
     // OSRIS.socket.register('csBuyCart', OSRIS.customShop.csBuyCart)
   });
@@ -179,15 +181,27 @@ export function registerHooks() {
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
     // itemPiles accomodation
     let itemPiles = actorObj.flags?.['item-piles']?.data?.enabled || null;
+    const addShopTab = await game.settings.get('osr-item-shop', 'shopConfigTab');
+    const hideTab = await game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
     if (actorObj.type === 'character' && !itemPiles) {
-      const addShopTab = await game.settings.get('osr-item-shop', 'shopConfigTab');
-      let hideTab = await game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
-      if (addShopTab) {
-        if (!game.user.isGM && !hideTab) {
-          handleShopConfigTab(sheetObj, sheetEl, actorObj);
+      if (game.system.id === 'hyperborea') {
+        if (addShopTab) {
+          if (!game.user.isGM && !hideTab) {
+            addShopConfig(sheetEl, actorObj);
+          }
+          if (game.user.isGM) {
+            addShopConfig(sheetEl, actorObj);
+          }
         }
-        if (game.user.isGM) {
-          handleShopConfigTab(sheetObj, sheetEl, actorObj);
+      } else {
+        
+        if (addShopTab) {
+          if (!game.user.isGM && !hideTab) {
+            handleShopConfigTab(sheetObj, sheetEl, actorObj);
+          }
+          if (game.user.isGM) {
+            handleShopConfigTab(sheetObj, sheetEl, actorObj);
+          }
         }
       }
 
@@ -209,23 +223,20 @@ export function registerHooks() {
   });
 }
 
-// remove after version 0.2.1
-// async function migrateShops() {
-//   const singleGM = game.users.filter((u) => u.role == 4 && u.active)[0].id;
-//   if (game.user.id == singleGM) {
-//     let actors = game.actors.filter((a) => {
-//       let hasFlag = a.getFlag('osr-item-shop', 'customShop');
-//       if (hasFlag != undefined) {
-//         return a;
-//       }
-//     });
-//     if (actors.length) {
-//       ui.notifications.notify('OSR-Item-Shop: Beginning Update Of Custom Shops.');
-//       for (let actor of actors) {
-//         actor.setFlag('osr-item-shop', 'shopConfig', { shopName: actor.name, enabled: true });
-//         actor.unsetFlag('osr-item-shop', 'customShop');
-//       }
-//       ui.notifications.notify('OSR-Item-Shop: Custom Shops Update Complete.');
-//     }
-//   }
-// }
+function addShopConfig(html, actor) {
+  let tweaksEl = html.find('a.control.configure-actor')[0];
+  if (tweaksEl) {
+    const parentNode = tweaksEl?.parentNode;
+    const btnEl = document.createElement('a');
+    btnEl.classList.add('shop-config');
+    btnEl.title = game.i18n.localize('OSRIS.itemShop.shopConfig');
+    const img = document.createElement('i');
+    img.classList.add('fas', 'fa-cog');
+    btnEl.appendChild(img);
+    parentNode.insertBefore(btnEl, tweaksEl);
+    btnEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      new OSRIS.shop.ItemShopConfig(actor).render(true);
+    });
+  }
+}

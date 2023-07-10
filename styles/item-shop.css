@@ -347,7 +347,7 @@ background-color: var(--main-color);
 }
 
 /*character sheet shop button */
-
+.hyperborea.sheet.actor.character .profile .shop-button,
 .ose.sheet.actor.character .profile .shop-button{
   position: absolute;
   top: 5px;
@@ -356,6 +356,7 @@ background-color: var(--main-color);
   opacity: 0;
   /* background: radial-gradient(var(--glow-color) 0%, #fff0 70%) */
 }
+.hyperborea.sheet.actor.character .profile:hover .shop-button,
 .ose.sheet.actor.character .profile:hover .shop-button{
   opacity: 1;
   text-shadow: 0 0 10px var(--glow-color);
@@ -408,4 +409,27 @@ background-color: var(--main-color);
   border: none;
   text-align: center;
   font-weight: 700;
+}
+
+/* shop config */
+
+.item-shop-config .config{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item-shop-config .update-shop-config-btn{
+  margin: 1em;
+  padding: .5em;
+  color: var(--light-text);
+  background-color: var(--main-color);
+  border-radius: .25em;
+}
+.item-shop-config .row {
+  margin-bottom: .5em;
+}
+.item-shop-config h3 {
+  border: none;
+  font-weight: 800;
+  color: var(--border-a);
 }
