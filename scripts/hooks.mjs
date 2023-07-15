@@ -35,7 +35,6 @@ export function registerHooks() {
     socket.registerSocket();
     registerSettings();
     registerOsrisData();
-    hideForeignPacks();
     Hooks.call('OSRIS Registered');
     // OSRIS.socket = socketlib.registerModule('osr-item-shop');
     // OSRIS.socket.register('gmHandleSeller', OSRIS.customShop.gmHandleSeller);
@@ -56,6 +55,8 @@ export function registerHooks() {
   });
   Hooks.once('socketlib.ready', () => {});
   Hooks.once('ready', async () => {
+    await intializePackFolders();
+    hideForeignPacks();
     registerReadySettings();
     openShopCheck();
     // migrateShops();
@@ -194,7 +195,6 @@ export function registerHooks() {
           }
         }
       } else {
-        
         if (addShopTab) {
           if (!game.user.isGM && !hideTab) {
             handleShopConfigTab(sheetObj, sheetEl, actorObj);
@@ -238,5 +238,28 @@ function addShopConfig(html, actor) {
       e.preventDefault();
       new OSRIS.shop.ItemShopConfig(actor).render(true);
     });
+  }
+}
+
+async function intializePackFolders() {
+  let singleGM = false;
+  if (game.user.isGM && game.users.filter((u) => u.role == 4)[0]?.id === game.user.id) {
+    singleGM = true;
+  }
+  if (singleGM) {
+    const movePacks = await game.settings.get('osr-item-shop', 'makePackFolder');
+    const folderName = await game.settings.get('osr-item-shop', 'packFolderName');
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const packnames = ['osr-items-en', 'osr-items-hyperborea-en', 'osr-items-es', 'osr-macros-en', 'osr-scenes-all'];
+    let folder = game.folders.getName(folderName);
+    if (!folder && movePacks) {
+      folder = await Folder.create([{ name: folderName, type: 'Compendium', color: '#ce8b00' }]);
+      packnames.forEach(async (pn) => {
+        const pack = await game.packs.get(`osr-item-shop.${pn}`);
+        if (pack) await pack.setFolder(folder[0]);
+      });
+      await sleep(140);
+      ui.sidebar.render();
+    }
   }
 }

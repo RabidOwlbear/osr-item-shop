@@ -9,10 +9,10 @@
       "flags": {}
     }
   ],
-  "version": "0.2.20",
+  "version": "0.2.21",
   "compatibility": {
     "minimum": "10",
-    "verified": "11.300",
+    "verified": "11.305",
     "maximum": "11"
   },
   "socket": true,
@@ -72,7 +72,7 @@
       }
     },
     {
-      "name": "osr-macros",
+      "name": "osr-macros-en",
       "label": "OSR Macros",
       "path": "packs/osrMacros.db",
       "type": "Macro",
@@ -84,7 +84,7 @@
       }
     },
     {
-      "name": "osr-scenes",
+      "name": "osr-scenes-all",
       "label": "OSR Scenes",
       "path": "packs/osrScenes.db",
       "type": "Scene",

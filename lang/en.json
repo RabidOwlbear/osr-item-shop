@@ -97,6 +97,10 @@
   "OSRIS.settings.universalCompHint":"Select the desired compendium to use as the Universal Shop Compendium.",
   "OSRIS.settings.hideForeignPackName": "Hide Foreign Language Compendiums",
   "OSRIS.settings.hideForeignPackHint": "Hides display of foreign language compendium packs",
+  "OSRIS.settings.makePackFolder":"Create Compendium Pack Folder",
+  "OSRIS.settings.makePackFolderHint":"When selected a folder will be created and included compendiums will be moved to this folder.",
+  "OSRIS.settings.packFolderName":"Compendium Pack Folder Name",
+  "OSRIS.settings.packFolderNameHint":"Name to use for the compendium folder.",
 
   "OSRIS.curency.pp": "PP",
   "OSRIS.curency.gp": "GP",

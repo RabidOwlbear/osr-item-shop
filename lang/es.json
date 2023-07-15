@@ -97,6 +97,10 @@
   "OSRIS.settings.universalCompHint": "Selecciona un compendio para ser usado como tienda universal de objetos",
   "OSRIS.settings.hideForeignPackName": "Ocultar compendios de idiomas extranjeros",
   "OSRIS.settings.hideForeignPackHint": "Oculta la vista de los paquetes de compendios en idiomas extranjeros",
+  "OSRIS.settings.makePackFolder": "Crear carpeta de paquetes de compendios",
+  "OSRIS.settings.makePackFolderHint": "Al seleccionar esta opción, se creará una carpeta a la que se trasladarán los compendios incluidos.",
+  "OSRIS.settings.packFolderName": "Nombre de la carpeta del paquete de compendios",
+  "OSRIS.settings.packFolderNameHint": "Nombre que se utilizará para la carpeta de compendios.",
 
   "OSRIS.curency.pp": "MP",
   "OSRIS.curency.gp": "MO",
