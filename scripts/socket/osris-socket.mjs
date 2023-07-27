@@ -29,6 +29,9 @@ export const socket = {
         break;
       case 'refreshOpenShop': 
         OSRIS.socket.refreshOpenShop(data);
+        break;
+      case 'testSocket':
+        console.log('---------------socket test emitted----------------', data)
     }
   },
   transactionComplete: async function (data) {
@@ -37,7 +40,8 @@ export const socket = {
       game.socket.emit('module.osr-item-shop', {
         type: 'refreshOpenShop',
         data: data
-      })
+      });
+      OSRIS.socket.refreshOpenShop(data);
     }
     
   },

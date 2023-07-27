@@ -433,3 +433,57 @@ background-color: var(--main-color);
   font-weight: 800;
   color: var(--border-a);
 }
+/* new shop */
+.osr-new-shop .main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.osr-new-shop .row{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.osr-new-shop .row .wide-txt{
+  width: 200px;
+  text-align: left;
+}
+.osr-new-shop .row .narrow-txt{
+  width: 60px;
+  text-align: right;
+}
+.osr-new-shop h3{
+ border: none;
+ font-weight: 800;
+ font-size: 1.3em;
+ color: var(--shop-select-color);
+}
+.osr-new-shop .window-content{
+  background: none;
+  background-color: var(--bg-color);
+}
+
+.osr-new-shop label,
+.osr-new-shop .gp{
+  margin-left: 5px;
+  font-weight: 800;
+  font-size: 1.1em;
+  color: var(--border-a)
+  
+}
+.osr-new-shop form{
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+}
+.osr-new-shop button{
+  background-color: var(--main-color);
+  color: var(--light-text);
+  border: none;
+}
+.osr-new-shop button:hover{
+  box-shadow: 0 0 5px var(--shop-select-hilight);
+}
+.osris.osr-new-shop header.window-header{
+  background-color: var(--main-color);
+  }

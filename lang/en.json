@@ -66,8 +66,8 @@
   "OSRIS.packs.smHammer": "Small Hammer",
   "OSRIS.packs.smHammerItem": "Hammer (small)",
   "OSRIS.packs.waterskin": "Waterskin",
-  "OSRIS.packs.tinder": "Tinderbox",
-  "OSRIS.packs.tinderbox": "Tinderbox (flint and steel)",
+  "OSRIS.packs.tinder": "Tinder Box",
+  "OSRIS.packs.tinderbox": "Tinder Box (flint and steel)",
   "OSRIS.packs.pole": "10' Pole",
   "OSRIS.packs.poleItem": "Pole (10' long, wooden)",
   "OSRIS.packs.rope": "50' Rope",
@@ -106,6 +106,20 @@
   "OSRIS.curency.gp": "GP",
   "OSRIS.curency.ep": "EP",
   "OSRIS.curency.sp": "SP",
-  "OSRIS.curency.cp": "CP"
-  
+  "OSRIS.curency.cp": "CP",
+
+  "OSRIS.newShop.title": "New Item Shop",
+  "OSRIS.newShop.shopName":"Shop Name",
+  "OSRIS.newShop.folderName":"Folder Name",
+  "OSRIS.newShop.initShopGp":"Initial Shop Gold",
+  "OSRIS.newShop.remainder":"Remainder",
+  "OSRIS.newShop.stockShop":"Stock Shop",
+  "OSRIS.newShop.appendNumber":"Append Random Number To Name",
+  "OSRIS.newShop.create":"Create Shop",
+  "OSRIS.newShop.customShops": "Custom Shops",
+  "OSRIS.newShop.remainderWarn": "Remainder cannot be higher than or equal to gold amount.",
+  "OSRIS.newShop.noPermission": "You do not have permission to use this feature.",
+  "OSRIS.newShop.remHint": "how much gold to keep when randomly stocking",
+  "OSRIS.newShop.appendHint": "append a random number to the shop name",
+  "OSRIS.newShop.stockHint": "stock the shop with a random selection of items"
 }

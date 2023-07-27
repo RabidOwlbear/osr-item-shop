@@ -79,7 +79,7 @@ export function registerReadySettings(){
     scope: 'world',
     type: String,
     choices: getPackOptions(),
-    default: 'osr-items',
+    default: `osr-item-shop.osr-items-${game.i18n.lang}`,
     config: true
   });
 

@@ -626,16 +626,17 @@ export async function handleShopConfigTab(sheetObj, sheetEl, actorObj) {
 }
 
 export async function newItemShop(data) {
-  let { name, folder, gold, remainder, appendNumber, stock } = data;
+  let { name, folderName, gold, remainder, appendNumber, stock } = data;
   const defaultName = game.i18n.localize('OSRIS.itemShop.customShopPlur');
+  if(!folderName)folderName = defaultName
   const packName = game.settings.get('osr-item-shop', 'universalShopCompendium');
   let pack = game.packs.get(packName);
   let suff = appendNumber ? ` - ${Math.floor(Math.random() * 100 + 1)}` : ``;
   name = name ? `${name}${suff}` : `${game.i18n.localize('OSRIS.itemShop.customShop')}${suff}`;
-  folder = folder ? game.folders.getName(folder) : game.folders.getName(defaultName);
+  folder = await game.folders.getName(folderName);
   if (!folder) {
     folder = await Folder.create({
-      name: defaultName,
+      name: folderName,
       color: '#371150',
       type: 'Actor',
       parent: null
@@ -647,7 +648,7 @@ export async function newItemShop(data) {
     img: `modules/osr-item-shop/img/owlbear.webp`,
     permission: { default: 2 },
     folder: folder.id,
-    token: { actorLink: true }
+    prototypeToken: { actorLink: true }
   };
   let actor = await Actor.create(aData);
   actor.setFlag('osr-item-shop', `shopConfig`, {

@@ -106,6 +106,20 @@
   "OSRIS.curency.gp": "MO",
   "OSRIS.curency.ep": "ME",
   "OSRIS.curency.sp": "ML",
-  "OSRIS.curency.cp": "MC"
+  "OSRIS.curency.cp": "MC",
   
+  "OSRIS.newShop.title": "Nuevo Tienda de objetos OSR",
+  "OSRIS.newShop.shopName":"Nombre de la tienda",
+  "OSRIS.newShop.folderName":"Carpeta Nombre",
+  "OSRIS.newShop.initShopGp":"Tienda inicial Oro",
+  "OSRIS.newShop.remainder":"Resto",
+  "OSRIS.newShop.stockShop":"Tienda Stock",
+  "OSRIS.newShop.appendNumber":"Añadir número aleatorio al nombre",
+  "OSRIS.newShop.create":"Crear tienda",
+  "OSRIS.newShop.customShops": "Tiendas personalizadas",
+  "OSRIS.newShop.remainderWarn": "El resto no puede ser superior o igual a la cantidad de oro.",
+  "OSRIS.newShop.noPermission": "No tiene permiso para utilizar esta función.",
+  "OSRIS.newShop.remHint": "cuánto oro guardar al almacenar aleatoriamente",
+  "OSRIS.newShop.appendHint": "añadir un número aleatorio al nombre de la tienda  ",
+  "OSRIS.newShop.stockHint": "abastecer la tienda con una selección aleatoria de artículos"
 }

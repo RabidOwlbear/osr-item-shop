@@ -1,0 +1,38 @@
+<form class="">
+  <div class="main">
+    <h3 class="header">{{localize "OSRIS.newShop.title"}}</h3>
+    <div class="row">
+      <label for="shopName" >{{localize "OSRIS.newShop.shopName"}}:</label>
+      <input id="shopName" class="wide-txt" type="text" value="{{localize "OSRIS.newShop.title"}}" data-inpType="text">
+    </div>
+    <div class="row">
+      <label for="folder" >{{localize "OSRIS.newShop.folderName"}}:</label>
+      <input id="folder" class="wide-txt" type="text" value="{{localize "OSRIS.newShop.customShops"}}" data-inpType="text">
+    </div>
+    <div class="row">
+      <label for="gold" >{{localize "OSRIS.newShop.initShopGp"}}:</label>
+      <span>
+        <input id="gold" class="narrow-txt gp-inp" type="text" value="800" data-inpType="number">
+        <span class="gp">{{localize "OSRIS.curency.gp"}}</span>
+      </span>
+    </div>
+    <div class="row" title="{{localize "OSRIS.newShop.remHint"}}">
+      <label for="remainder" >{{localize "OSRIS.newShop.remainder"}}:</label>
+      <span>
+        <input id="remainder" class="narrow-txt gp-inp" type="text" value="100" data-inpType="number" >
+        <span class="gp">{{localize "OSRIS.curency.gp"}}</span>
+      </span>
+    </div>
+    <div class="row" title="{{localize "OSRIS.newShop.stockHint"}}" >
+      <label for="stockShop" >{{localize "OSRIS.newShop.stockShop"}}:</label>
+      <input id="stockShop" type="checkbox" checked>
+    </div>
+    <div class="row"  title="{{localize "OSRIS.newShop.appendHint"}}">
+      <label for="randNum" >{{localize "OSRIS.newShop.appendNumber"}}:</label>
+      <input id="randNum" type="checkbox">
+    </div>
+  </div>
+
+  <button id="createBtn">{{localize "OSRIS.newShop.create"}}</button>
+
+</form>

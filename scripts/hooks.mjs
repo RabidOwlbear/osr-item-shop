@@ -17,6 +17,8 @@ import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
 import { hideForeignPacks } from './hide-foreign-packs.mjs';
 import { ItemShopConfig } from './shop-config-form.mjs';
+import { NewShopApp, renderNewShopApp} from './item-shop/new-shop.mjs';
+
 export function registerHooks() {
   Hooks.on('init', () => {
     console.log(`
@@ -36,9 +38,6 @@ export function registerHooks() {
     registerSettings();
     registerOsrisData();
     Hooks.call('OSRIS Registered');
-    // OSRIS.socket = socketlib.registerModule('osr-item-shop');
-    // OSRIS.socket.register('gmHandleSeller', OSRIS.customShop.gmHandleSeller);
-    // OSRIS.socket.register('gmShopFlag', OSRIS.customShop.gmShopFlag);
     OSRIS.shopClass = osrItemShop;
     OSRIS.shop.ItemShopSelectForm = ItemShopSelectForm;
     OSRIS.shop.newItemShop = newItemShop;
@@ -50,6 +49,8 @@ export function registerHooks() {
     OSRIS.shop.RIS = renderItemShop;
     OSRIS.shop.closeAll = closeAllShops;
     OSRIS.shop.ItemShopConfig = ItemShopConfig;
+    OSRIS.shop.NewShop = NewShopApp
+    OSRIS.shop.renderNewShopApp = renderNewShopApp
     // OSRIS.socket.register('cShopItemSell', OSRIS.customShop.cShopItemSell)
     // OSRIS.socket.register('csBuyCart', OSRIS.customShop.csBuyCart)
   });
@@ -184,7 +185,8 @@ export function registerHooks() {
     let itemPiles = actorObj.flags?.['item-piles']?.data?.enabled || null;
     const addShopTab = await game.settings.get('osr-item-shop', 'shopConfigTab');
     const hideTab = await game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
-    if (actorObj.type === 'character' && !itemPiles) {
+    const linkedToken = actorObj.prototypeToken.actorLink
+    if (actorObj.type === 'character' && linkedToken && !itemPiles) {
       if (game.system.id === 'hyperborea') {
         if (addShopTab) {
           if (!game.user.isGM && !hideTab) {
@@ -224,6 +226,7 @@ export function registerHooks() {
 }
 
 function addShopConfig(html, actor) {
+  if(!actor.prototypeToken.actorLink)return
   let tweaksEl = html.find('a.control.configure-actor')[0];
   if (tweaksEl) {
     const parentNode = tweaksEl?.parentNode;
