@@ -641,7 +641,7 @@ export async function newItemShop(data) {
   const items = await pack.getDocuments()
   let suff = appendNumber ? ` - ${Math.floor(Math.random() * 100 + 1)}` : ``;
   name = name ? `${name}${suff}` : `${game.i18n.localize('OSRIS.itemShop.customShop')}${suff}`;
-  folder = await game.folders.getName(folderName);
+  let folder = await game.folders.getName(folderName);
   if (!folder) {
     folder = await Folder.create({
       name: folderName,
