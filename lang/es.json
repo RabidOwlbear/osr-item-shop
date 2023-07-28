@@ -1,8 +1,12 @@
 {
   "OSRIS.notification.transactionComplete": "Transacción completada",
   "OSRIS.notification.shopInUse": "Se está usando la tienda actualmente, prueba a intentarlo más tarde.",
-  "OSRIS.notification.noGpItemFound": "No se encuentra el objeto MO en el actor",  
+  "OSRIS.notification.noGpItemFound": "No se encuentra el objeto MO en el actor",
+  "OSRIS.notification.noSpItemFound": "No se encuentra el objeto ML en el actor",
+  "OSRIS.notification.noCpItemFound": "No se encuentra el objeto MC en el actor",  
   "OSRIS.notification.cantOpenShopGp": "No es posible abrir la tienda hasta que el objeto MO haya sido creado",
+  "OSRIS.notification.cantOpenShopSp": "No es posible abrir la tienda hasta que el objeto ML haya sido creado",
+  "OSRIS.notification.cantOpenShopCp": "No es posible abrir la tienda hasta que el objeto MC haya sido creado",
   "OSRIS.notification.universalPackNotFound": "No se ha encontrado el paquete de la tienda universal de objetos. Por favor, comprueba la configuración del modulo correspondiente",
   "OSRIS.notification.insuffGold": "Oro insuficiente para realizar la compra.",
   "OSRIS.notification.insuffShopGold": "La tienda no tiene oro suficiente para realizar la compra",
@@ -41,6 +45,7 @@
   "OSRIS.itemShop.character": "Personaje",
   "OSRIS.itemShop.customShop": "Tienda a medida",
   "OSRIS.itemShop.customShopPlur": "Tiendas a medida",
+  "OSRIS.itemShop.shopKeep": "Tendero",
 
   "OSRIS.shopSelect.title": "Selección de tienda de objetos",
   "OSRIS.shopSelect.universalShop": "Tienda universal de objetos",

@@ -2,7 +2,11 @@
   "OSRIS.notification.transactionComplete": "Transaction Complete.",
   "OSRIS.notification.shopInUse": "Shop Currently In Use. Try Again Later.",
   "OSRIS.notification.noGpItemFound": "No GP item found in actor",
+  "OSRIS.notification.noSpItemFound": "No SP item found in actor",
+  "OSRIS.notification.noCpItemFound": "No CP item found in actor",
   "OSRIS.notification.cantOpenShopGp": "Cannot open shop until GP item created.",
+  "OSRIS.notification.cantOpenShopSp": "Cannot open shop until SP item created.",
+  "OSRIS.notification.cantOpenShopCp": "Cannot open shop until CP item created.",
   "OSRIS.notification.universalPackNotFound": "Universal Item Shop Pack Not Found. Please Check The Corresponding Module Setting.",
   "OSRIS.notification.insuffGold": "Insufficient gold for purchase.",
   "OSRIS.notification.insuffShopGold": "Shop has insufficient gold for purchase.",
@@ -17,7 +21,7 @@
   "OSRIS.notification.shopConfigUpdate": "Shop Settings Updated.",
   
   "OSRIS.itemShop.title": "Osr Item Shop",
-  "OSRIS.itemShop.pluralShopSuffix": "'s Item Shop`",
+  "OSRIS.itemShop.pluralShopSuffix": "'s Item Shop",
   "OSRIS.itemShop.buy": "Buy",
   "OSRIS.itemShop.sell": "Sell",
   "OSRIS.itemShop.packs": "Packs",
@@ -41,6 +45,7 @@
   "OSRIS.itemShop.character": "Character",
   "OSRIS.itemShop.customShop": "Custom Shop",
   "OSRIS.itemShop.customShopPlur": "Custom Shops",
+  "OSRIS.itemShop.shopKeep": "Shopkeep",
   
   "OSRIS.shopSelect.title": "Item Shop Select",
   "OSRIS.shopSelect.universalShop":"Universal Item Shop",

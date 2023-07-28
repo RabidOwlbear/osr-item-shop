@@ -15,6 +15,7 @@ export class NewShopApp extends FormApplication {
   async getData() {}
   async activateListeners(html) {
     const shopName = html.find('#shopName')[0];
+    const shopKeep = html.find('#shopKeep')[0];
     const folder = html.find('#folder')[0];
     const gold = html.find('#gold')[0];
     const remainder = html.find('#remainder')[0];
@@ -69,6 +70,8 @@ export class NewShopApp extends FormApplication {
          remainder: parseInt(remainder.value),
          // stock the shop with a random selection of items
          stock: stockShop.checked,
+        //  name of the shop actor
+         shopKeep: shopKeep.value,
          //desired shop name
          name: shopName.value,
          // append a random number to the shop name
@@ -76,6 +79,7 @@ export class NewShopApp extends FormApplication {
          //custom shop actor folder name
          folderName: folder.value
        }
+       console.log(data)
        OSRIS.shop.newItemShop(data);
        this.close()
     })

@@ -23,15 +23,17 @@ export class osrItemShop extends FormApplication {
     if (context.universalShop) {
       game.i18n.localize('OSRIS.shopSelect.universalShop');
     } else {
-      if (game.i18n.lang === 'es') {
-        context.shopName = `${game.i18n.localize('OSRIS.itemShop.pluralShopSuffix')}${this.shop.name}`;
-      } else {
-        context.shopName = `${this.shop.name}${game.i18n.localize('OSRIS.itemShop.pluralShopSuffix')}`;
-      }
+      const flagName = this.shop.flags?.['osr-item-shop']?.shopConfig?.shopName;
+      context.shopName = flagName ? flagName : this.shop.name;
+      // if (game.i18n.lang === 'es') {
+      //   context.shopName = `${game.i18n.localize('OSRIS.itemShop.pluralShopSuffix')}${this.shop.name}`;
+      // } else {
+      //   context.shopName = `${this.shop.name}${game.i18n.localize('OSRIS.itemShop.pluralShopSuffix')}`;
+      // }
     }
     // `${this.shop.name}${game.i18n.localize("OSRIS.itemShop.pluralShopSuffix")}`;
     context.shopImg = context.universalShop ? 'modules/osr-item-shop/img/owlbear.webp' : this.shop.img;
-    context.shopLabel = `Shopkeep:`;
+    context.shopLabel = `${game.i18n.localize("OSRIS.itemShop.shopKeep")}:`;
     if (!context.universalShop) {
       const shopGpItem = this.shop.items.getName(game.i18n.localize('OSRIS.curency.gp'));
       context.shopGold = shopGpItem.system.quantity.value;
@@ -41,10 +43,10 @@ export class osrItemShop extends FormApplication {
     context.customerName = this.customer.name;
     context.customerGold = await this.customer.items.getName(game.i18n.localize('OSRIS.curency.gp'))?.system?.quantity
       ?.value;
-    if (!context.customerGold) {
-      ui.notifications.warn(game.i18n.localize('OSRIS.notification.noGpItemFound'));
-      return;
-    }
+    // if (!context.customerGold) {
+    //   ui.notifications.warn(game.i18n.localize('OSRIS.notification.noGpItemFound'));
+    //   return;
+    // }
     return context;
   }
 
@@ -251,10 +253,10 @@ export class osrItemShop extends FormApplication {
         gpItem = await this.customer.items.getName(gpString);
         spItem = await this.customer.items.getName(spString);
         cpItem = await this.customer.items.getName(cpString);
-        if (!spItem) {
+        if (!spItem && game.user.isGM) {
           spItem = await makeItem(spString, this.customer);
         }
-        if (!cpItem) {
+        if (!cpItem && game.user.isGM) {
           cpItem = await makeItem(cpString, this.customer);
         }
         return {
@@ -266,10 +268,10 @@ export class osrItemShop extends FormApplication {
         gpItem = await this.shop.items.getName(gpString);
         spItem = await this.shop.items.getName(spString);
         cpItem = await this.shop.items.getName(cpString);
-        if (!spItem) {
+        if (!spItem && game.user.isGM) {
           spItem = await makeItem(spString, this.shop);
         }
-        if (!cpItem) {
+        if (!cpItem && game.user.isGM) {
           cpItem = await makeItem(cpString, this.shop);
         }
         return {
@@ -325,6 +327,7 @@ export class osrItemShop extends FormApplication {
     let cpItem = currItemObj.cp;
 
     if (itemList.length) {
+     if(purchaseTotal <= gpItem.system.quantity.value) {
       let updatedGp = gpItem.system.quantity.value - currAmts.gp;
       let updatedSp = spItem.system.quantity.value + currAmts.sp;
       let updatedCp = cpItem.system.quantity.value + currAmts.cp;
@@ -341,6 +344,10 @@ export class osrItemShop extends FormApplication {
       if(updatedCp) await cpItem.update({ system: { quantity: { value: updatedCp } } });
       ui.notifications.notify(game.i18n.localize('OSRIS.notification.createItemsComplete'));
       this.render();
+    } else {
+      ui.notifications.warn(game.i18n.localize('OSRIS.notification.insuffGold'));
+      this.render();
+    }
     } else {
       ui.notifications.warn(game.i18n.localize('OSRIS.notification.noItems'));
     }
@@ -379,10 +386,11 @@ export class osrItemShop extends FormApplication {
     this.render();
   }
   async _shopTransaction(transactionType, html, shop, customer) {
+   
     const customerCurr = await this._getCurrencyItems('customer');
     const shopCurr = await this._getCurrencyItems('shop');
-    let customerGold = customerCurr.gp; //customer.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
-    let shopGold = shopCurr.gp; //shop.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
+    let customerGold = customerCurr.gp.system.quantity.value; //customer.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
+    let shopGold = shopCurr.gp.system.quantity.value; //shop.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
     let transactionTotal = 0;
     let items;
     let type;
@@ -402,7 +410,6 @@ export class osrItemShop extends FormApplication {
           };
         });
         items.map((i) => (transactionTotal += i.cost));
-
         if (transactionTotal > customerGold) {
           ui.notifications.warn(game.i18n.localize('OSRIS.notification.insuffGold'));
           return;
@@ -413,9 +420,9 @@ export class osrItemShop extends FormApplication {
         }
         newCurr = {
          shop: {
-          gp: customerCurr.gp.system.quantity.value + currAmts.shop.gp,
-          sp: customerCurr.sp.system.quantity.value + currAmts.shop.sp,
-          cp: customerCurr.cp.system.quantity.value + currAmts.shop.cp
+          gp: shopCurr.gp.system.quantity.value + currAmts.shop.gp,
+          sp: shopCurr.sp.system.quantity.value + currAmts.shop.sp,
+          cp: shopCurr.cp.system.quantity.value + currAmts.shop.cp
          },
          customer: {
           gp: customerCurr.gp.system.quantity.value - currAmts.customer.gp,
@@ -450,9 +457,9 @@ export class osrItemShop extends FormApplication {
         }
         newCurr = {
          shop: {
-          gp: customerCurr.gp.system.quantity.value - currAmts.shop.gp,
-          sp: customerCurr.sp.system.quantity.value + currAmts.shop.sp,
-          cp: customerCurr.cp.system.quantity.value + currAmts.shop.cp
+          gp: shopCurr.gp.system.quantity.value - currAmts.shop.gp,
+          sp: shopCurr.sp.system.quantity.value + currAmts.shop.sp,
+          cp: shopCurr.cp.system.quantity.value + currAmts.shop.cp
          },
          customer: {
           gp: customerCurr.gp.system.quantity.value + currAmts.customer.gp,
@@ -626,11 +633,12 @@ export async function handleShopConfigTab(sheetObj, sheetEl, actorObj) {
 }
 
 export async function newItemShop(data) {
-  let { name, folderName, gold, remainder, appendNumber, stock } = data;
+  let { name, folderName, gold, remainder, appendNumber, stock, shopKeep} = data;
   const defaultName = game.i18n.localize('OSRIS.itemShop.customShopPlur');
   if(!folderName)folderName = defaultName
   const packName = game.settings.get('osr-item-shop', 'universalShopCompendium');
   let pack = game.packs.get(packName);
+  const items = await pack.getDocuments()
   let suff = appendNumber ? ` - ${Math.floor(Math.random() * 100 + 1)}` : ``;
   name = name ? `${name}${suff}` : `${game.i18n.localize('OSRIS.itemShop.customShop')}${suff}`;
   folder = await game.folders.getName(folderName);
@@ -643,23 +651,25 @@ export async function newItemShop(data) {
     });
   }
   const aData = {
-    name: name,
+    name: shopKeep,
     type: 'character',
     img: `modules/osr-item-shop/img/owlbear.webp`,
     permission: { default: 2 },
     folder: folder.id,
-    prototypeToken: { actorLink: true }
+    prototypeToken: { actorLink: true },
+    system:{ details: { title: name}}
   };
   let actor = await Actor.create(aData);
-  actor.setFlag('osr-item-shop', `shopConfig`, {
+  await actor.setFlag('osr-item-shop', `shopConfig`, {
     enabled: true,
-    shopName: aData.name
+    shopName: name
   });
-
-  let gpId = pack.index.contents.find((a) => a.name == game.i18n.localize('OSRIS.curency.gp'))._id;
-  const blankGp = await pack.getDocument(gpId);
-  let gData = blankGp.clone();
-  await actor.createEmbeddedDocuments('Item', [gData]);
+  const gData = deepClone(items.find(i=>i.name === game.i18n.localize('OSRIS.curency.gp')));
+  const sData = deepClone(items.find(i=>i.name === game.i18n.localize('OSRIS.curency.sp')));
+  const cData = deepClone(items.find(i=>i.name === game.i18n.localize('OSRIS.curency.cp')));
+  const eData = deepClone(items.find(i=>i.name === game.i18n.localize('OSRIS.curency.ep')));
+  const pData = deepClone(items.find(i=>i.name === game.i18n.localize('OSRIS.curency.pp')));
+  await actor.createEmbeddedDocuments('Item', [gData, cData, sData, pData, eData]);
   let goldItem = actor.items.getName(game.i18n.localize('OSRIS.curency.gp'));
 
   await goldItem.update({ system: { quantity: { value: gold } } });
@@ -669,10 +679,18 @@ export async function newItemShop(data) {
 }
 
 export async function stockItemShop(actor, remainder) {
+  const curNames = [
+    game.i18n.localize('OSRIS.curency.gp'),
+    game.i18n.localize('OSRIS.curency.sp'),
+    game.i18n.localize('OSRIS.curency.cp'),
+    game.i18n.localize('OSRIS.curency.ep'),
+    game.i18n.localize('OSRIS.curency.pp')
+  ];
   const packName = game.settings.get('osr-item-shop', 'universalShopCompendium');
   remainder = remainder ? remainder : 50 + Math.floor(Math.random() * 10);
   const compendium = await game.packs.get(packName);
-  const list = await compendium.getDocuments();
+  const items = await compendium.getDocuments()
+  const list = items.filter(i=>!curNames.includes(i.name));
   let gpObj = actor.items.getName(game.i18n.localize('OSRIS.curency.gp'));
   let initGP = gpObj.system.quantity.value;
   let gpTarget = initGP - remainder;

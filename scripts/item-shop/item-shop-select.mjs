@@ -30,6 +30,8 @@ export class ItemShopSelectForm extends FormApplication {
   async _openShop(ev) {
     let customer = await game.actors.get(this.actorId);
     const customerGold = customer.items.getName(game.i18n.localize("OSRIS.curency.gp"));
+    const customerSilver = customer.items.getName(game.i18n.localize("OSRIS.curency.sp"));
+    const customerCopper = customer.items.getName(game.i18n.localize("OSRIS.curency.cp"));
     let el = ev.target.closest('a.shop-btn');
     let shopId = el.dataset.shopId;
     if (shopId == 'universal') {
@@ -47,14 +49,33 @@ export class ItemShopSelectForm extends FormApplication {
       return;
     }
     const shopGold = shop.items.getName(game.i18n.localize("OSRIS.curency.gp"));
+    const shopSilver = shop.items.getName(game.i18n.localize("OSRIS.curency.sp"));
+    const shopCopper = shop.items.getName(game.i18n.localize("OSRIS.curency.cp"));
+    
     // if not universal shop, and no shop gold item, error out
-    if (!shopGold) {
+    if (!shopGold ) {
       ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noGpItemFound")} ${shop.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopGp")}`);
+      return;
+    }
+    if (!shopSilver ) {
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noSpItemFound")} ${shop.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopSp")}`);
+      return;
+    }
+    if (!shopCopper) {
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noCpItemFound")} ${shop.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopCp")}`);
       return;
     }
     // if no gold item found error out
     if (!customerGold) {
       ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.cantOpenShopGp")} ${customer.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopGp")}`);
+      return;
+    }
+    if (!customerSilver ) {
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noSpItemFound")} ${customer.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopSp")}`);
+      return;
+    }
+    if (!customerCopper) {
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.noCpItemFound")} ${customer.name}, ${game.i18n.localize("OSRIS.notification.cantOpenShopCp")}`);
       return;
     }
 
