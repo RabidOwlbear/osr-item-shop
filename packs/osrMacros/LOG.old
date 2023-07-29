@@ -1,5 +1,8 @@
-2023/07/27-00:12:02.464 37ec Recovering log #398
-2023/07/27-00:12:02.464 37ec Level-0 table #400: started
-2023/07/27-00:12:02.466 37ec Level-0 table #400: 3985 bytes OK
-2023/07/27-00:12:02.471 37ec Delete type=0 #398
-2023/07/27-00:12:02.471 37ec Delete type=3 #397
+2023/07/28-17:51:11.356 5c54 Recovering log #429
+2023/07/28-17:51:11.361 5c54 Delete type=0 #429
+2023/07/28-17:51:11.361 5c54 Delete type=3 #427
+2023/07/28-17:54:09.215 fcc Level-0 table #434: started
+2023/07/28-17:54:09.215 fcc Level-0 table #434: 0 bytes OK
+2023/07/28-17:54:09.216 fcc Delete type=0 #432
+2023/07/28-17:54:09.219 fcc Manual compaction at level-0 from '!folders!AXeApgZKlQ6Rkn4d' @ 72057594037927935 : 1 .. '!macros!p0Vmwu9rmeWdPMYj' @ 0 : 0; will stop at (end)
+2023/07/28-17:54:09.219 fcc Manual compaction at level-1 from '!folders!AXeApgZKlQ6Rkn4d' @ 72057594037927935 : 1 .. '!macros!p0Vmwu9rmeWdPMYj' @ 0 : 0; will stop at (end)

@@ -34,6 +34,7 @@ export function registerHooks() {
     OSRIS.customShop = OSRIS.customShop || {};
     OSRIS.socket = socket;
     OSRIS.shop = {};
+    OSRIS.lang = ['en','es'];
     socket.registerSocket();
     registerSettings();
     registerOsrisData();

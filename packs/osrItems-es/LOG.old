@@ -1,3 +1,8 @@
-2023/07/27-00:12:02.463 1b4c Recovering log #255
-2023/07/27-00:12:02.468 1b4c Delete type=0 #255
-2023/07/27-00:12:02.468 1b4c Delete type=3 #254
+2023/07/28-17:51:11.354 2418 Recovering log #282
+2023/07/28-17:51:11.360 2418 Delete type=0 #282
+2023/07/28-17:51:11.360 2418 Delete type=3 #280
+2023/07/28-17:54:09.209 fcc Level-0 table #287: started
+2023/07/28-17:54:09.209 fcc Level-0 table #287: 0 bytes OK
+2023/07/28-17:54:09.210 fcc Delete type=0 #285
+2023/07/28-17:54:09.211 fcc Manual compaction at level-0 from '!folders!2iI6tN3tGZXwf6wB' @ 72057594037927935 : 1 .. '!items!ylw3PB7lk39ZwLub' @ 0 : 0; will stop at (end)
+2023/07/28-17:54:09.211 fcc Manual compaction at level-1 from '!folders!2iI6tN3tGZXwf6wB' @ 72057594037927935 : 1 .. '!items!ylw3PB7lk39ZwLub' @ 0 : 0; will stop at (end)
