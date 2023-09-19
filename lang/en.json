@@ -19,6 +19,7 @@
   "OSRIS.notification.createItemsComplete": "Item Creation Complete.",
   "OSRIS.notification.noItems": "No Items In List. ",
   "OSRIS.notification.shopConfigUpdate": "Shop Settings Updated.",
+  "OSRIS.notification.linkActorData": "Actor Data Not Linked To Token! Please Enable Link Actor Data In The Prototype Token Settings For This Actor.",
   
   "OSRIS.itemShop.title": "Osr Item Shop",
   "OSRIS.itemShop.pluralShopSuffix": "'s Item Shop",

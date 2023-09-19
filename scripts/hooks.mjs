@@ -187,7 +187,7 @@ export function registerHooks() {
     const addShopTab = await game.settings.get('osr-item-shop', 'shopConfigTab');
     const hideTab = await game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
     const linkedToken = actorObj.prototypeToken.actorLink
-    if (actorObj.type === 'character' && linkedToken && !itemPiles) {
+    if (actorObj.type === 'character'  && !itemPiles) {
       if (game.system.id === 'hyperborea') {
         if (addShopTab) {
           if (!game.user.isGM && !hideTab) {
@@ -210,6 +210,7 @@ export function registerHooks() {
 
       let imageEl = sheetEl[0].querySelector('.profile');
       // add shop button
+      console.log('Add Shop Button')
       if (actorObj.owner) {
         const shopBtnEl = document.createElement('a');
         shopBtnEl.classList.add('shop-button');

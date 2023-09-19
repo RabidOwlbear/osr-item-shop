@@ -29,6 +29,11 @@ export class ItemShopSelectForm extends FormApplication {
   }
   async _openShop(ev) {
     let customer = await game.actors.get(this.actorId);
+    const linkedToken = customer.prototypeToken.actorLink;
+    if (!linkedToken ) {
+      ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.linkActorData")}`);
+      return;
+    }
     const customerGold = customer.items.getName(game.i18n.localize("OSRIS.curency.gp"));
     const customerSilver = customer.items.getName(game.i18n.localize("OSRIS.curency.sp"));
     const customerCopper = customer.items.getName(game.i18n.localize("OSRIS.curency.cp"));

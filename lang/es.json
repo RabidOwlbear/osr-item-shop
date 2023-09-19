@@ -19,6 +19,7 @@
   "OSRIS.notification.createItemsComplete": "Creación de objetos finalizada",
   "OSRIS.notification.noItems": "No hay objetos en la lista. ",
   "OSRIS.notification.shopConfigUpdate": "Configuración de la tienda actualizada.",
+  "OSRIS.notification.linkActorData": "Los datos del actor no están vinculados al token. Por favor, active la opción Vincular datos de actor en la configuración del token del prototipo para este actor.",
   
   "OSRIS.itemShop.title": "Tienda de objetos OSR",
   "OSRIS.itemShop.pluralShopSuffix": "Tienda de objetos de ",
