@@ -862,3 +862,64 @@ export async function openShopCheck() {
     game.user.unsetFlag('osr-item-shop', 'shopOpen');
   }
 }
+export class osrItemShopConfig extends FormApplication {
+  constructor(uuid, position){
+    super();
+    this.uuid = uuid;
+    this.repos = position
+  }
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      title: game.i18n.localize('OSRIS.itemShop.title'),
+      classes: ['osris','item-shop-config'],
+      width: 200,
+      height: 230,
+      template: `modules/osr-item-shop/templateData/item-shop/custom-shop-config.hbs`
+    });
+  }
+  async getData(){
+    const actor = await fromUuid(this.uuid);
+    this.actor = actor || null
+    const flagData = actor?.flags?.['osr-item-shop']?.shopConfig
+    const context = super.getData();
+    context.shopEnabled = flagData?.enabled;
+    context.shopName = flagData?.shopName
+    this.position.left = this.repos.left;
+    this.position.top = this.repos.top;
+    return context
+  }
+  activateListeners(html){
+    const shopActive = html.find('#actorShopActive')[0];
+    const shopName = html.find("#shopName")[0];
+    const updateBtn = html.find('.update-shop-config-btn')[0];
+    shopName.addEventListener('blur', (e)=>{
+      e.preventDefault();
+      if(shopName.value === ''){
+        shopName.value = this.actor.name + ' shop'
+      }
+    })
+
+    updateBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const actor = await fromUuid(this.uuid);
+      if(shopName.value === ''){
+        ui.notifications.warn(game.i18n.localize("OSRIS.notification.enterShopName"));
+        return;
+      }
+      actor.setFlag('osr-item-shop', 'shopConfig', {
+        enabled: shopActive.checked,
+        shopName: shopName.value
+      });
+      ui.notifications.notify(game.i18n.localize("OSRIS.notification.shopConfigUpdate"));
+      this.close()
+    });
+    
+
+    shopName.addEventListener('blur', ev=>{
+      ev.preventDefault();
+      if(shopActive.checked && !shopName.value.length){
+        ui.notifications.warn(game.i18n.localize("OSRIS.notification.enterShopName"));
+      }
+    })
+  }
+}

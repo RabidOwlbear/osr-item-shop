@@ -127,5 +127,7 @@
   "OSRIS.newShop.noPermission": "No tiene permiso para utilizar esta función.",
   "OSRIS.newShop.remHint": "cuánto oro guardar al almacenar aleatoriamente",
   "OSRIS.newShop.appendHint": "añadir un número aleatorio al nombre de la tienda  ",
-  "OSRIS.newShop.stockHint": "abastecer la tienda con una selección aleatoria de artículos"
+  "OSRIS.newShop.stockHint": "abastecer la tienda con una selección aleatoria de artículos",
+
+  "OSRIS.notification.enterShopName": "Por favor, introduzca el nombre de la tienda."
 }

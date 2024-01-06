@@ -487,3 +487,64 @@ flex-direction: column;
 .osris.osr-new-shop header.window-header{
   background-color: var(--main-color);
   }
+
+/* sheet ui */
+/* .osrh-sheet-ui-cont{
+  position: absolute;
+  left: -30px;
+  top: 30px;
+  height: 300px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.osrh-sheet-ui-cont .ui-tab {
+  width: 10px;
+  background-color: rgba(32, 32, 32, 0.623);
+  min-height: 30px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: .3rem 0 0 .3rem ;
+  
+}
+.osrh-sheet-ui-cont .ui-tab .mod-label{
+  font-size: .5rem;
+  font-weight: 600;
+  transform: rotate(-90deg);
+}
+.osrh-sheet-ui-cont .ui-tab:hover{
+  width: 30px;
+  left: -30px;
+}
+.osrh-sheet-ui-cont .ui-tab:hover .mod-label{
+  font-size: .6rem;
+  transform: rotate(0deg);
+}
+.osrh-sheet-ui-cont .ui-tab:hover .btn-cont{
+  display: flex;
+}
+.osrh-sheet-ui-cont .ui-tab .btn-cont {
+  display: none;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.osrh-sheet-ui-cont .sheet-ui-btn{
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .2rem;
+  color: white;
+  opacity: 40%;
+}
+.osrh-sheet-ui-cont a.sheet-ui-btn:hover{
+  opacity: 100%;
+  text-shadow: 0 0 8px rgb(231, 0, 89);
+  } */
