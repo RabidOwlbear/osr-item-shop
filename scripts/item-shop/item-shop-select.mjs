@@ -1,7 +1,8 @@
 export class ItemShopSelectForm extends FormApplication {
-  constructor(actorId = null) {
+  constructor(actorId = null, position) {
     super();
     this.actorId = actorId;
+    this.repos = position;
   }
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -19,6 +20,10 @@ export class ItemShopSelectForm extends FormApplication {
     return context;
   }
   activateListeners(html) {
+    if(this.repos){
+      this.position.left = this.repos.left;
+      this.position.top = this.repos.top;
+    }
     const shopBtns = html.find('a.shop-btn');
     for (let btn of shopBtns) {
       btn.addEventListener('click', (ev) => {
@@ -29,6 +34,7 @@ export class ItemShopSelectForm extends FormApplication {
   }
   async _openShop(ev) {
     let customer = await game.actors.get(this.actorId);
+    console.log(customer)
     const linkedToken = customer.prototypeToken.actorLink;
     if (!linkedToken ) {
       ui.notifications.warn(`${game.i18n.localize("OSRIS.notification.linkActorData")}`);

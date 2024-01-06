@@ -1,0 +1,18 @@
+<form class="osris config">
+  <div class=" item-list options">
+    <h3>{{localize "OSRIS.itemShop.shopConfig"}}</h3>
+    <div class="row item">
+      <label for="shopName" title="{{localize "OSRIS.itemShop.shopActiveHint"}}"><b>{{localize "OSRIS.itemShop.shopActive"}}</b>:</label>
+      <input type="checkbox" id="actorShopActive" data-id="{{actor._id}}"{{#if shopEnabled}}checked{{/if}} >
+    </div>
+    <div class="row item">
+      <label for="shopName"><b>{{localize "OSRIS.itemShop.shopName"}}</b>:</label>
+    </div>
+    <div class="row">
+      <input type="text" id="shopName" data-id="{{actor._id}}" value="{{shopName}}" placeholder="{{localize "OSRIS.itemShop.shopName"}}">
+    </div>
+  </div>
+  
+  <a class="update-shop-config-btn">{{localize "OSRIS.itemShop.updateCOnfig"}}</a>
+
+</form>

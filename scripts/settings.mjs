@@ -38,7 +38,7 @@ export function registerSettings(){
     default: false,
     config: true
   });
-  game.settings.register('osr-item-shop', 'gmOnlyCharConfig', {
+  game.settings.register('osr-item-shop', 'gmOnlyShopConfig', {
     name: "OSRIS.settings.hideConfig",
     hint: "OSRIS.settings.hideConfigHint",
     scope: 'world',

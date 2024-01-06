@@ -127,5 +127,7 @@
   "OSRIS.newShop.noPermission": "You do not have permission to use this feature.",
   "OSRIS.newShop.remHint": "how much gold to keep when randomly stocking",
   "OSRIS.newShop.appendHint": "append a random number to the shop name",
-  "OSRIS.newShop.stockHint": "stock the shop with a random selection of items"
+  "OSRIS.newShop.stockHint": "stock the shop with a random selection of items",
+
+  "OSRIS.notification.enterShopName": "Please enter a shop name."
 }

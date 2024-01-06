@@ -10,14 +10,15 @@ import {
   renderUniversalItemShop,
   renderItemShop,
   closeAllShops,
-  openShopCheck
+  openShopCheck,
+  osrItemShopConfig
 } from './item-shop/osrItemShop.mjs';
 import { handleShopConfigTab } from './item-shop/osrItemShop.mjs';
 import { ItemShopSelectForm } from './item-shop/item-shop-select.mjs';
 import { socket } from './socket/osris-socket.mjs';
 import { hideForeignPacks } from './hide-foreign-packs.mjs';
 import { ItemShopConfig } from './shop-config-form.mjs';
-import { NewShopApp, renderNewShopApp} from './item-shop/new-shop.mjs';
+import { NewShopApp, renderNewShopApp } from './item-shop/new-shop.mjs';
 
 export function registerHooks() {
   Hooks.on('init', () => {
@@ -34,7 +35,7 @@ export function registerHooks() {
     OSRIS.customShop = OSRIS.customShop || {};
     OSRIS.socket = socket;
     OSRIS.shop = {};
-    OSRIS.lang = ['en','es'];
+    OSRIS.lang = ['en', 'es'];
     socket.registerSocket();
     registerSettings();
     registerOsrisData();
@@ -50,8 +51,9 @@ export function registerHooks() {
     OSRIS.shop.RIS = renderItemShop;
     OSRIS.shop.closeAll = closeAllShops;
     OSRIS.shop.ItemShopConfig = ItemShopConfig;
-    OSRIS.shop.NewShop = NewShopApp
-    OSRIS.shop.renderNewShopApp = renderNewShopApp
+    OSRIS.shop.NewShop = NewShopApp;
+    OSRIS.shop.renderNewShopApp = renderNewShopApp;
+    OSRIS.shop.ShopConfig = osrItemShopConfig;
     // OSRIS.socket.register('cShopItemSell', OSRIS.customShop.cShopItemSell)
     // OSRIS.socket.register('csBuyCart', OSRIS.customShop.csBuyCart)
   });
@@ -184,17 +186,18 @@ export function registerHooks() {
   Hooks.on('renderActorSheet', async (sheetObj, sheetEl, actorObj) => {
     // itemPiles accomodation
     let itemPiles = actorObj.flags?.['item-piles']?.data?.enabled || null;
+    const uuid = sheetObj.object.uuid
     const addShopTab = await game.settings.get('osr-item-shop', 'shopConfigTab');
-    const hideTab = await game.settings.get('osr-item-shop', 'gmOnlyCharConfig');
-    const linkedToken = actorObj.prototypeToken.actorLink
-    if (actorObj.type === 'character'  && !itemPiles) {
+    const hideTab = await game.settings.get('osr-item-shop', 'gmOnlyShopConfig');
+    const isGM = game.user.isGM;
+    if (actorObj.type === 'character' && !itemPiles) {
       if (game.system.id === 'hyperborea') {
         if (addShopTab) {
           if (!game.user.isGM && !hideTab) {
-            addShopConfig(sheetEl, actorObj);
+            addShopConfig(sheetEl, actorObj, uuid);
           }
           if (game.user.isGM) {
-            addShopConfig(sheetEl, actorObj);
+            addShopConfig(sheetEl, actorObj, uuid);
           }
         }
       } else {
@@ -210,25 +213,76 @@ export function registerHooks() {
 
       let imageEl = sheetEl[0].querySelector('.profile');
       // add shop button
-      console.log('Add Shop Button')
-      if (actorObj.owner) {
-        const shopBtnEl = document.createElement('a');
-        shopBtnEl.classList.add('shop-button');
-        const shopBtnImg = document.createElement('i');
-        shopBtnImg.classList.add('fa-solid', 'fa-store');
-        shopBtnEl.appendChild(shopBtnImg);
-        imageEl.appendChild(shopBtnEl);
-        shopBtnEl.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
-        });
+      if (actorObj.owner || actorObj.isOwner) {
+        if (!game.modules.get('osr-helper')?.active) {
+          const shopBtnEl = document.createElement('a');
+          shopBtnEl.classList.add('shop-button');
+          const shopBtnImg = document.createElement('i');
+          shopBtnImg.classList.add('fa-solid', 'fa-store');
+          shopBtnEl.appendChild(shopBtnImg);
+          imageEl.appendChild(shopBtnEl);
+          shopBtnEl.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            new OSRIS.shop.ItemShopSelectForm(actorObj._id).render(true);
+          });
+        } else {
+          // add osrh ui
+          const uiEl = sheetEl[0].querySelector('#osrh-sheet-ui-cont');
+          if (uiEl) {
+            const uiTab = document.createElement('div');
+            const btnCont = document.createElement('div');
+            uiTab.classList.add('ui-tab');
+            uiTab.id = 'osris-ui';
+            btnCont.classList.add('btn-cont');
+            const label = document.createElement('label');
+            label.classList.add('mod-label');
+            label.innerText = 'OSRIS';
+            uiTab.appendChild(label);
+            // shop list
+            let slBtn = document.createElement('a');
+            let slIcon = document.createElement('i');
+            slBtn.classList.add('sheet-ui-btn');
+            slIcon.classList.add('fa-solid', 'fa-shop');
+            slBtn.title = game.i18n.localize('OSRIS.shopSelect.title');
+            slBtn.appendChild(slIcon);
+            console.log(actorObj, game.actors.get(actorObj._id), sheetObj)
+            slBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              
+              new OSRIS.shop.ItemShopSelectForm(actorObj._id, {
+                top: sheetObj.position.top,
+                left: sheetObj.position.left
+              }).render(true);
+            });
+            btnCont.appendChild(slBtn);
+            // shop config
+            if (isGM || !isGM && !hideTab) {
+              let scBtn = document.createElement('a');
+              let scIcon = document.createElement('i');
+              scBtn.classList.add('sheet-ui-btn');
+              scIcon.classList.add('fa-solid', 'fa-screwdriver-wrench');
+              scBtn.title = game.i18n.localize('OSRIS.itemShop.shopConfig');
+              scBtn.appendChild(scIcon);
+              scBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                new OSRIS.shop.ShopConfig(uuid, {
+                  top: sheetObj.position.top,
+                  left: sheetObj.position.left
+                }).render(true);
+              });
+              btnCont.appendChild(scBtn);
+            }
+            uiTab.appendChild(btnCont);
+            uiEl.appendChild(uiTab);
+          }
+        }
       }
     }
   });
 }
 
-function addShopConfig(html, actor) {
-  if(!actor.prototypeToken.actorLink)return
+function addShopConfig(html, actor, uuid) {
+  if (!actor.prototypeToken.actorLink) return;
   let tweaksEl = html.find('a.control.configure-actor')[0];
   if (tweaksEl) {
     const parentNode = tweaksEl?.parentNode;
@@ -241,7 +295,7 @@ function addShopConfig(html, actor) {
     parentNode.insertBefore(btnEl, tweaksEl);
     btnEl.addEventListener('click', (e) => {
       e.preventDefault();
-      new OSRIS.shop.ItemShopConfig(actor).render(true);
+      new OSRIS.shop.ShopConfig(uuid, {top: html.position.top, left:html.position.left}).render(true);
     });
   }
 }
@@ -267,4 +321,12 @@ async function intializePackFolders() {
       ui.sidebar.render();
     }
   }
+}
+
+function addSheetUi(sheetEl) {
+  const uiEl = document.createElement('div');
+  uiEl.id = 'osrh-sheet-ui-cont';
+  uiEl.classList.add('osrh-sheet-ui-cont');
+  sheetEl.prepend(uiEl);
+  return uiEl;
 }
