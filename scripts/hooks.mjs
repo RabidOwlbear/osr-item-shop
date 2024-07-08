@@ -112,6 +112,7 @@ export function registerHooks() {
     let curData = game.settings.get('osrItemShop', 'sourceList');
 
     Hooks.on('custom-shop-process-seller', () => {
+      // console.log(' cs process seller hook')
       OSRIS.socket.executeAsGM(`gmHandleSeller`);
     });
   });
@@ -180,6 +181,7 @@ export function registerHooks() {
   Hooks.on('closeCShop', async (data, html) => {
     let actor = data.actor;
     if (actor.flags['osr-item-shop']?.customShop) {
+      // console.log('close cs shop hook')
       await OSRIS.socket.executeAsGM('gmShopFlag', { actorName: actor.name, action: 'unset' });
     }
   });
@@ -245,7 +247,6 @@ export function registerHooks() {
             slIcon.classList.add('fa-solid', 'fa-shop');
             slBtn.title = game.i18n.localize('OSRIS.shopSelect.title');
             slBtn.appendChild(slIcon);
-            console.log(actorObj, game.actors.get(actorObj._id), sheetObj)
             slBtn.addEventListener('click', (e) => {
               e.preventDefault();
               
