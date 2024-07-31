@@ -9,10 +9,10 @@
       "flags": {}
     }
   ],
-  "version": "0.2.30",
+  "version": "0.2.31",
   "compatibility": {
     "minimum": "10",
-    "verified": "12.328",
+    "verified": "12.330",
     "maximum": "12"
   },
   "socket": true,

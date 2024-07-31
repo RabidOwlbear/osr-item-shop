@@ -19,6 +19,7 @@ export class osrItemShop extends FormApplication {
     context.universalShop = this.shop == 'universal';
     context.shopItems = context.universalShop ? await this._getItems() : await this._getItems(this.shop);
     context.custItems = await this._getItems(this.customer);
+    context.hidePacks = await game.settings.get('osr-item-shop', 'hidePacksTab');
     context.shopName = '';
     if (context.universalShop) {
       game.i18n.localize('OSRIS.shopSelect.universalShop');
@@ -565,7 +566,7 @@ export class osrItemShop extends FormApplication {
   }
   async _addPackItems(actor, itemList) {
     const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
-    const universalPack = await game.settings.get('osr-item-shop', 'universalShopCompendium');
+    const universalPack = `osr-item-shop.osr-items-${game.i18n.lang}`//await game.settings.get('osr-item-shop', 'universalShopCompendium');
     const compendium = await game.packs.get(universalPack);
     ui.notifications.warn(game.i18n.localize('OSRIS.notification.creatingItemsActor'));
     for (let item of itemList) {

@@ -6,7 +6,10 @@
     <a class="nav-tab" data-tab="buy">{{localize "OSRIS.itemShop.buy"}}</a>
     <a class="nav-tab" data-tab="sell">{{localize "OSRIS.itemShop.sell"}}</a>
     {{#if universalShop}}
-    <a class="nav-tab" data-tab="packs">{{localize "OSRIS.itemShop.packs"}}</a>
+      {{#if hidePacks}}
+      {{else}}
+        <a class="nav-tab" data-tab="packs">{{localize "OSRIS.itemShop.packs"}}</a>
+      {{/if}}
     {{/if}}
   </nav>
   <section class="tab-content" id="tab-content">

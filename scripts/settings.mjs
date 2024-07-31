@@ -46,6 +46,14 @@ export function registerSettings(){
     default: true,
     config: true
   });
+  game.settings.register('osr-item-shop', 'hidePacksTab', {
+    name: "OSRIS.settings.hidePacksTab",
+    hint: "OSRIS.settings.hidePacksTabHint",
+    scope: 'world',
+    type: Boolean,
+    default: false,
+    config: true
+  });
    // hide foreign language packs
    game.settings.register('osr-item-shop', 'hideForeignPacks', {
     name: "OSRIS.settings.hideForeignPackName",

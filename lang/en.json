@@ -107,6 +107,8 @@
   "OSRIS.settings.makePackFolderHint":"When selected a folder will be created and included compendiums will be moved to this folder.",
   "OSRIS.settings.packFolderName":"Compendium Pack Folder Name",
   "OSRIS.settings.packFolderNameHint":"Name to use for the compendium folder.",
+  "OSRIS.settings.hidePacksTab": "Hide Fast Packs Tab",
+  "OSRIS.settings.hidePacksTabHint": "Hide fast pack tab in the universal item shop.",
 
   "OSRIS.curency.pp": "PP",
   "OSRIS.curency.gp": "GP",

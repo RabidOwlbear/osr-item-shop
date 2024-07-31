@@ -107,6 +107,8 @@
   "OSRIS.settings.makePackFolderHint": "Al seleccionar esta opción, se creará una carpeta a la que se trasladarán los compendios incluidos.",
   "OSRIS.settings.packFolderName": "Nombre de la carpeta del paquete de compendios",
   "OSRIS.settings.packFolderNameHint": "Nombre que se utilizará para la carpeta de compendios.",
+  "OSRIS.settings.hidePacksTab": "Ocultar Pestaña de Packs Rápidos",
+  "OSRIS.settings.hidePacksTabHint": "Ocultar la pestaña de paquetes rápidos en la tienda de objetos universales.",
 
   "OSRIS.curency.pp": "MP",
   "OSRIS.curency.gp": "MO",
