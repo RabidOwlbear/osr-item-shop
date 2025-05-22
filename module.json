@@ -11,7 +11,7 @@
   ],
   "version": "0.2.31",
   "compatibility": {
-    "minimum": "10",
+    "minimum": "11",
     "verified": "12.330",
     "maximum": "12"
   },
