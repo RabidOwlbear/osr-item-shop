@@ -124,7 +124,7 @@
     ]
   },
   "url": "https://github.com/RabidOwlbear/osr-item-shop",
-  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/main/module.json",
-  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/main.zip",
+  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/v0.2.32/module.json",
+  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.2.32.zip",
   "readme": "REAMDE.md"
 }
