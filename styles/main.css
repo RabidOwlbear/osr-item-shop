@@ -1,0 +1,607 @@
+:root {
+  /* --main-color: rgb(131, 9, 76);
+  --bg-color: rgb(236, 232, 214);
+  --border-a: rgb(78, 3, 38);
+  --list-row-bg: rgba(78, 3, 38,0.1);
+  --light-text: antiquewhite;
+  --dark-text: black;
+  --light-color: rgb(190, 15, 111);
+  --tab-color: rgb(126, 19, 64);
+  --tab-highlight: rgb(240, 151, 68); */
+  --main-color: rgb(6, 90, 105);
+  --bg-color: rgb(236, 232, 214);
+  --border-a: rgb(2, 51, 59);
+  --list-row-bg: rgba(2, 68, 68, 0.15);
+  --light-text: antiquewhite;
+  --dark-text: black;
+  --light-color: rgb(15, 164, 190);
+  --tab-color: rgb(14, 107, 110);
+  --tab-highlight: rgb(67, 218, 205);
+  --shop-select-color: rgb(153, 17, 58);
+  --shop-select-hilight:rgb(231, 0, 89);
+  --glow-color: rgba(255, 62, 191, 0.486);
+  --trans-bg: rgba(16, 160, 185, 0.13);
+}
+
+.osris.item-shop {
+  --footer-btn-height: 2rem;
+}
+.osris.item-shop .window-content {
+  background-image: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  overflow: hidden;
+}
+.osris.item-shop window-header {
+  background-color: var(--main-color);
+  height: 100%;
+}
+.osris.item-shop p {
+  margin: 0;
+}
+.osris.item-shop i {
+  color: var(--tab-color);
+}
+.osris.item-shop input[type=checkbox] {
+  accent-color: var(--tab-color);
+}
+.osris.item-shop input[type=checkbox]:checked {
+  -webkit-filter: none;
+  filter: none;
+}
+.osris.item-shop form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.osris.item-shop button {
+  border: none;
+  border-radius: 0;
+  height: 1.5rem;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 600;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+}
+.osris.item-shop h2 {
+  border: none;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.osris.item-shop nav.tabs {
+  gap: 0;
+}
+.osris.item-shop .shop-header {
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+}
+.osris.item-shop .shop-header img {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 0.45rem;
+  border: 4px double var(--border-a);
+}
+.osris.item-shop .center-items {
+  display: grid;
+  place-items: center;
+}
+.osris.item-shop .details {
+  padding: 0 0.35rem 0.75rem 0.35rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5rem 1fr 1fr 5rem;
+  grid-template-rows: repeat(4, 1.25rem);
+  grid-template-areas: "shop-img shopkeep-label customer-label customer-img" "shop-img shopkeeep-name customer-name customer-img" "shop-img shop-gold-label customer-gold-label customer-img" "shop-img shopkeep-gold customer-gold customer-img";
+  border-bottom: 0.35rem solid var(--main-color);
+}
+.osris.item-shop .item-qty {
+  height: 1rem;
+}
+.osris.item-shop .label {
+  font-weight: 700;
+}
+.osris.item-shop .shop-img {
+  grid-area: shop-img;
+}
+.osris.item-shop .shop-label {
+  grid-area: shopkeep-label;
+  padding-left: 0.5em;
+}
+.osris.item-shop .shop-name {
+  grid-area: shopkeeep-name;
+  padding-left: 0.5em;
+}
+.osris.item-shop .shop-gold-label {
+  grid-area: shop-gold-label;
+  padding-left: 0.5em;
+}
+.osris.item-shop .shop-gold {
+  grid-area: shopkeep-gold;
+  padding-left: 0.5em;
+}
+.osris.item-shop .customer-img {
+  grid-area: customer-img;
+}
+.osris.item-shop .customer-label {
+  grid-area: customer-label;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.osris.item-shop .customer-name {
+  grid-area: customer-name;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.osris.item-shop .customer-gold-label {
+  grid-area: customer-gold-label;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.osris.item-shop .customer-gold {
+  grid-area: customer-gold;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+.osris.item-shop .sheet-tabs {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.osris.item-shop .nav-tab {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  color: var(--light-text);
+  background-color: var(--tab-color);
+  line-height: 1.5;
+}
+.osris.item-shop .footer-btn {
+  height: 2rem;
+}
+.osris.item-shop .nav-tab.active {
+  background-color: var(--tab-highlight);
+  color: var(--dark-text);
+}
+.osris.item-shop .tab-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: url("../img/owlbear_watermark_a.webp") center/65% no-repeat;
+}
+.osris.item-shop .cat-header {
+  height: 1.2rem;
+  background-color: var(--main-color);
+  color: var(--light-text);
+  text-align: center;
+  margin: 0 0 0.2rem 0;
+}
+.osris.item-shop .ch-marg-top {
+  margin-top: 0.3rem;
+}
+.osris.item-shop .qty-btn {
+  display: grid;
+  place-items: center;
+}
+.osris.item-shop .item {
+  width: 100%;
+  height: 1.5rem;
+  padding: 0 0.5rem 0.3rem;
+  display: grid;
+  align-items: center;
+}
+.osris.item-shop .item-template-a {
+  grid-template-columns: 4fr 5rem 2rem 25px 25px;
+}
+.osris.item-shop .item-template-b {
+  grid-template-columns: 8fr 5rem 2rem;
+}
+.osris.item-shop .item-list::-webkit-scrollbar {
+  display: none;
+}
+.osris.item-shop .item-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 345px;
+  max-height: 21rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-bottom: 0.2rem solid var(--border-a);
+}
+.osris.item-shop .item-row {
+  width: 100%;
+  display: flex;
+}
+.osris.item-shop .item-row:nth-of-type(odd) {
+  background-color: var(--list-row-bg);
+}
+.osris.item-shop .list-header {
+  height: 25px;
+  border-bottom: 0.3rem solid var(--tab-color);
+}
+.osris.item-shop .sell-footer,
+.osris.item-shop .buy-footer {
+  min-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.osris.item-shop .sell-total,
+.osris.item-shop .buy-total {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.osris.item-shop .buy-total input,
+.osris.item-shop .sell-total input {
+  width: 4rem;
+  background: transparent;
+  margin-left: 0.3rem;
+}
+.osris.item-shop #sell-btn,
+.osris.item-shop #buy-btn {
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--footer-btn-height);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.osris.item-shop .tab {
+  height: 100%;
+}
+.osris.item-shop .tab.packs {
+  flex-direction: column;
+  justify-content: space-between;
+}
+.osris.item-shop #pack-div {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 1em;
+  padding: 0 0.5em;
+}
+.osris.item-shop #pack-div .radio-select {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+.osris.item-shop #fastPack .pack-col {
+  width: 150px;
+  margin-bottom: 0.5em;
+  /* background-color: rgb(165, 165, 141); */
+}
+.osris.item-shop .buy-pack-btn {
+  width: 100%;
+  height: var(--footer-btn-height);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.osris.item-shop #pack-title {
+  border: none;
+  text-align: center;
+  font-weight: 700;
+}
+
+.ose.sheet.actor.character .osris-config {
+  position: relative;
+}
+.ose.sheet.actor.character .osris-config h3 {
+  font-weight: bold;
+  border: none;
+  text-align: center;
+}
+
+.ose.sheet.actor.character .osris.config {
+  /* ../ui/parchment.jpg) repeat */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: url("../img/owlbear_watermark_a.webp") no-repeat, url("../../../ui/parchment.jpg") repeat;
+  background-size: contain, auto;
+  background-position: center;
+}
+.ose.sheet.actor.character .osris.config .bg-image {
+  position: absolute;
+  height: 100%;
+}
+.ose.sheet.actor.character .osris.config .update-shop-config-btn {
+  width: 100%;
+  height: 25px;
+  background-color: var(--tab-color);
+  color: var(--light-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ose.sheet.actor.character .osris.config .options {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.ose.sheet.actor.character .osris.config .row {
+  /* width: 80%; */
+  display: flex;
+  justify-content: space-between;
+}
+
+#osr-item-shop-config .window-content {
+  padding: 0.2rem;
+  background-color: var(--trans-bg);
+}
+#osr-item-shop-config .config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#osr-item-shop-config .update-shop-config-btn {
+  margin: 1em;
+  padding: 0.5em;
+  color: var(--light-text);
+  background-color: var(--main-color);
+  border-radius: 0.25em;
+}
+#osr-item-shop-config .row {
+  margin-bottom: 0.5em;
+}
+#osr-item-shop-config h3 {
+  text-align: center;
+  font-size: 1.25em;
+  border: none;
+  font-weight: 800;
+}
+#osr-item-shop-config input[type=checkbox]::before {
+  color: var(--tab-color);
+  font-weight: initial;
+}
+
+.osris.item-shop-select {
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+.osris.item-shop-select header.window-header {
+  background-color: var(--main-color);
+}
+.osris.item-shop-select .window-content {
+  background-image: none;
+  background: var(--trans-bg);
+  margin: 0px;
+  padding: 0px;
+}
+.osris.item-shop-select .row {
+  display: flex;
+  padding: 0 0.4em;
+  justify-content: space-between;
+  margin-bottom: 0.3em;
+}
+.osris.item-shop-select .row label {
+  font-weight: bold;
+}
+.osris.item-shop-select h3 {
+  border: none;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.2em 0;
+}
+.osris.item-shop-select .select-cont {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.osris.item-shop-select .shop-cont {
+  height: 110%;
+}
+
+/*character sheet shop button */
+.hyperborea.sheet.actor.character .profile .shop-button,
+.ose.sheet.actor.character .profile .shop-button {
+  position: absolute;
+  top: 5px;
+  left: 120px;
+  color: var(--shop-select-color);
+  opacity: 0;
+  /* background: radial-gradient(var(--glow-color) 0%, #fff0 70%) */
+}
+
+.hyperborea.sheet.actor.character .profile:hover .shop-button,
+.ose.sheet.actor.character .profile:hover .shop-button {
+  opacity: 1;
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
+.ose.sheet.actor.character .profile:hover .shop-button:hover {
+  color: var(--glow-color);
+}
+
+/* new shop */
+.osr-new-shop .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.osr-new-shop .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.osr-new-shop .row .wide-txt {
+  width: 200px;
+  text-align: left;
+}
+.osr-new-shop .row .narrow-txt {
+  width: 60px;
+  text-align: right;
+}
+.osr-new-shop h3 {
+  border: none;
+  font-weight: 800;
+  font-size: 1.3em;
+  margin-bottom: 0.3rem;
+}
+.osr-new-shop .window-content {
+  background: none;
+  background-color: var(--trans-bg);
+  padding: 0;
+}
+.osr-new-shop form {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.osr-new-shop button {
+  background-color: var(--main-color);
+  color: var(--light-text);
+  border: none;
+}
+.osr-new-shop button:hover {
+  box-shadow: 0 0 5px var(--shop-select-hilight);
+}
+.osr-new-shop header.window-header {
+  background-color: var(--main-color);
+}
+.osr-new-shop label,
+.osr-new-shop .gp {
+  margin: 0 5px;
+  font-weight: 800;
+  font-size: 1.1em;
+}
+
+.osrh-ui.osrh-ui-container {
+  --handle-height: 40px;
+  --handle-width: 15px;
+  --button-height: 25px;
+  --button-width: 25px;
+  --background-color: rgba(0, 0, 0, 0.5);
+  --border-radius: 10px;
+  --transition-distance: -50px;
+  --transition-duration: 0.3s;
+  --transition-delay: 0.5s;
+  --container-height: 80px;
+  --container-width: 50px;
+  --button-div-width: 35px;
+  position: absolute;
+  top: 30px;
+  z-index: -1;
+  left: calc(var(--handle-width) * -1);
+  width: var(--container-width);
+  height: var(--container-height);
+  padding-left: 5px;
+  border: 2px 2px 2px 0px solid var(--osrh-button);
+  display: grid;
+  grid-template-columns: var(--handle-width) 1fr;
+  grid-template-areas: "handle button" "  .    button";
+  justify-content: center;
+  transition: left 0.3s ease-in-out;
+}
+.osrh-ui.osrh-ui-container:hover {
+  left: var(--transition-distance);
+  transition: left var(--transition-duration) ease-in-out;
+}
+.osrh-ui.osrh-ui-container:not(:hover) {
+  transition: left var(--transition-duration) ease-in-out var(--transition-delay);
+}
+.osrh-ui.osrh-ui-container .button-ui {
+  grid-area: button;
+  display: flex;
+  flex-direction: column;
+}
+.osrh-ui.osrh-ui-container .handle {
+  grid-area: handle;
+  height: var(--handle-height);
+  width: var(--handle-width);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius) 0px 0px var(--border-radius);
+}
+.osrh-ui.osrh-ui-container .round-bottom {
+  height: calc(var(--handle-width) / 2);
+  width: var(--button-div-width);
+  background-color: var(--background-color);
+  border-radius: 0px 0px 0px var(--border-radius);
+}
+.osrh-ui.osrh-ui-container .handle-title {
+  display: block;
+  position: absolute;
+  width: var(--handle-height);
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.473);
+  left: -10px; /* Adjust as needed */
+  top: 12px; /* Adjust as needed */
+  transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform-origin: center;
+}
+.osrh-ui.osrh-ui-container .button-div {
+  grid-area: button;
+  background-color: var(--background-color);
+  padding: 5px;
+  min-height: var(--handle-height);
+  height: fit-content;
+  width: var(--button-div-width);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.osrh-ui.osrh-ui-container .button-div a {
+  margin-top: 5px;
+}
+.osrh-ui.osrh-ui-container .button-div a:first-child {
+  margin-top: 0px;
+}
+.osrh-ui.osrh-ui-container .multi-button {
+  justify-content: space-between;
+  padding-bottom: 0px;
+}
+.osrh-ui.osrh-ui-container .ui-button {
+  height: 25px;
+  width: 25px;
+  background-color: #000;
+  border-radius: 10%;
+  border: 2px solid var(--osrh-button);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.osrh-ui.osrh-ui-container.item-sheet-ui {
+  --container-height: 40px;
+}
+.osrh-ui.osrh-ui-container.item-sheet-ui .button-div {
+  justify-content: center;
+  border-radius: 0px 0px 0px 0px;
+}
+.osrh-ui.osrh-ui-container.item-sheet-ui a {
+  margin-bottom: 0px;
+}
+
+.osrh-ui.osrh-ui-container.actor-sheet-ui {
+  --container-height: 80px;
+}
+
+/*# sourceMappingURL=main.css.map */

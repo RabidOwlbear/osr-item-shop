@@ -1,0 +1,69 @@
+ {{#if universalShop}}
+ <section class="tab packs {{tabs.packs.cssClass}}" data-group="primary" data-tab="packs">
+   <section class="tab-content">
+     <h1 id="pack-title">Ye Fast Pack</h1>
+      <div id="pack-div">
+        <div class="pack-col" id="pack-a">
+          <h3><b>{{localize "OSRIS.packs.a"}}:</b></h2>
+          <div>{{localize "OSRIS.packs.backpack"}}</div>
+          <div>{{localize "OSRIS.packs.lgSack"}}</div>
+          <div>{{localize "OSRIS.packs.lantern"}}</div>
+          <div>2 {{localize "OSRIS.packs.flaskOil"}}</div>
+          <div>{{localize "OSRIS.packs.tinder"}}</div>
+          <div>12 {{localize "OSRIS.packs.ironSpikes"}}</div>
+          <div>{{localize "OSRIS.packs.smHammer"}}</div>
+          <div>{{localize "OSRIS.packs.waterskin"}}</div>
+          <div>{{localize "OSRIS.packs.normRation"}}</div>
+          <br />
+          <br>
+          <div>{{localize "OSRIS.packs.price"}}: 38gp</div>
+          <div class="radio-select">
+   
+            <input class="pack-select"type="radio" name="pack-select" value="a" checked />
+          </div>
+        </div>
+        <div class="pack-col" id="pack-b">
+          <h3><b>{{localize "OSRIS.packs.b"}}:</b></h2>
+          <div>{{localize "OSRIS.packs.backpack"}}</div>
+          <div>2 {{localize "OSRIS.packs.lgSacks"}}</div>
+          <div>6 {{localize "OSRIS.packs.torches"}}</div>
+          <div>3 {{localize "OSRIS.packs.flaskOil"}}</div>
+          <div>{{localize "OSRIS.packs.tinder"}}</div>
+          <div>{{localize "OSRIS.packs.pole"}}</div>
+          <div>{{localize "OSRIS.packs.rope"}}</div>
+          <div>{{localize "OSRIS.packs.waterskin"}}</div>
+          <div>{{localize "OSRIS.packs.normRation"}}</div>
+          <div>{{localize "OSRIS.packs.mirror"}}</div>
+          <br>
+          <div>{{localize "OSRIS.packs.price"}}: 32gp</div>
+          <div class="radio-select">
+            <input class="pack-select"type="radio" name="pack-select" value="b" />
+          </div>
+        </div>
+        <div class="pack-col" id="pack-c">
+          <h3><b>{{localize "OSRIS.packs.c"}}:</b></h2>
+          <div>{{localize "OSRIS.packs.backpack"}}</div>
+          <div>4 {{localize "OSRIS.packs.smSacks"}}</div>
+          <div>{{localize "OSRIS.packs.holSymbol"}} <b>{{localize "OSRIS.packs.or"}}</b></div>
+          <div>{{localize "OSRIS.packs.thiefTool"}} <b>{{localize "OSRIS.packs.or"}}</b></div>
+          <div>{{localize "OSRIS.packs.holWater"}}</div>
+          <div>12 {{localize "OSRIS.packs.ironSpikes"}}</div>
+          <div>{{localize "OSRIS.packs.rope"}}</div>
+          <div>{{localize "OSRIS.packs.waterskin"}}</div>
+          <div>{{localize "OSRIS.packs.normRation"}}</div>
+          <br />
+          <br>
+          <div>{{localize "OSRIS.packs.price"}}: 42gp</div>
+          <div class="radio-select">
+            <input class="pack-select"type="radio" name="pack-select" value="c" />
+          </div>
+        </div>
+      </div>
+      <a class="buy-pack-btn footer-btn">{{localize "OSRIS.packs.buy"}}</a>
+   </section>
+ </section>
+ {{else}}
+ <section class="packs hidden">
+   
+ </section>
+ {{/if}}

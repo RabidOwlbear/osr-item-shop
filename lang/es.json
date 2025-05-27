@@ -1,4 +1,5 @@
 {
+  "OSRIS.ui.handle": "OSR",
   "OSRIS.notification.transactionComplete": "Transacción completada",
   "OSRIS.notification.shopInUse": "Se está usando la tienda actualmente, prueba a intentarlo más tarde.",
   "OSRIS.notification.noGpItemFound": "No se encuentra el objeto MO en el actor",

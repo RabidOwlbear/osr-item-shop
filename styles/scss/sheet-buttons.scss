@@ -1,0 +1,19 @@
+/*character sheet shop button */
+.hyperborea.sheet.actor.character .profile .shop-button,
+.ose.sheet.actor.character .profile .shop-button{
+  position: absolute;
+  top: 5px;
+  left: 120px;
+  color:var(--shop-select-color);
+  opacity: 0;
+  /* background: radial-gradient(var(--glow-color) 0%, #fff0 70%) */
+}
+.hyperborea.sheet.actor.character .profile:hover .shop-button,
+.ose.sheet.actor.character .profile:hover .shop-button{
+  opacity: 1;
+  text-shadow: 0 0 10px var(--glow-color);
+}
+.ose.sheet.actor.character .profile:hover .shop-button:hover{
+  
+  color:var(--glow-color);
+}

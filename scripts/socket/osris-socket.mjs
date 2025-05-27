@@ -27,11 +27,11 @@ export const socket = {
       case 'transactionComplete':
         OSRIS.socket.transactionComplete(data);
         break;
-      case 'refreshOpenShop': 
+      case 'refreshOpenShop':
         OSRIS.socket.refreshOpenShop(data);
         break;
       case 'testSocket':
-        console.log('---------------socket test emitted----------------', data)
+        console.log('---------------socket test emitted----------------', data);
     }
   },
   transactionComplete: async function (data) {
@@ -43,7 +43,6 @@ export const socket = {
       });
       OSRIS.socket.refreshOpenShop(data);
     }
-    
   },
   shopTransaction: async (data) => {
     const shop = await game.actors.get(data.shop._id);
@@ -52,7 +51,7 @@ export const socket = {
     let customerCurr = await getCurrencyItems(customer);
     let shopGP = shop.items.getName(game.i18n.localize('OSRIS.curency.gp'));
     let customerGP = customer.items.getName(game.i18n.localize('OSRIS.curency.gp'));
-    let { items, total, newGP , newCurr} = data;
+    let { items, total, newGP, newCurr } = data;
     let itemList = [];
     switch (data.type) {
       case 'buy':
@@ -64,9 +63,9 @@ export const socket = {
         }
         await customer.createEmbeddedDocuments('Item', itemList);
 
-        await updateCurr(customerCurr, newCurr.customer)
-        await updateCurr(shopCurr, newCurr.shop)
-       
+        await updateCurr(customerCurr, newCurr.customer);
+        await updateCurr(shopCurr, newCurr.shop);
+
         break;
       case 'sell':
         for (let item of items) {
@@ -76,9 +75,9 @@ export const socket = {
         }
         await shop.createEmbeddedDocuments('Item', itemList);
 
-        await updateCurr(customerCurr, newCurr.customer)
-        await updateCurr(shopCurr, newCurr.shop)
-        
+        await updateCurr(customerCurr, newCurr.customer);
+        await updateCurr(shopCurr, newCurr.shop);
+
         break;
     }
     if (game.user.isGM) {
@@ -96,9 +95,12 @@ export const socket = {
       });
     }
   },
-  refreshOpenShop: async (data)=>{
+  refreshOpenShop: async (data) => {
     if (game.user.id == data.userId) {
-      ui.windows[data.appId].render();
+      const app = foundry.applications.instances.get(data.appId);
+      if (app) {
+        app.render(true);
+      }
     }
   },
 
@@ -138,7 +140,7 @@ async function getCurrencyItems(actor) {
   let spItem = await actor.items.getName(spString);
   let cpItem = await actor.items.getName(cpString);
   const makeItem = async (str, act) => {
-    const itemData = deepClone(await itemPack.getDocument(itemPack.index.getName(str)._id));
+    const itemData = foundry.utils.deepClone(await itemPack.getDocument(itemPack.index.getName(str)._id));
     await act.createEmbeddedDocuments('Item', [itemData]);
     return await act.items.getName(str);
   };
@@ -154,8 +156,8 @@ async function getCurrencyItems(actor) {
     cp: cpItem
   };
 }
-async function updateCurr(curObj, amt){
-  for(let key of Object.keys(curObj)){
-    await curObj[key].update({'system.quantity.value': amt[key]})
+async function updateCurr(curObj, amt) {
+  for (let key of Object.keys(curObj)) {
+    await curObj[key].update({ 'system.quantity.value': amt[key] });
   }
 }

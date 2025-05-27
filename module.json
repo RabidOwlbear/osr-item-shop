@@ -9,18 +9,18 @@
       "flags": {}
     }
   ],
-  "version": "0.2.32",
+  "version": "0.3.0",
   "compatibility": {
-    "minimum": "11",
-    "verified": "12.330",
-    "maximum": "12"
+    "minimum": "13",
+    "verified": "13",
+    "maximum": "13"
   },
   "socket": true,
   "esmodules": [
     "scripts/init.js"
   ],
   "styles": [
-    "styles/item-shop.css"
+    "styles/main.css"
   ],
   "languages": [
     {
@@ -124,7 +124,7 @@
     ]
   },
   "url": "https://github.com/RabidOwlbear/osr-item-shop",
-  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/main/module.json",
-  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/main.zip",
+  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/refs/heads/v0.3.0/module.json",
+  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.3.0.zip",
   "readme": "REAMDE.md"
 }

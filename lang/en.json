@@ -1,4 +1,5 @@
 {
+  "OSRIS.ui.handle": "OSR",
   "OSRIS.notification.transactionComplete": "Transaction Complete.",
   "OSRIS.notification.shopInUse": "Shop Currently In Use. Try Again Later.",
   "OSRIS.notification.noGpItemFound": "No GP item found in actor",
@@ -101,8 +102,8 @@
   "OSRIS.settings.hideConfigHint":"Hides the Item Shop configuration tab on character sheets for non GM users.",
   "OSRIS.settings.universalComp":"Universal Shop Compendium",
   "OSRIS.settings.universalCompHint":"Select the desired compendium to use as the Universal Shop Compendium.",
-  "OSRIS.settings.hideForeignPackName": "Hide Foreign Language Compendiums",
-  "OSRIS.settings.hideForeignPackHint": "Hides display of foreign language compendium packs",
+  "OSRIS.settings.hideForeignPackName": "Hide Unused Translation Compendiums",
+  "OSRIS.settings.hideForeignPackHint": "Hides display of unused language translation compendium packs",
   "OSRIS.settings.makePackFolder":"Create Compendium Pack Folder",
   "OSRIS.settings.makePackFolderHint":"When selected a folder will be created and included compendiums will be moved to this folder.",
   "OSRIS.settings.packFolderName":"Compendium Pack Folder Name",

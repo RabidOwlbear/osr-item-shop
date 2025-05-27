@@ -1,0 +1,57 @@
+/* new shop */
+.osr-new-shop {
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .wide-txt {
+      width: 200px;
+      text-align: left;
+    }
+    .narrow-txt {
+      width: 60px;
+      text-align: right;
+    }
+  }
+  h3 {
+    border: none;
+    font-weight: 800;
+    font-size: 1.3em;
+    // color: var(--shop-select-color);
+    margin-bottom: .3rem
+  }
+  .window-content {
+    background: none;
+    background-color: var(--trans-bg);
+    padding: 0;
+  }
+  form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  button {
+    background-color: var(--main-color);
+    color: var(--light-text);
+    border: none;
+  }
+  button:hover {
+    box-shadow: 0 0 5px var(--shop-select-hilight);
+  }
+  header.window-header {
+    background-color: var(--main-color);
+  }
+  label,
+  .gp {
+    margin: 0 5px;
+    font-weight: 800;
+    font-size: 1.1em;
+    // color: var(--border-a);
+  }
+}

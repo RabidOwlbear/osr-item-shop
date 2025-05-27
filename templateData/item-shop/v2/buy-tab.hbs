@@ -1,0 +1,181 @@
+{{#if universalShop}}
+<section class='tab buy {{tabs.buy.cssClass}}' data-group='primary' data-tab='buy'>
+  <section class="tab-content">
+    <section class='tab-cont buy '>
+      <div class='item item-template-a list-header'>
+        <p>{{localize 'OSRIS.itemShop.name'}}</p>
+        <p>{{localize 'OSRIS.itemShop.cost'}}</p>
+        <p>{{localize 'OSRIS.itemShop.qty'}}</p>
+        <p class='center-items'><i class='fa-solid fa-minus'></i></p>
+        <p class='center-items'><i class='fa-solid fa-plus'></i></p>
+      </div>
+    </section>
+    <section class='item-list'>
+      <div class='cat-header'>{{localize 'OSRIS.itemShop.weapons'}}</div>
+      {{#each shopItems.weapons as |item idx|}}
+        <div class='item-row'>
+          <div
+            class='item item-template-a'
+            data-type='{{item.type}}'
+            data-cost='{{item.system.cost}}'
+            data-id='{{item.id}}'
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+              type='text'
+              class='item-qty qty'
+              data-item-id='{{item.id}}'
+              data-item-type='{{item.type}}'
+              data-item-name='{{item.name}}'
+              value='0'
+              placeholder='0'
+            />
+            <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+            <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+          </div>
+        </div>
+      {{/each}}
+      <div class='cat-header ch-marg-top'>{{localize 'OSRIS.itemShop.armor'}}</div>
+      {{#each shopItems.armor as |item idx|}}
+        <div class='item-row'>
+          <div
+            class='item item-template-a'
+            data-type='{{item.type}}'
+            data-cost='{{item.system.cost}}'
+            data-id='{{item.id}}'
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+              type='text'
+              class='item-qty qty'
+              data-item-id='{{item.id}}'
+              data-item-type='{{item.type}}'
+              data-item-name='{{item.name}}'
+              value='0'
+              placeholder='0'
+            />
+            <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+            <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+          </div>
+        </div>
+      {{/each}}
+      <div class='cat-header ch-marg-top'>{{localize 'OSRIS.itemShop.items'}}</div>
+      {{#each shopItems.items as |item idx|}}
+        <div class='item-row'>
+          <div
+            class='item item-template-a'
+            data-type='{{item.type}}'
+            data-cost='{{item.system.cost}}'
+            data-id='{{item.id}}'
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+              type='text'
+              class='item-qty qty'
+              data-item-id='{{item.id}}'
+              data-item-type='{{item.type}}'
+              data-item-name='{{item.name}}'
+              value='0'
+              placeholder='0'
+            />
+            <a class='buy qty-btn minus'><i class='fa-solid fa-square-minus'></i></a>
+            <a class='buy qty-btn plus'><i class='fa-solid fa-square-plus'></i></a>
+          </div>
+        </div>
+      {{/each}}
+    </section>
+    <div class='buy-footer'>
+      <div class='buy-total'>
+        <label><b>{{localize 'OSRIS.itemShop.purchaseTotal'}}</b>:</label>
+        <input id='buy-total' type='text' data-dtype='Number' value='0' placeholder='0' disabled />
+      </div>
+      <a id='buy-btn'>{{localize 'OSRIS.itemShop.buyItems'}}</a>
+    </div>
+  </section>
+</section>
+{{else}}
+<section class="tab actor-buy {{tabs.buy.cssClass}}" data-group="primary" data-tab="buy">
+  <section class="tab-content">
+    <section class="list-header buy">
+      <div class="item item-template-b">
+        <p>{{localize "OSRIS.itemShop.name"}}</p>
+        <p>{{localize "OSRIS.itemShop.cost"}}</p>
+        <p>{{localize "OSRIS.itemShop.buy"}}</p>
+      </div>
+    </section>
+    <section class="item-list">
+      <div class="cat-header">{{localize "OSRIS.itemShop.weapons"}}</div>
+      {{#each shopItems.weapons as |item idx|}}
+        <div class="item-row">
+          <div
+          class="item item-template-b"
+          data-type="{{item.type}}"
+          data-cost="{{item.system.cost}}"
+          data-id="{{item.id}}"
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+            type="checkbox"
+            class="buy-check"
+            data-item-id="{{item.id}}"
+            data-item-type="{{item.type}}"
+            >
+          </div>
+        </div>
+      {{/each}}
+      <div class="cat-header ch-marg-top">{{localize "OSRIS.itemShop.armor"}}</div>
+      {{#each shopItems.armor as |item idx|}}
+        <div class="item-row">
+          <div
+          class="item item-template-b"
+          data-type="{{item.type}}"
+          data-cost="{{item.system.cost}}"
+          data-id="{{item.id}}"
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+            type="checkbox"
+            class="buy-check"
+            data-item-id="{{item.id}}"
+            data-item-type="{{item.type}}"
+            >
+          </div>
+        </div>
+      {{/each}}
+      <div class="cat-header ch-marg-top">{{localize "OSRIS.itemShop.items"}}</div>
+      {{#each shopItems.items as |item idx|}}
+        <div class="item-row">
+          <div
+          class="item item-template-b"
+          data-type="{{item.type}}"
+          data-cost="{{item.system.cost}}"
+          data-id="{{item.id}}"
+          >
+            <p>{{item.name}}</p>
+            <p>{{item.system.cost}}</p>
+            <input
+            type="checkbox"
+            class="buy-check"
+            data-item-id="{{item.id}}"
+            data-item-type="{{item.type}}"
+            >
+          </div>
+        </div>
+      {{/each}}
+  
+    </section>
+    <div class='buy-footer'>
+        <div class='buy-total'>
+          <label><b>{{localize "OSRIS.itemShop.purchaseTotal"}}</b>:</label>
+          <input id="buy-total" type='text' data-dtype='Number' value='0' placeholder='0' disabled />
+        </div>
+        <a id="buy-btn" class="footer-btn">{{localize "OSRIS.itemShop.buyItems"}}</a>
+      </div>
+  </section>
+</section>
+{{/if}}

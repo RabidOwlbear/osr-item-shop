@@ -1,3 +1,13 @@
-<a class="sheet-ui-btn">
-  <i class="{{icon}}"></i>
-</a>
+<div class="osrh-ui osrh-ui-container sheet-ui">
+  <div class="handle"><span class="handle-title">{{localize 'OSRIS.ui.handle'}}</span></div>
+  <div class="button-ui">
+    <div class="button-div {{#if roundBottom}}multi-button{{/if}}">
+      {{#each buttons as |button|}}
+        <a class="ui-button" title="{{button.title}}" data-app="{{button.app}}">
+          <i class="fa-solid {{button.icon}}"></i>
+        </a>
+      {{/each}}
+    </div>
+    <div class="round-bottom {{#if roundBottom}}{{else}}hidden{{/if}}"></div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="shop-header">
+<h2>{{shopName}}</h2>
+<div class="details">
+  
+  <img class="shop-img" src="{{shopImg}}">
+  
+  
+  {{#if universalShop}}
+  {{else}}
+  <div class="label shop-label">{{localize "OSRIS.itemShop.shopkeep"}}:</div>
+  <div class="shop-name">{{shopKeep}}</div>
+  <div class="label shop-gold-label">{{localize "OSRIS.itemShop.gold"}}:</div>
+  <div class="shop-gold">{{shopGold}}</div>
+  {{/if}}
+  <img class="customer-img" src="{{custImg}}">
+  <div class="label customer-label">{{localize "OSRIS.itemShop.character"}}:</div>
+  <div class="customer-name">{{customerName}}</div>
+  <div class="label customer-gold-label">{{localize "OSRIS.itemShop.gold"}}:</div>
+  <div class="customer-gold">{{customerGold}}</div>
+</div>
+</div>
