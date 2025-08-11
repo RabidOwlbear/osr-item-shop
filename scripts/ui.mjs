@@ -14,7 +14,7 @@ export async function injectOSRUI(sheetEl, actorObj, type) {
 }
 //create sheet ui
 export async function createOSRUI(sheetEl, actorObj, type) {
-  const existing = sheetEl.closest('.app.window-app').querySelector('.osrh-ui-container');
+  const existing = sheetEl.closest('.app.window-app')?.querySelector('.osrh-ui-container');
   if (existing) return;
   const data = {
     handle: true,

@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.3.0",
+  "version": "0.3.1",
   "compatibility": {
     "minimum": "13",
     "verified": "13",
@@ -110,6 +110,11 @@
       },
       {
         "id": "ose-dev",
+        "type": "system",
+        "compatibility": {}
+      },
+      {
+        "id": "dnd5e",
         "type": "system",
         "compatibility": {}
       }

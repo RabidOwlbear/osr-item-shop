@@ -43,6 +43,7 @@ export class ItemShopSelectV2 extends OSRISApplication {
     }
   }
   async _openShop(ev) {
+    console.log(this.actorId, this);
     let customer = await game.actors.get(this.actorId);
 
     const linkedToken = customer.prototypeToken.actorLink;

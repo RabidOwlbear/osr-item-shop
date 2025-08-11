@@ -119,7 +119,7 @@ export class ItemShopV2 extends OSRISApplication {
     });
     buyPackBtn?.addEventListener('click', async (ev) => {
       ev.preventDefault();
-      const packEl = [...html.querySelector('.pack-select')].filter((i) => i.checked);
+      const packEl = [...html.querySelectorAll('.pack-select')].filter((i) => i.checked);
       const packSelection = packEl[0].value;
       await this._handleFastPack(packSelection, this.customer._id);
       this.render();
@@ -264,20 +264,22 @@ export class ItemShopV2 extends OSRISApplication {
   _subQty(ev, html, type) {
     ev.preventDefault();
     const buyEl = html.querySelector('#buy-total');
+    const buyTotal = parseFloat(buyEl.value);
     const sellEl = html.querySelector('#sell-total');
     let itemEl = ev.target.closest('.item');
     let qtyEl = ev.target.closest('.item').querySelector('.item-qty');
     let qty = parseInt(qtyEl.value);
     let cost = parseFloat(itemEl.dataset.cost);
     // if quantity is 1 or higher, deduct cost from total
-    let newTotal = qty > 0 ? parseFloat(buyTotal.value) - cost : parseFloat(buyTotal.value);
+    let newTotal = qty > 0 ? parseFloat(buyTotal) - cost : parseFloat(buyTotal);
     let newQty = qty - 1 < 0 ? 0 : qty - 1;
     qtyEl.value = `${newQty}`;
     if (type == 'buy') {
-      buyTotal.value = newTotal < 0 ? 0 : newTotal;
+      console.log(newTotal, )
+      buyEl.value = newTotal < 0 ? 0 : newTotal;
     }
     if (type == 'sell') {
-      sellTotal.value = newTotal < 0 ? 0 : newTotal;
+      sellEl.value = newTotal < 0 ? 0 : newTotal;
     }
   }
   _handleQty(ev, type, html) {

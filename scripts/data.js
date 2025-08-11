@@ -1,3 +1,4 @@
+
 // Hooks.on('OSRIS Registered', 
 export const registerOsrisData = ()=>{
 OSRIS.osrItems = {
@@ -260,6 +261,8 @@ OSRIS.shopListsA = {
 };
 
 }
+
+
 export async function registerUiButtons(){
   const osrhv2Active = game.modules.get('osr-helper-v2')?.active;
   const buttons = [
