@@ -1,3 +1,8 @@
-2025/08/11-11:06:39.290 cec Recovering log #1320
-2025/08/11-11:06:39.295 cec Delete type=0 #1320
-2025/08/11-11:06:39.295 cec Delete type=3 #1319
+2025/12/03-14:49:20.056 4404 Recovering log #1487
+2025/12/03-14:49:20.056 4404 Delete type=0 #1487
+2025/12/03-14:49:20.056 4404 Delete type=3 #1485
+2025/12/03-14:54:16.379 ef8 Level-0 table #1492: started
+2025/12/03-14:54:16.379 ef8 Level-0 table #1492: 0 bytes OK
+2025/12/03-14:54:16.379 ef8 Delete type=0 #1490
+2025/12/03-14:54:16.379 ef8 Manual compaction at level-0 from '!folders!NUX98qhv0tGMwg9a' @ 72057594037927935 : 1 .. '!scenes.walls!Iv4yvsqRJgtvmcgD.yo3CfTwlv5ECndjr' @ 0 : 0; will stop at (end)
+2025/12/03-14:54:16.379 ef8 Manual compaction at level-1 from '!folders!NUX98qhv0tGMwg9a' @ 72057594037927935 : 1 .. '!scenes.walls!Iv4yvsqRJgtvmcgD.yo3CfTwlv5ECndjr' @ 0 : 0; will stop at (end)

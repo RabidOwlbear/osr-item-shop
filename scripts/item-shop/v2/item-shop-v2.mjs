@@ -149,7 +149,6 @@ export class ItemShopV2 extends OSRISApplication {
   }
 
   close() {
-    console.log('closing');
     if (this.shop != 'universal') {
       if (game.user.isGM) {
         this.shop.unsetFlag('osr-item-shop', 'shopInUse');
@@ -275,7 +274,6 @@ export class ItemShopV2 extends OSRISApplication {
     let newQty = qty - 1 < 0 ? 0 : qty - 1;
     qtyEl.value = `${newQty}`;
     if (type == 'buy') {
-      console.log(newTotal, )
       buyEl.value = newTotal < 0 ? 0 : newTotal;
     }
     if (type == 'sell') {
@@ -554,7 +552,6 @@ export class ItemShopV2 extends OSRISApplication {
         };
         break;
     }
-    console.log('transactionData', this.id);
     let transactionData = {
       userId: game.user.id,
       shop: shop,

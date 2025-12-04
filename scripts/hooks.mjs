@@ -245,7 +245,6 @@ export function registerHooks() {
       // add shop button
       if (actorObj.owner || actorObj.isOwner) {
         const osrUiActive = game.modules.get("osr-ui")?.active;
-        console.log('osrUiActive', osrUiActive);
         if (osrUiActive) {
           return;
         } else {
@@ -317,7 +316,7 @@ export function registerHooks() {
       }
     }
   });
-  console.log("hooks registered");
+  console.log("osr-item-shop hooks registered");
   
   
   Hooks.on("renderActorSheetV2", async (sheetObj, sheetEl, actorObj) => {
@@ -341,7 +340,6 @@ export function registerHooks() {
   });
 // osr ui integration
   Hooks.on("osr-ui.registerButtons", (api) => {
-    console.log("adding osr item shop butons now!!!!!!");
     uiButtons.actor.forEach((button) => {
       api.registerButton(button, "actor");
     });

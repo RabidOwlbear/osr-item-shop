@@ -12,7 +12,7 @@
   "version": "0.3.1",
   "compatibility": {
     "minimum": "13",
-    "verified": "13",
+    "verified": "13.347",
     "maximum": "13"
   },
   "socket": true,
@@ -20,25 +20,29 @@
     "scripts/init.js"
   ],
   "styles": [
-    "styles/main.css"
+    {
+      "src": "styles/main.css"
+    }
   ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "./lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     },
     {
       "lang": "es",
       "name": "Spanish",
-      "path": "./lang/es.json"
+      "path": "lang/es.json",
+      "flags": {}
     }
   ],
   "packs": [
     {
       "name": "osr-items-en",
       "label": "osr-items (en)",
-      "path": "packs/osrItems.db",
+      "path": "packs/osrItems",
       "type": "Item",
       "system": "ose",
       "flags": {},
@@ -50,7 +54,7 @@
     {
       "name": "osr-items-hyperborea-en",
       "label": "osr-items (en)",
-      "path": "packs/osrItems-hpb.db",
+      "path": "packs/osrItems-hpb",
       "type": "Item",
       "system": "hyperborea",
       "flags": {},
@@ -62,7 +66,7 @@
     {
       "name": "osr-items-es",
       "label": "osr-items (es)",
-      "path": "packs/osrItems-es.db",
+      "path": "packs/osrItems-es",
       "type": "Item",
       "system": "ose",
       "flags": {},
@@ -74,7 +78,7 @@
     {
       "name": "osr-macros-en",
       "label": "OSR Macros",
-      "path": "packs/osrMacros.db",
+      "path": "packs/osrMacros",
       "type": "Macro",
       "system": "ose",
       "flags": {},
@@ -86,7 +90,7 @@
     {
       "name": "osr-scenes-all",
       "label": "OSR Scenes",
-      "path": "packs/osrScenes.db",
+      "path": "packs/osrScenes",
       "type": "Scene",
       "system": "ose",
       "flags": {},
@@ -129,7 +133,8 @@
     ]
   },
   "url": "https://github.com/RabidOwlbear/osr-item-shop",
-  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/refs/heads/v0.3.0/module.json",
-  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.3.0.zip",
-  "readme": "REAMDE.md"
+  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/refs/heads/v0.3.1/module.json",
+  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.3.1.zip",
+  "readme": "REAMDE.md",
+  "flags": {}
 }
