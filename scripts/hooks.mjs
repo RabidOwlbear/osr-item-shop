@@ -70,8 +70,8 @@ export function registerHooks() {
   Hooks.once("socketlib.ready", () => {});
 
   Hooks.once("ready", async () => {
-    await intializePackFolders();
-    hideForeignPacks();
+    // await intializePackFolders();
+    // hideForeignPacks();
     registerReadySettings();
     openShopCheck();
     registerUiButtons();

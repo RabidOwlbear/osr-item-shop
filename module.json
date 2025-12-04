@@ -9,7 +9,7 @@
       "flags": {}
     }
   ],
-  "version": "0.3.1",
+  "version": "0.3.2",
   "compatibility": {
     "minimum": "13",
     "verified": "13.347",
@@ -36,6 +36,12 @@
       "name": "Spanish",
       "path": "lang/es.json",
       "flags": {}
+    },
+    {
+      "lang": "cn",
+      "name": "Chinese",
+      "path": "lang/cn.json",
+      "flags": {}
     }
   ],
   "packs": [
@@ -57,6 +63,18 @@
       "path": "packs/osrItems-hpb",
       "type": "Item",
       "system": "hyperborea",
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "osr-items-cn",
+      "label": "osr-items (cn)",
+      "path": "packs/osrItems-cn",
+      "type": "Item",
+      "system": "ose",
       "flags": {},
       "ownership": {
         "PLAYER": "OBSERVER",
@@ -98,6 +116,34 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "OSRIS Compendiums",
+      "color": "#c29e00",
+      "sorting": "m",
+      "packs": ["osr-macros-en", "osr-scenes-all"],
+      "folders": [
+        {
+          "name": "en",
+          "color": "#a78802",
+          "sorting": "a",
+          "packs": ["osr-items-en", "osr-items-hyperborea-en"]
+        },
+        {
+          "name": "es",
+          "color": "#a78802",
+          "sorting": "a",
+          "packs": ["osr-items-es"]
+        },
+        {
+          "name": "cn",
+          "color": "#a78802",
+          "sorting": "a",
+          "packs": ["osr-items-cn"]
+        }
+      ]
     }
   ],
   "relationships": {

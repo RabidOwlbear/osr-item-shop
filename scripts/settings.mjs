@@ -54,23 +54,23 @@ export function registerSettings(){
     default: false,
     config: true
   });
-   // hide foreign language packs
-   game.settings.register('osr-item-shop', 'hideForeignPacks', {
-    name: "OSRIS.settings.hideForeignPackName",
-    hint: "OSRIS.settings.hideForeignPackHint",
-    scope: 'client',
-    type: Boolean,
-    default: true,
-    config: true
-  });
-  game.settings.register('osr-item-shop', 'makePackFolder', {
-    name: "OSRIS.settings.makePackFolder",
-    hint: "OSRIS.settings.makePackFolderHint",
-    scope: 'client',
-    type: Boolean,
-    default: true,
-    config: true
-  });
+  //  // hide foreign language packs
+  //  game.settings.register('osr-item-shop', 'hideForeignPacks', {
+  //   name: "OSRIS.settings.hideForeignPackName",
+  //   hint: "OSRIS.settings.hideForeignPackHint",
+  //   scope: 'client',
+  //   type: Boolean,
+  //   default: true,
+  //   config: true
+  // });
+  // game.settings.register('osr-item-shop', 'makePackFolder', {
+  //   name: "OSRIS.settings.makePackFolder",
+  //   hint: "OSRIS.settings.makePackFolderHint",
+  //   scope: 'client',
+  //   type: Boolean,
+  //   default: true,
+  //   config: true
+  // });
   game.settings.register('osr-item-shop', 'packFolderName', {
     name: "OSRIS.settings.packFolderName",
     hint: "OSRIS.settings.packFolderNameHint",
