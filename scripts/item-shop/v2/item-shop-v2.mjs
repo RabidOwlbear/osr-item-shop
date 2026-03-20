@@ -50,7 +50,7 @@ export class ItemShopV2 extends OSRISApplication {
     const universalShop = this.shop == 'universal';
     let context = await super._prepareContext(options);
     context = await foundry.utils.mergeObject(context, {
-      tabs: this._getTabs(options.parts),
+      tabs: await this._getTabs(options.parts),
       shop: this.shop,
       customer: this.customer,
       universalShop: universalShop,
@@ -161,12 +161,17 @@ export class ItemShopV2 extends OSRISApplication {
     }
     super.close();
   }
-  _getTabs(parts) {
+  async _getTabs(parts) {
     const tabGroup = 'primary';
     const intialTab = this.options.tabs[0].initial;
     const tabData = {};
     const universalShop = this.shop == 'universal';
-    const tabs = universalShop ? ['buy', 'sell', 'packs'] : ['buy', 'sell'];
+    const hidePacks = await game.settings.get("osr-item-shop", 'hidePacksTab')
+    let tabs = universalShop ? ['buy', 'sell', 'packs'] : ['buy', 'sell'];
+    // hides packs tab
+    if (universalShop && hidePacks) {
+      tabs = ['buy', 'sell']
+    }
     // Default tab for first time it's rendered this session
     if (!this.tabGroups.primary) this.tabGroups.primary = intialTab;
     for (let opt of parts) {
