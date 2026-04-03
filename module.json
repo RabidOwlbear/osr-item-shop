@@ -9,11 +9,11 @@
       "flags": {}
     }
   ],
-  "version": "0.3.4",
+  "version": "0.3.5",
   "compatibility": {
     "minimum": "13",
-    "verified": "13.347",
-    "maximum": "13"
+    "verified": "14"
+
   },
   "socket": true,
   "esmodules": [
@@ -179,8 +179,8 @@
     ]
   },
   "url": "https://github.com/RabidOwlbear/osr-item-shop",
-  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/refs/heads/v0.3.1/module.json",
-  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.3.1.zip",
+  "manifest": "https://raw.githubusercontent.com/RabidOwlbear/osr-item-shop/refs/heads/v0.3.5/module.json",
+  "download": "https://github.com/RabidOwlbear/osr-item-shop/archive/refs/heads/v0.3.5.zip",
   "readme": "REAMDE.md",
   "flags": {}
 }
