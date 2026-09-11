@@ -62,16 +62,20 @@ export class ItemShopV2 extends OSRISApplication {
       shopLabel: `${game.i18n.localize('OSRIS.itemShop.shopKeep')}:`,
       custImg: this.customer.img,
       customerName: this.customer.name,
-      customerGold: this.customer.items.getName(game.i18n.localize('OSRIS.curency.gp'))?.system?.quantity?.value
+      customerGold: this.customer.items.getName(game.i18n.localize('OSRIS.curency.gp'))?.system?.quantity?.value,
+      deprecationAmt:  0
     });
     if (universalShop) {
       context.shopName = game.i18n.localize('OSRIS.shopSelect.universalShop');
     } else {
-      const flagName = this.shop.flags?.['osr-item-shop']?.shopConfig?.shopName;
+      const flag = this.shop.getFlag('osr-item-shop', 'shopConfig')
+      console.log('shopV2',flag.deprecationAmt)
+      const flagName = flag?.shopName;
       const shopGpItem = this.shop.items.getName(game.i18n.localize('OSRIS.curency.gp'));
       context.shopName = flagName ? flagName : this.shop.name;
       context.shopGold = shopGpItem?.system?.quantity?.value;
       context.shopKeep = this.shop.name;
+      context.deprecationAmt = flag?.deprecationAmt || 0;
     }
     return context;
   }
@@ -473,6 +477,7 @@ export class ItemShopV2 extends OSRISApplication {
   async _shopTransaction(transactionType, html, shop, customer) {
     const customerCurr = await this._getCurrencyItems('customer');
     const shopCurr = await this._getCurrencyItems('shop');
+    const shopFLag = shop.getFlag('osr-item-shop', 'shopConfig')
     let customerGold = customerCurr.gp.system.quantity.value; //customer.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
     let shopGold = shopCurr.gp.system.quantity.value; //shop.items.getName(game.i18n.localize('OSRIS.curency.gp')).system.quantity.value;
     let transactionTotal = 0;
@@ -527,7 +532,7 @@ export class ItemShopV2 extends OSRISApplication {
           return {
             type: item.type,
             id: item.id,
-            cost: parseFloat(item.cost)
+            cost: shopFlag?.deprecationAmt ? parseFloat(item.cost) * shopFlag?.deprecationAmt : parseFloat(item.cost)
           };
         });
         items.map((i) => (transactionTotal += i.cost));

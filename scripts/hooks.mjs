@@ -65,6 +65,11 @@ export function registerHooks() {
 
     // OSRIS.socket.register('cShopItemSell', OSRIS.customShop.cShopItemSell)
     // OSRIS.socket.register('csBuyCart', OSRIS.customShop.csBuyCart)
+     Handlebars.registerHelper('deprecate', function (cost, amt) {
+      const c = parseFloat(cost);
+      if(!c) return cost;
+      return c - (c * parseFloat(amt))
+     })
     
   });
   Hooks.once("socketlib.ready", () => {});

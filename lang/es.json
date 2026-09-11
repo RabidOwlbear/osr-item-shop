@@ -48,6 +48,8 @@
   "OSRIS.itemShop.customShop": "Tienda a medida",
   "OSRIS.itemShop.customShopPlur": "Tiendas a medida",
   "OSRIS.itemShop.shopKeep": "Tendero",
+  "OSRIS.itemShop.shopDeprecation": "Deprecation Amount",
+  "OSRIS.itemShop.shopDeprecationTitle": "This value determines the amount the shop will decrement the price of used items. Decimal values are required, eg .1 would reduce prices by 10 percent of the items cost value.",
 
   "OSRIS.shopSelect.title": "Selección de tienda de objetos",
   "OSRIS.shopSelect.universalShop": "Tienda universal de objetos",

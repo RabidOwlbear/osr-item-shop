@@ -6,7 +6,7 @@ export class ItemShopConfigV2 extends OSRISApplication {
     classes: ['osris', 'item-shop-config'],
     position: {
       width: 200,
-      height: 230
+      height: 290
     },
     tag: 'div',
     window: {
@@ -28,10 +28,12 @@ export class ItemShopConfigV2 extends OSRISApplication {
   async _prepareContext(options) {  
     const context = await super._prepareContext(options);
     const actor = await fromUuid(this.uuid);
+    const flag = actor.getFlag('osr-item-shop', 'shopConfig')
     context.actorId = this.actorId;
     context.actor = actor;
-    context.shopEnabled = actor.getFlag('osr-item-shop', 'shopConfig')?.enabled || false;
-    context.shopName = context.actor.getFlag('osr-item-shop', 'shopConfig')?.shopName || context.actor.name + ' ' + game.i18n.localize('OSRIS.itemShop.customShop');
+    context.shopEnabled = flag?.enabled || false;
+    context.shopName = flag?.shopName || context.actor.name + ' ' + game.i18n.localize('OSRIS.itemShop.customShop');
+    context.deprecationAmt = flag?.deprecationAmt || 0
     return context;
   }
   _onRender(context, options) {
@@ -40,6 +42,7 @@ export class ItemShopConfigV2 extends OSRISApplication {
     const shopActive = html.querySelector('#actorShopActive');
     const shopName = html.querySelector('#shopName');
     const updateBtn = html.querySelector('.update-shop-config-btn');
+    const shopDep = html.querySelector("#shopDep")
     shopName.addEventListener('blur', (e) => {
       e.preventDefault();
       if (shopName.value === '') {
@@ -58,7 +61,8 @@ export class ItemShopConfigV2 extends OSRISApplication {
       }
       actor.setFlag('osr-item-shop', 'shopConfig', {
         enabled: shopActive.checked,
-        shopName: shopName.value
+        shopName: shopName.value,
+        deprecationAmt: shopDep.value
       });
       ui.notifications.notify(game.i18n.localize('OSRIS.notification.shopConfigUpdate'));
       this.close();

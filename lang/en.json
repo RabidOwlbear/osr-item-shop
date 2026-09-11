@@ -48,6 +48,8 @@
   "OSRIS.itemShop.customShop": "Custom Shop",
   "OSRIS.itemShop.customShopPlur": "Custom Shops",
   "OSRIS.itemShop.shopKeep": "Shopkeep",
+  "OSRIS.itemShop.shopDeprecation": "Deprecation Amount",
+  "OSRIS.itemShop.shopDeprecationTitle": "This value determines the amount the shop will decrement the price of used items. Decimal values are required, eg .1 would reduce prices by 10 percent of the items cost value.",
   
   "OSRIS.shopSelect.title": "Item Shop Select",
   "OSRIS.shopSelect.universalShop":"Universal Item Shop",

@@ -14,11 +14,12 @@
           <div
           class="item item-template-b"
           data-type="{{item.type}}"
-          data-cost="{{item.system.cost}}"
+          data-cost="{{deprecate item.system.cost ../deprecationAmt}}"
           data-id="{{item.id}}"
           >
             <p>{{item.name}}</p>
-            <p>{{item.system.cost}}</p>
+            <p>{{deprecate item.system.cost ../deprecationAmt}}</p>
+            {{!-- <p>{{item.system.cost}}</p> --}}
             <input
             type="checkbox"
             class="sell-check"
@@ -34,11 +35,11 @@
           <div
           class="item item-template-b"
           data-type="{{item.type}}"
-          data-cost="{{item.system.cost}}"
+          data-cost="{{deprecate item.system.cost ../deprecationAmt}}"
           data-id="{{item.id}}"
           >
             <p>{{item.name}}</p>
-            <p>{{item.system.cost}}</p>
+            <p>{{deprecate item.system.cost ../deprecationAmt}}</p>
             <input
             type="checkbox"
             class="sell-check"
@@ -54,11 +55,11 @@
           <div
           class="item item-template-b"
           data-type="{{item.type}}"
-          data-cost="{{item.system.cost}}"
+          data-cost="{{deprecate item.system.cost ../deprecationAmt}}"
           data-id="{{item.id}}"
           >
             <p>{{item.name}}</p>
-            <p>{{item.system.cost}}</p>
+            <p>{{deprecate item.system.cost ../deprecationAmt}}</p>
             <input
             type="checkbox"
             class="sell-check"

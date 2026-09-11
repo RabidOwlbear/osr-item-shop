@@ -9,11 +9,11 @@
       "flags": {}
     }
   ],
-  "version": "0.3.5",
+  "version": "0.3.7",
   "compatibility": {
     "minimum": "13",
-    "verified": "14"
-
+    "verified": "14.359",
+    "maximum": "14"
   },
   "socket": true,
   "esmodules": [
@@ -123,25 +123,38 @@
       "name": "OSRIS Compendiums",
       "color": "#c29e00",
       "sorting": "m",
-      "packs": ["osr-macros-en", "osr-scenes-all"],
+      "packs": [
+        "osr-macros-en",
+        "osr-scenes-all"
+      ],
       "folders": [
         {
           "name": "en",
           "color": "#a78802",
           "sorting": "a",
-          "packs": ["osr-items-en", "osr-items-hyperborea-en"]
+          "packs": [
+            "osr-items-en",
+            "osr-items-hyperborea-en"
+          ],
+          "folders": []
         },
         {
           "name": "es",
           "color": "#a78802",
           "sorting": "a",
-          "packs": ["osr-items-es"]
+          "packs": [
+            "osr-items-es"
+          ],
+          "folders": []
         },
         {
           "name": "cn",
           "color": "#a78802",
           "sorting": "a",
-          "packs": ["osr-items-cn"]
+          "packs": [
+            "osr-items-cn"
+          ],
+          "folders": []
         }
       ]
     }

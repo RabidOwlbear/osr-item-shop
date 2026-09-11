@@ -31,7 +31,7 @@ export async function createOSRUI(sheetEl, actorObj, type) {
       const app = ev.target.closest('.ui-button').dataset.app;
       switch (app) {
         case 'item-shop':
-          new ItemShopSelectV2({ actor: actorObj }).render(true, {
+          new ItemShopSelectV2({ actor: actorObj, actorId: actorObj._id }).render(true, {
             position: {
               top: sheetEl.offsetTop,
               left: sheetEl.offsetLeft - 150

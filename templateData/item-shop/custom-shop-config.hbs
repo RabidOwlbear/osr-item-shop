@@ -11,6 +11,12 @@
     <div class="row">
       <input type="text" id="shopName" data-id="{{actor._id}}" value="{{shopName}}" placeholder="{{localize "OSRIS.itemShop.shopName"}}">
     </div>
+     <div class="row item">
+      <label for="shopDep"><b>{{localize "OSRIS.itemShop.shopDeprecation"}}</b>:</label>
+    </div>
+    <div class="row">
+      <input type="text" id="shopDep" value="{{deprecationAmt}}" placeholder="0" title="{{localize "OSRIS.itemShop.shopDeprecationTitle"}}">
+    </div>
   </div>
   
   <a class="update-shop-config-btn">{{localize "OSRIS.itemShop.updateCOnfig"}}</a>

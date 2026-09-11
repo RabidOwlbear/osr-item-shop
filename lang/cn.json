@@ -48,6 +48,8 @@
   "OSRIS.itemShop.customShop": "自定义商店",
   "OSRIS.itemShop.customShopPlur": "自定义商店",
   "OSRIS.itemShop.shopKeep": "店主",
+  "OSRIS.itemShop.shopDeprecation": "Deprecation Amount",
+  "OSRIS.itemShop.shopDeprecationTitle": "This value determines the amount the shop will decrement the price of used items. Decimal values are required, eg .1 would reduce prices by 10 percent of the items cost value.",
   
   "OSRIS.shopSelect.title": "物品商店选择",
   "OSRIS.shopSelect.universalShop":"泛用物品商店",
