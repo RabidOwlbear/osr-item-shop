@@ -52,7 +52,7 @@ export async function createOSRUI(sheetEl, actorObj, type) {
   const templateElement = tempDiv.firstElementChild;
   sheetEl.appendChild(templateElement);
 }
-export async function addControlListeners(element,actorObj, type) {
+export async function addControlListeners(element, actorObj, type) {
   await sleep(Math.floor(Math.random() * 100) + 1);
   const buttonDiv = element.querySelector('.osrh-ui-container .button-div');
   const buttonEls = element.querySelectorAll('.ui-button');
@@ -84,6 +84,56 @@ export async function addControlListeners(element,actorObj, type) {
     }
   });
 }
+
+export function injectV2Controls(app, controls) {
+  const type = app.document?.type;
+  if (!type) return;
+  if (app.document instanceof Actor) {
+    if(app.document.type != 'character') return
+    // if (OSRH.ETC.patchedActorV2.has(app)) return;
+    // OSRH.ETC.patchedActorV2.add(app);
+    controls.push({
+      icon: 'fas fa-book-skull OSRIS-menu',
+      label: 'OSRIS Shop Select',
+      onClick: () => {
+        new ItemShopSelectV2({ actorId: app.document.id }).render(true, {
+          position: {
+            top: app.position.top,
+            left: app.position.left - 250
+          }
+        });
+      }
+    });
+
+    controls.push({
+      icon: 'fas fa-gear OSRIS-menu',
+      label: 'OSRIS Shop Config',
+      onClick: () => {
+        new ItemShopConfigV2({ uuid: app.document.uuid }).render(true, {
+            position: {
+              top: app.position.top,
+              left: app.position.left - 200
+            }
+          });
+      }
+    });
+  }
+
+  if (app.document instanceof Item) {
+    const light = OSRH.systemData.lightItemTypes.includes(type);
+    const ration = OSRH.systemData.rationItemTypes.includes(type);
+    const inject = game.settings.get('osr-helper', 'enableItemConfig');
+    if (!light && !ration) return;
+    if (!inject) return;
+    controls.push({
+      icon: 'fas fa-book-skull OSRH-menu',
+      label: 'OSRH Config',
+      onClick: () => {
+        new OSRHItemConfigV2({ item: app.document, ration }).render(true, { top: app.position.top, left: app.position.left - 125 });
+      }
+    });
+  }
+}
 //add controls to sheet ui
 function addOSRIScontrols(existing, type) {
   const buttonEls = existing.querySelectorAll('.ui-button');
@@ -103,7 +153,7 @@ function addOSRIScontrols(existing, type) {
       const app = ev.target.closest('.ui-button').dataset.app;
       switch (app) {
         case 'item-shop':
-          new ItemShopSelectV2({ actodId: actorObj.id }).render(true, {
+          new ItemShopSelectV2({ actorId: actorObj.id }).render(true, {
             position: {
               top: sheetEl.offsetTop,
               left: sheetEl.offsetLeft - 300

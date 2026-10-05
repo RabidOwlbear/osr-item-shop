@@ -25,6 +25,7 @@ import { ItemShopConfigV2 } from "./item-shop/v2/item-shop-config-v2.mjs";
 import { NewShopV2 } from "./item-shop/v2/new-shop-v2.mjs";
 import { injectOSRUI, addControlListeners, createOSRUI } from "./ui.mjs";
 import { uiButtons } from "./ui-buttons.mjs";
+import { injectV2Controls } from "./ui.mjs";
 export function registerHooks() {
   Hooks.on("init", () => {
     console.log(`
@@ -211,7 +212,7 @@ export function registerHooks() {
       });
     }
   });
-
+// deprecated
   Hooks.on("renderActorSheet", async (sheetObj, sheetEl, actorObj) => {
     // itemPiles accomodation
     let itemPiles = actorObj.flags?.["item-piles"]?.data?.enabled || null;
@@ -324,31 +325,35 @@ export function registerHooks() {
   console.log("osr-item-shop hooks registered");
   
   
-  Hooks.on("renderActorSheetV2", async (sheetObj, sheetEl, actorObj) => {
-    const uuid = sheetObj.document.uuid;
-    const addShopTab = await game.settings.get("osr-item-shop", "shopConfigTab");
-    const hideTab = await game.settings.get("osr-item-shop", "gmOnlyShopConfig");
-    const isGM = game.user.isGM;
-    if (actorObj.type === "character") {
-      if (addShopTab) {
-        if (!game.user.isGM && !hideTab) {
-          handleShopConfigTab(sheetObj, sheetEl, actorObj);
-        }
-        if (game.user.isGM) {
-          handleShopConfigTab(sheetObj, sheetEl, actorObj);
-        }
-      }
-    }
-    if (actorObj.owner || actorObj.isOwner) {
-      createOSRUI(sheetEl[0], sheetObj.object, "actor");
-    }
-  });
+  // Hooks.on("renderActorSheetV2", async (sheetObj, sheetEl, actorObj) => {
+  //   const uuid = sheetObj.document.uuid;
+  //   const addShopTab = await game.settings.get("osr-item-shop", "shopConfigTab");
+  //   const hideTab = await game.settings.get("osr-item-shop", "gmOnlyShopConfig");
+  //   const isGM = game.user.isGM;
+  //   if (actorObj.type === "character") {
+  //     if (addShopTab) {
+  //       if (!game.user.isGM && !hideTab) {
+  //         handleShopConfigTab(sheetObj, sheetEl, actorObj);
+  //       }
+  //       if (game.user.isGM) {
+  //         handleShopConfigTab(sheetObj, sheetEl, actorObj);
+  //       }
+  //     }
+  //   }
+  //   if (actorObj.owner || actorObj.isOwner) {
+  //     createOSRUI(sheetEl[0], sheetObj.object, "actor");
+  //   }
+  // });
 // osr ui integration
   Hooks.on("osr-ui.registerButtons", (api) => {
     uiButtons.actor.forEach((button) => {
       api.registerButton(button, "actor");
     });
   });
+
+  Hooks.on('getHeaderControlsApplicationV2', (app, controls) => {
+        injectV2Controls(app, controls);
+      });
 }
 
 function addShopConfig(html, actor, uuid) {

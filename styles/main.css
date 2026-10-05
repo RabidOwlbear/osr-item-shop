@@ -486,6 +486,11 @@
   font-size: 1.1em;
 }
 
+#context-menu .context-item:has(.OSRIS-menu) {
+  background-color: rgb(151, 127, 48);
+  color: antiquewhite;
+}
+
 .osrh-ui.osrh-ui-container {
   --handle-height: 40px;
   --handle-width: 15px;
